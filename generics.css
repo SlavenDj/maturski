@@ -1,0 +1,27 @@
+*,
+::after,
+::before {
+  font-family: "Roboto";
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+p {
+  width: clamp(50ch, 100%, 75ch);
+}
+table {
+  border-collapse: collapse;
+  border-radius: 18px;
+  width: 100%;
+  background-color: #fff;
+}

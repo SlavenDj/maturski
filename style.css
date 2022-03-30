@@ -1,0 +1,30 @@
+@import url("generics.css");
+@import url("table.css");
+@import url("color.css");
+/* :root {
+  
+} */
+
+body {
+  padding: 0.75rem 2.5rem;
+  background-color: var(--white);
+  gap: 2rem;
+  color: var(--black);
+  width: clamp(100px, 100%, 836px);
+}
+
+body div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+button {
+  background: var(--pg);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: 400;
+  padding: 0.75rem;
+}
