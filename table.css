@@ -1,7 +1,7 @@
 table {
     background-color: #fff;
   }
-  table :nth-child(n + 2):hover {
+  table > :nth-child(n + 2):hover {
     background: var(--pg-100);
   }
   th {
