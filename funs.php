@@ -25,8 +25,9 @@ function printInTable($db, $q)
         while ($predmet = $res->fetch_assoc())
             echo "<tr><td>" . $predmet["naziv"] . "</td> <td> ".  btns($predmet["id"]) ."</td></tr>";
         echo "</table>";
-    } else
-        echo "Nema rezultata";
+        return;
+    }
+    echo "Nema rezultata";
 }
 
 function selectMenu($db, $q, $n)
@@ -38,6 +39,7 @@ function selectMenu($db, $q, $n)
         while ($predmet = $res->fetch_assoc())
             echo "<option value=" . $predmet["id"] . ">" . $predmet["naziv"] . "</option>";
         echo "</select>";
-    } else
-        echo "Nema rezultata";
+        return;
+    }
+    echo "Nema rezultata";
 }
