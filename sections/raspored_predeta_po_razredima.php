@@ -1,9 +1,5 @@
-
-
-    <?php
-    include "razredi/6_razred/6_razred.php";
-    include "razredi/6_razred/7_razred.php";
-    include "razredi/6_razred/8_razred.php";
-    include "razredi/6_razred/9_razred.php";
-    
-    ?>
+<?php
+include "razredi/6_razred.php";
+include "razredi/7_razred.php";
+include "razredi/8_razred.php";
+include "razredi/9_razred.php";

@@ -3,10 +3,6 @@
         Predmeti u 7. razredu
     </h2>
     <?php
-    include "upiti_za_dodavanje_i_brisanje_predmeta.php";
-   
-    
-
 
     printInTable($mydb, sviPred(7));
     ?>

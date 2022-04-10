@@ -2,8 +2,17 @@
     <h2>
         Predmeti
     </h2>
-    <?php include "upiti_za_prikazivanje_dodavanje_i_brisanje_predmeta.php" ;
-   
+    <?php
+    //brisanje predmeta
+    if (isset($_POST["izbrisi_ovaj_predmet"]))
+        $mydb->query("DELETE FROM predmeti WHERE ID=" . (int)$_POST["izbrisi_ovaj_predmet"]);
+
+    //dodavanje predmeta    
+    if (isset($_POST["naziv_predmeta"]))
+        if ($mydb->query("INSERT INTO `predmeti` (`Naziv`) VALUES ('" . $_POST["naziv_predmeta"] . "');") !== TRUE)
+            echo "Error: " . $mydb->error;
+
+    printInTable($mydb, $sviPred);
     ?>
     <form method="POST" class="obrazac_dodavanja">
         <input type="text" name="naziv_predmeta" id="naziv_predmeta">
@@ -11,16 +20,7 @@
     </form>
     <form method="POST">
         <?php
-        echo "<select name='izbrisi_ovaj_predmet'>";
-        echo "<option value=" . 000 . "> --- </option>";
-        $svi_predmeti = $mydb->query($sviPred);
-        if ($svi_predmeti->num_rows > 0) {
-
-            while ($predmet = $svi_predmeti->fetch_assoc()) {
-                echo "<option value=" . $predmet["id"] . ">" . $predmet["naziv"] . "</option>";
-            }
-        }
-        echo "</select>";
+        selectMenu($mydb, $sviPred, 'izbrisi_ovaj_predmet');
         ?>
         <button>Ukloni</button>
     </form>

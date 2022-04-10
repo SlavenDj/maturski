@@ -3,19 +3,6 @@
         Predmeti u 6. razredu
     </h2>
     <?php
-    include "upiti_za_dodavanje_i_brisanje_predmeta.php";
-    
-    function sviPred($x)
-    {
-        return "SELECT veza_razred_predmet.id,
-            naziv
-            FROM   `veza_razred_predmet`
-            INNER JOIN `predmeti`
-                    ON predmeti.id = veza_razred_predmet.predmet
-                    AND razred = $x 
-            ORDER  BY redni_broj";
-    }
-
 
     printInTable($mydb, sviPred(6));
     ?>
