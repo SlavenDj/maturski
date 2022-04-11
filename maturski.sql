@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2021 at 10:54 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Generation Time: Apr 11, 2022 at 11:42 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `maturski`
 --
-CREATE DATABASE IF NOT EXISTS `maturski` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `maturski`;
 
 -- --------------------------------------------------------
 
@@ -55,6 +53,17 @@ INSERT INTO `predmeti` (`ID`, `Naziv`) VALUES
 (17, 'Drugi strani jezik'),
 (19, 'Tehničko obrazovanje'),
 (20, 'Osnovi informatike');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `smer`
+--
+
+CREATE TABLE `smer` (
+  `ID` int(11) NOT NULL,
+  `naziv` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,6 +109,12 @@ ALTER TABLE `predmeti`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `smer`
+--
+ALTER TABLE `smer`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `veza_razred_predmet`
 --
 ALTER TABLE `veza_razred_predmet`
@@ -113,13 +128,19 @@ ALTER TABLE `veza_razred_predmet`
 -- AUTO_INCREMENT for table `predmeti`
 --
 ALTER TABLE `predmeti`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `smer`
+--
+ALTER TABLE `smer`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `veza_razred_predmet`
 --
 ALTER TABLE `veza_razred_predmet`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
