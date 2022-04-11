@@ -25,21 +25,21 @@ function printInTable($db, $q)
         echo "</table>";
         return;
     }
-    echo "Nema rezultata";
+    echo "<p>Nema rezultata</p>";
 }
 
 function selectMenu($db, $q, $n)
 {
-    echo "<select name='$n'>";
-    echo "<option value=" . 000 . "> --- </option>";
     $res = $db->query($q);
     if ($res->num_rows > 0) {
+        echo "<select name='$n'>";
+        echo "<option value=" . 000 . "> --- </option>";
         while ($predmet = $res->fetch_assoc())
             echo "<option value=" . $predmet["id"] . ">" . $predmet["naziv"] . "</option>";
         echo "</select>";
         return;
     }
-    echo "Nema rezultata";
+    echo "<p>Nema rezultata</p>";
 }
 
 

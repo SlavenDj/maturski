@@ -1,9 +1,8 @@
-<div id="Predmeti">
+<div class="Predmeti">
     <h2>
         Predmeti u 9. razredu
     </h2>
     <?php
-
     printInTable($mydb, sviPred(9));
     ?>
     <form method="POST">

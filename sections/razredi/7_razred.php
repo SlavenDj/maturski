@@ -1,4 +1,4 @@
-<div id="Predmeti">
+<div class="Predmeti">
     <h2>
         Predmeti u 7. razredu
     </h2>
