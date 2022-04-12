@@ -6,7 +6,6 @@
     TODO: napravti funckiju da pikazivnje ekrana kad nema sadrzaja
     */
 
-
 function btns($id)
 {
     return "
@@ -42,33 +41,6 @@ function selectMenu($db, $q, $n)
     echo "<p>Nema rezultata</p>";
 }
 
-
-function sviPred($x)
-{
-    return "SELECT veza_razred_predmet.id,
-            naziv
-            FROM   `veza_razred_predmet`
-            INNER JOIN `predmeti`
-                    ON predmeti.id = veza_razred_predmet.predmet
-                    AND razred = $x 
-            ORDER  BY redni_broj";
-}
-
-
-function qryDelete($x)
-{
-    return "DELETE FROM `veza_razred_predmet` 
-    WHERE ID=" . (int)$_POST["izbrisi_ovaj_predmet_$x"];
-}
-
-function qryInsert($x)
-{
-    return "INSERT INTO `veza_razred_predmet` 
-    (`predmet`,`Razred`,`redni_broj`) VALUES 
-    (" . $_POST["dodaj_ovaj_predmet_$x"] . ",$x," . (int)$x["redni_broj_$x"] . ")";
-}
-
-
 function grade($grade, $class, $subject)
 {
     return "
@@ -78,25 +50,32 @@ function grade($grade, $class, $subject)
             id='$subject-$grade-$class'  
             name='$subject-$class' > 
     </label>";
-};
+}
+
 function insertingGrades($db, $class)
 {
+    echo "<div>";
     echo "<p>Ocene u $class. razredu</p>";
     $res = $db->query(sviPred($class));
     if ($res->num_rows > 0) {
-
-        echo "<table><th>Naziv predmeta</th>";
-        while ($subject = $res->fetch_assoc())
-            echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
-
-                grade(2, $class, $subject["naziv"]) .
-                grade(3, $class, $subject["naziv"]) .
-                grade(4, $class, $subject["naziv"]) .
-                grade(5, $class, $subject["naziv"]) .
-
-                "</td></tr>";
-        echo "</table>";
+        showSubjects($res, $class);
+        echo "</div>";
         return;
     }
     echo "<p>Nema predmeta podešenih u $class. razredu</p>";
+    echo "</div>";
+}
+function showSubjects($res, $class)
+{
+    echo "<table><th>Naziv predmeta</th>";
+    while ($subject = $res->fetch_assoc())
+        echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
+
+            grade(2, $class, $subject["naziv"]) .
+            grade(3, $class, $subject["naziv"]) .
+            grade(4, $class, $subject["naziv"]) .
+            grade(5, $class, $subject["naziv"]) .
+
+            "</td></tr>";
+    echo "</table>";
 }

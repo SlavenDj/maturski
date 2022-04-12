@@ -14,6 +14,7 @@
         <?php
         include "imports/conn.php";
         include "imports/funs.php";
+        include "imports/querys.php";
 
 
         $res = $mydb->query("SELECT naziv FROM smer");
@@ -89,7 +90,7 @@
         </div>
 
 
-        <div id="sved-9">
+        <div id="svedocansto-9">
 
             <p>Podaci sa svedočansta 9 razreda</p>
 
@@ -147,7 +148,7 @@
         </p>
         <?php
 
-
+        
         insertingGrades($mydb, 6);
         insertingGrades($mydb, 7);
         insertingGrades($mydb, 8);
