@@ -67,3 +67,36 @@ function qryInsert($x)
     (`predmet`,`Razred`,`redni_broj`) VALUES 
     (" . $_POST["dodaj_ovaj_predmet_$x"] . ",$x," . (int)$x["redni_broj_$x"] . ")";
 }
+
+
+function mark($mark, $class, $sub)
+{
+    return "
+    <label for='$sub-$mark-$class'> $mark
+        <input type = 'radio' 
+            value='$mark' 
+            id='$sub-$mark-$class'  
+            name='$sub-$class' > 
+    </label>";
+};
+function unosOcena($db, $class)
+{
+    echo "<p>Ocene u $class. razredu</p>";
+    $res = $db->query(sviPred($class));
+    if ($res->num_rows > 0) {
+
+        echo "<table><th>Naziv predmeta</th>";
+        while ($predmet = $res->fetch_assoc())
+            echo "<tr><td>" . $predmet["naziv"] . "</td> <td>" .
+
+                mark(2, $class, $predmet["naziv"]) .
+                mark(3, $class, $predmet["naziv"]) .
+                mark(4, $class, $predmet["naziv"]) .
+                mark(5, $class, $predmet["naziv"]) .
+
+                "</td></tr>";
+        echo "</table>";
+        return;
+    }
+    echo "<p>Nema predmeta podešenih u $class. razredu</p>";
+}

@@ -13,6 +13,7 @@
     <form action="hvala.php">
         <?php
         include "imports/conn.php";
+        include "imports/funs.php";
 
 
         $res = $mydb->query("SELECT naziv FROM smer");
@@ -136,6 +137,25 @@
             <label for="adresa-majke">Adresa prebivališta Majke:</label><br>
             <input type="text" id="adresa-majke" name="adresa-majke"><br><br>
         </div>
+
+
+
+
+
+        <p>
+            Ocene
+        </p>
+        <?php
+
+
+        unosOcena($mydb, 6);
+        unosOcena($mydb, 7);
+        unosOcena($mydb, 8);
+        unosOcena($mydb, 9);
+
+        ?>
+
+
     </form>
 </body>
 
