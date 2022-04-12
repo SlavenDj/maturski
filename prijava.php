@@ -148,10 +148,10 @@
         <?php
 
 
-        unosOcena($mydb, 6);
-        unosOcena($mydb, 7);
-        unosOcena($mydb, 8);
-        unosOcena($mydb, 9);
+        insertingGrades($mydb, 6);
+        insertingGrades($mydb, 7);
+        insertingGrades($mydb, 8);
+        insertingGrades($mydb, 9);
 
         ?>
 

@@ -69,30 +69,30 @@ function qryInsert($x)
 }
 
 
-function mark($mark, $class, $sub)
+function grade($grade, $class, $subject)
 {
     return "
-    <label for='$sub-$mark-$class'> $mark
+    <label for='$subject-$grade-$class'> $grade
         <input type = 'radio' 
-            value='$mark' 
-            id='$sub-$mark-$class'  
-            name='$sub-$class' > 
+            value='$grade' 
+            id='$subject-$grade-$class'  
+            name='$subject-$class' > 
     </label>";
 };
-function unosOcena($db, $class)
+function insertingGrades($db, $class)
 {
     echo "<p>Ocene u $class. razredu</p>";
     $res = $db->query(sviPred($class));
     if ($res->num_rows > 0) {
 
         echo "<table><th>Naziv predmeta</th>";
-        while ($predmet = $res->fetch_assoc())
-            echo "<tr><td>" . $predmet["naziv"] . "</td> <td>" .
+        while ($subject = $res->fetch_assoc())
+            echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
 
-                mark(2, $class, $predmet["naziv"]) .
-                mark(3, $class, $predmet["naziv"]) .
-                mark(4, $class, $predmet["naziv"]) .
-                mark(5, $class, $predmet["naziv"]) .
+                grade(2, $class, $subject["naziv"]) .
+                grade(3, $class, $subject["naziv"]) .
+                grade(4, $class, $subject["naziv"]) .
+                grade(5, $class, $subject["naziv"]) .
 
                 "</td></tr>";
         echo "</table>";
