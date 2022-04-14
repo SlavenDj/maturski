@@ -6,7 +6,7 @@
     TODO: napravti funckiju da pikazivnje ekrana kad nema sadrzaja
     */
 
-function btns($id, $txt1="Ukloni", $txt2="Promeni raspored")
+function btns(string $id, string $txt1="Ukloni",string $txt2="Promeni raspored")
 {
     return "
     <button data-id=$id class='delete'> $txt1 </button>
@@ -14,7 +14,7 @@ function btns($id, $txt1="Ukloni", $txt2="Promeni raspored")
     <button data-id=$id class='edit'> $txt2 </button>
     ";
 }
-function printInTable($db, $q, $btnText1,$btnText2 )
+function printInTable(mysqli $db, string $q, string $btnText1, string $btnText2)
 {
     $res = $db->query($q);
     if ($res->num_rows > 0) {
