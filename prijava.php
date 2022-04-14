@@ -148,11 +148,8 @@
         </p>
         <?php
 
-        
-        insertingGrades($mydb, 6);
-        insertingGrades($mydb, 7);
-        insertingGrades($mydb, 8);
-        insertingGrades($mydb, 9);
+        for($raz = 6; $raz<10; $raz++)
+            insertingGrades($mydb, $raz);
 
         ?>
 
