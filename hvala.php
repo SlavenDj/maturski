@@ -10,7 +10,7 @@
     <?php
 $unosUcenika=
 "INSERT
-
+(ime, prezime, telefon, mail, )
 
 
 
