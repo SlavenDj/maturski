@@ -15,27 +15,21 @@
         include "imports/conn.php";
         include "imports/funs.php";
         include "imports/querys.php";
-
-
-        $res = $mydb->query("SELECT naziv FROM smer");
-        if ($res->num_rows > 0) {
-            echo "<table><th>Naziv smera</th>";
-            while ($row = $res->fetch_assoc())
-                echo "<tr><td>" . $row["naziv"] . "</td> <td> " .  btns($row["id"]) . "</td></tr>";
-            echo "</table>";
-            return;
+        $sviSmerovi = "SELECT naziv FROM smer";
+        $res = $mydb->query($sviSmerovi);
+        
+        for($i=0; $i<2; $i++){
+            $res = $mydb->query($sviSmerovi);
+            if ($res->num_rows > 0) {
+                echo "<table><th>Naziv smera</th>";
+                while ($row = $res->fetch_assoc())
+                    echo "<tr><td>" . $row["naziv"] . "</td> <td> " .  btns($row["id"]) . "</td></tr>";
+                echo "</table>";
+                return;
+            }
+            echo "Nema rezultata <br>";
         }
-        echo "Nema rezultata <br>";
 
-        $res = $mydb->query("SELECT naziv FROM smer");
-        if ($res->num_rows > 0) {
-            echo "<table><th>Naziv smera</th>";
-            while ($row = $res->fetch_assoc())
-                echo "<tr><td>" . $row["naziv"] . "</td> <td> " .  btns($row["id"]) . "</td></tr>";
-            echo "</table>";
-            return;
-        }
-        echo "Nema rezultata <br>";
         ?>
         <div id="vuk">
             <p>Da li si vukovac?</p>
@@ -89,7 +83,6 @@
             <input type="text" id="j6" name="j6"><br><br>
         </div>
 
-
         <div id="svedocansto-9">
 
             <p>Podaci sa svedočansta 9 razreda</p>
@@ -139,10 +132,6 @@
             <input type="text" id="adresa-majke" name="adresa-majke"><br><br>
         </div>
 
-
-
-
-
         <p>
             Ocene
         </p>
@@ -151,8 +140,8 @@
         for($raz = 6; $raz<10; $raz++)
             insertingGrades($mydb, $raz);
 
+        $mydb->close();
         ?>
-
 
     </form>
 </body>
