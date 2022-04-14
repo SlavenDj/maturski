@@ -6,21 +6,21 @@
     TODO: napravti funckiju da pikazivnje ekrana kad nema sadrzaja
     */
 
-function btns($id)
+function btns($id, $txt1="Ukloni", $txt2="Promeni raspored")
 {
     return "
-    <button data-id=$id class='delete'> Ukloni </button>
+    <button data-id=$id class='delete'> $txt1 </button>
     </td><td>
-    <button data-id=$id class='edit'> Promeni ime i redosled </button>
+    <button data-id=$id class='edit'> $txt2 </button>
     ";
 }
-function printInTable($db, $q)
+function printInTable($db, $q, $btnText1,$btnText2 )
 {
     $res = $db->query($q);
     if ($res->num_rows > 0) {
         echo "<table><th>Naziv predmeta</th>";
         while ($predmet = $res->fetch_assoc())
-            echo "<tr><td>" . $predmet["naziv"] . "</td> <td> " .  btns($predmet["id"]) . "</td></tr>";
+            echo "<tr><td>" . $predmet["naziv"] . "</td> <td> " .  btns($predmet["id"], $btnText1 ,$btnText2 ) . "</td></tr>";
         echo "</table>";
         return;
     }
