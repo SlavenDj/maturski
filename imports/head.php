@@ -2,7 +2,7 @@
 include 'conn.php';
 include 'querys.php';
 include "funs.php";
-include "upiti_za_dodavanje_i_brisanje_predmeta.php";
+include "add_erase.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
