@@ -1,6 +1,9 @@
 <?php
-include "imports/head.php"; 
-include 'sections/predmeti.php';
-include 'sections/raspored_predeta_po_razredima.php';
-include 'sections/smerovi.php';
-include 'imports/footer.php';
+include "admin_files/head.php";
+include 'admin_files/sections/predmeti.php';
+predmetiU($mydb, 6);
+predmetiU($mydb, 7);
+predmetiU($mydb, 8);
+predmetiU($mydb, 9);
+include 'admin_files/sections/smerovi.php';
+include 'admin_files/footer.php';

@@ -5,6 +5,9 @@ $sviPred =
 "SELECT id, naziv 
 FROM predmeti";
 
+
+$sviSmerovi = "SELECT id, naziv FROM smer";
+
 function sviPred($class)
 {
     return 
@@ -27,6 +30,6 @@ function qryInsert($class)
 {
     return "INSERT INTO `veza_razred_predmet` 
     (`predmet`,`Razred`,`redni_broj`) VALUES 
-    (" . $_POST["dodaj_ovaj_predmet_$class"] . ",$class," . (int)$_POST["redni_broj_$class"] . ")";
+    (" . $_POST["dodaj_predmet_$class"] . ",$class," . (int)$_POST["redni_broj_$class"] . ")";
 }
 

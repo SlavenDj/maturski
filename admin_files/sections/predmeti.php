@@ -12,12 +12,12 @@
         if ($mydb->query("INSERT INTO `predmeti` (`Naziv`) VALUES ('" . $_POST["naziv_predmeta"] . "');") !== TRUE)
             echo "Error: " . $mydb->error;
 
-    printInTable($mydb, $sviPred, "Ukloni", "Preimenuj");
+    printInTable($mydb, "predmeti" ,$sviPred, "Ukloni", "Preimenuj");
 
    
     ?>
     <form method="POST" class="obrazac_dodavanja">
-        <input type="text" name="naziv_predmeta" id="naziv_predmeta">
+        <input type="text" name="naziv_predmeta" id="naziv_predmeta" placeholder="Redni broj predmeta na svedočanstvu">
         <button>Dodaj</button>
     </form>
     <form method="POST">

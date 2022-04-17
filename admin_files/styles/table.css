@@ -8,10 +8,10 @@ table {
     color: var(--grey-600);
     font-weight: 500;
     border-bottom: 1px solid var(--blue);
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 1rem;
   }
-  tr {
-    height: 1.5rem;
+  table :nth-child(n+2):not(td):hover {
+    outline: solid var(--blue) 3px;
   }
   td {
     padding: 0.5rem 1rem;
