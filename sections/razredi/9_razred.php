@@ -11,7 +11,7 @@
         <button>dodaj</button>
     </form>
     <form method="POST">
-        <?php selectMenu($mydb, sviPred(9), 'izbrisi_ovaj_predmet_9') ?>
+        <?php selectMenu($mydb, sviPred(9), 'izbrisi_predmet_9') ?>
         <button>Ukloni</button>
     </form>
 </div>

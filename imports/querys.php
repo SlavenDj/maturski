@@ -21,7 +21,7 @@ function qryDelete($class)
     return 
     "DELETE 
     FROM `veza_razred_predmet` 
-    WHERE ID=" . (int)$_POST["izbrisi_ovaj_predmet_$class"];
+    WHERE ID=" . (int)$_POST["izbrisi_predmet_$class"];
 }
 function qryInsert($class)
 {
