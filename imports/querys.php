@@ -5,28 +5,28 @@ $sviPred =
 "SELECT id, naziv 
 FROM predmeti";
 
-function sviPred($x)
+function sviPred($class)
 {
     return 
     "SELECT veza_razred_predmet.id, naziv
     FROM   `veza_razred_predmet`
     INNER JOIN `predmeti`
             ON predmeti.id = veza_razred_predmet.predmet
-            AND razred = $x 
+            AND razred = $class 
     ORDER  BY redni_broj";
 }
 
-function qryDelete($x)
+function qryDelete($class)
 {
     return 
     "DELETE 
     FROM `veza_razred_predmet` 
-    WHERE ID=" . (int)$_POST["izbrisi_ovaj_predmet_$x"];
+    WHERE ID=" . (int)$_POST["izbrisi_ovaj_predmet_$class"];
 }
-function qryInsert($x)
+function qryInsert($class)
 {
     return "INSERT INTO `veza_razred_predmet` 
     (`predmet`,`Razred`,`redni_broj`) VALUES 
-    (" . $_POST["dodaj_ovaj_predmet_$x"] . ",$x," . (int)$x["redni_broj_$x"] . ")";
+    (" . $_POST["dodaj_ovaj_predmet_$class"] . ",$class," . (int)$_POST["redni_broj_$class"] . ")";
 }
 

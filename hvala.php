@@ -8,14 +8,27 @@
 </head>
 <body>
     <?php
+    include "imports/conn.php";
 $unosUcenika=
-"INSERT
-(ime, prezime, telefon, mail, )
+"INSERT INTO ucenik
+(ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
+VALUES
+
+(
+    '{$_POST["ime"]}', 
+    '{$_POST["prezime"]}', 
+    '{$_POST["telefon"]}', 
+    '{$_POST["mail"]}', 
+    '{$_POST["jmbg"]}', 
+    '{$_POST["datum_rodjenja"]}', 
+    '{$_POST["mestoR"]}',
+    '{$_POST["adresa"]}'
+    )
+    
 
 
-
-"
-
+";
+$mydb->query($unosUcenika);
 
 ?>
 </body>

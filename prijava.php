@@ -6,22 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style2.css">
-    <title>Document</title>
+    <title>Prijava</title>
 </head>
 
 <body>
-    <form action="hvala.php">
+    <form method="post" action="hvala.php">
         <?php
         include "imports/conn.php";
         include "imports/funs.php";
         include "imports/querys.php";
         $sviSmerovi = "SELECT naziv FROM smer";
         $res = $mydb->query($sviSmerovi);
-        
+        $messages=array("Smer koji želiš da upišeš", "Alternativni smer");
         for($i=0; $i<2; $i++){
             $res = $mydb->query($sviSmerovi);
             if ($res->num_rows > 0) {
-                echo "<table><th>Naziv smera</th>";
+                echo "<table><th>{$messages[$i]}</th>";
                 while ($row = $res->fetch_assoc())
                     echo "<tr><td>" . $row["naziv"] . "</td> <td> " .  btns($row["id"]) . "</td></tr>";
                 echo "</table>";
@@ -51,18 +51,25 @@
             <input type="text" id="prezime" name="prezime"><br><br>
 
             <label for="telefon">Telefon:</label><br>
-            <input type="tel" id="telefon" name="telefon"><br><br>
+            <input type="tel" id="telefon" name="telefon"
+            placeholder="###/###-###"
+            pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}"
+
+            ><br>
+            <small>Npr. 066/887-516</small>
+            <br>
+            <br>
 
             <label for="mail">E-mail:</label><br>
             <input type="email" id="mail" name="mail"><br><br>
 
-            <label for="JMBG">JMBG:</label><br>
-            <input type="text" id="JMBG" name="JMBG" size="13" maxlength="13"><br><br>
+            <label for="jmbg">JMBG:</label><br>
+            <input type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13"><br><br>
 
-            <label for="dr">Datum rošenja:</label><br>
-            <input type="date" id="dr" name="dr"><br><br>
+            <label for="datum-rodjenja">Datum rođenja:</label><br>
+            <input type="date" id="datum-rodjenja" name="datum_rodjenja"><br><br>
 
-            <label for="mestoR">Mesto rošenja:</label><br>
+            <label for="mestoR">Mesto rođenja:</label><br>
             <input type="text" id="mestoR" name="mestoR"><br><br>
 
             <label for="adresa">Adresa prebivališta:</label><br>
@@ -131,7 +138,7 @@
             <label for="adresa-majke">Adresa prebivališta Majke:</label><br>
             <input type="text" id="adresa-majke" name="adresa-majke"><br><br>
         </div>
-
+<button>Prijavi se</button>
         <p>
             Ocene
         </p>
