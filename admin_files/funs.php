@@ -1,41 +1,51 @@
 <?php
-/*
-    * db = dababase
-    * q = query
-    * n = name
-    TODO: napravti funckiju da pikazivnje ekrana kad nema sadrzaja
-    */
+function printInTable(
+    //parametri
+    mysqli $database,
+    string $table,
+    string $query,
+    string $th,
+    string $btnText1 = "Ukloni",
+    string $btnText2 = "Promeni raspored"
+) {
+    $result = $database->query($query);
 
-function btns(string $id, string $txt1, string $txt2, $table)
-{
-    return "
-    <button data-id=$id data-table=$table class='delete'> $txt1 </button>
-    </td><td>
-    <button data-id=$id data-table=$table class='edit'> $txt2 </button>
-    ";
-}
-function printInTable(mysqli $db, $table, string $q, string $btnText1 = "Ukloni", string $btnText2 = "Promeni raspored")
-{
-    $res = $db->query($q);
-
-    if ($res->num_rows <= 0) {
+    if ($result->num_rows == 0) {
         echo "<p class='not-found'>Nema rezultata</p>";
         return;
     }
 
-    echo "<table><th>Naziv predmeta</th>";
-    while ($predmet = $res->fetch_assoc())
-        echo "<tr><td>{$predmet["naziv"]} </td> 
-        <td> " .  btns($predmet["id"], $btnText1, $btnText2, $table) . "</td>
-        </tr>";
+    echo "<table><th>{$th}</th>";
+    while ($row = $result->fetch_assoc())
+        echo "<tr>
+        <td>{$row["naziv"]} </td> " .  
+        button($row["id"], $btnText1, $table, "delete") . 
+        button($row["id"], $btnText2, $table, "edit") . 
+        "</tr>";
     echo "</table>";
 }
 
-function selectMenu($db, $q, $n)
-{
-    $res = $db->query($q);
+function button(
+    string $id,
+    string $txt,
+    $table,
+    $html_class
+) {
+    return "
+    <td>
+    <button 
+    data-id=$id 
+    data-table=$table 
+    class={$html_class}>
+    $txt 
+    </button></td>";
+}
 
-    if ($res->num_rows <= 0) {
+function selectMenu($database, $q, $n)
+{
+    $res = $database->query($q);
+
+    if ($res->num_rows == 0) {
         echo "<p class='not-found'>Nema rezultata</p>";
         return;
     }
@@ -44,7 +54,7 @@ function selectMenu($db, $q, $n)
     echo "<option value=" . 000 . "> --- </option>";
     while ($predmet = $res->fetch_assoc())
         echo "<option value=" . $predmet["id"] . ">" . $predmet["naziv"] . "</option>";
-    echo "</select>";;
+    echo "</select> <button>Ukloni</button>";;
 }
 
 function grade($grade, $class, $subject)
@@ -58,11 +68,11 @@ function grade($grade, $class, $subject)
     </label>";
 }
 
-function insertingGrades($db, $class)
+function insertingGrades($database, $class)
 {
     echo "<div>";
     echo "<p>Ocene u $class. razredu</p>";
-    $res = $db->query(sviPred($class));
+    $res = $database->query(sviPred($class));
     if ($res->num_rows > 0) {
         showSubjects($res, $class);
         echo "</div>";
@@ -84,7 +94,8 @@ function showSubjects($res, $class)
             "</td></tr>";
     echo "</table>";
 }
-function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message){
+function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message)
+{
     $res = $mydb->query($sviSmerovi);
 
     if ($res->num_rows == 0) {
@@ -108,7 +119,7 @@ function predmetiU($mydb, $class)
         Predmeti u {$class}. razredu
     </h2>";
 
-    printInTable($mydb, "veza_razred_predmet", sviPred($class));
+    printInTable($mydb, "veza_razred_predmet", sviPred($class), "Naziv predmeta");
 
     echo "<form method='POST'>";
 
@@ -125,5 +136,5 @@ function predmetiU($mydb, $class)
     </form>
     <form method='POST'>";
     selectMenu($mydb, sviPred($class), 'izbrisi_predmet_{$class}');
-    echo "<button>Ukloni</button></form></div>";
+    echo "</form></div>";
 }

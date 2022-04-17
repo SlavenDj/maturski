@@ -12,6 +12,6 @@ if ($res->num_rows <= 0) {
 echo "<table><th>Naziv predmeta</th>";
 while ($predmet = $res->fetch_assoc())
     echo "<tr><td>{$predmet["naziv"]} </td> 
-        <td> " .  btns($predmet["id"], $table, $btnText1, $btnText2) . "</td>
+        <td> " .  button($predmet["id"], $table, $btnText1, $btnText2) . "</td>
         </tr>";
 echo "</table>";
