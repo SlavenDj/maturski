@@ -29,7 +29,8 @@ input[placeholder="Redni broj predmeta na svedočanstvu"] {
   width: 340px;
 }
 
-input,select {
+input,
+select {
   background: var(--grey-100);
   color: var(--black);
   border: 1px solid var(--black);
@@ -40,4 +41,8 @@ input,select {
 }
 input::placeholder {
   color: var(--black);
+}
+
+.not-found {
+  background: rgba(255, 174, 0, 0.596);
 }

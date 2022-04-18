@@ -2,10 +2,14 @@
 include "prijavaImports/head.php";
 
 $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
-
-for ($i = 0; $i < 2; $i++)
-    prikaziSmer($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi");
 ?>
+<div>
+    <?php
+    for ($i = 0; $i < 2; $i++)
+        prikaziSmer($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi");
+    ?>
+    <button type='button'>Dalje</button>
+</div>
 <div id="vuk">
     <p>Da li si vukovac?</p>
     <input type="radio" name="vukovac" id="vukovac-da" value="1">
@@ -14,7 +18,7 @@ for ($i = 0; $i < 2; $i++)
     <input type="radio" name="vukovac" id="vukovac-ne" value="0">
     <label for="vukovac-ne">Nisam</label>
     <br><br>
-<button type='button'>Dalje</button>
+    <button type='button'>Dalje</button>
 </div>
 
 <div id="podaci-ucenika">
@@ -64,7 +68,7 @@ for ($i = 0; $i < 2; $i++)
 
     <button type='button'>Nazad</button>
     <button type='button'>Dalje</button>
-    
+
 </div>
 
 <div id="svedocansto-9">
@@ -153,7 +157,7 @@ for ($i = 0; $i < 2; $i++)
 <?php
 
 for ($raz = 6; $raz < 10; $raz++)
-insertingGrades($mydb, $raz);
+    insertingGrades($mydb, $raz);
 
 $mydb->close();
 ?>
