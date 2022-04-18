@@ -12,6 +12,6 @@
 <body>
     <form method="post" action="hvala.php">
         <?php
-        include "imports/conn.php";
-        include "imports/funs.php";
-        include "imports/querys.php"; ?>
+        include "admin_files/conn.php";
+        include "admin_files/funs.php";
+        include "admin_files/querys.php"; ?>

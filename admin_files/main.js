@@ -1,20 +1,31 @@
-function showForm(e){
-    console.log("remove")
+let input = document.getElementById("query")
+
+const edit = e => {
+    let id = Number(e.target.dataset["id"]);
+    let table = e.target.dataset["table"];
+    if (e.target.textContent === "Preimenuj") {
+        let ans = prompt(`Kako želite da se zove?`)
+        input.value = `UPDATE \`${table}\` SET naziv = '${ans}' WHERE id=${id}`;
+        if (ans != null)
+            document.querySelector("#change").submit();
+        return "hi";
+    }
+    let ans = prompt(`Koji je novi redni broj  predmet na svedočanstvu?`)
+    input.value = `UPDATE \`${table}\` SET Redni_broj = '${ans}' WHERE id=${id}`;
+    if (ans != null) {
+        document.querySelector("#change").submit();
+        return;
+    }
 }
-function showFormMod(e){
-    console.log("rename", e.target)
+
+const remove = e => {
+    let id = Number(e.target.dataset["id"]);
+    let table = e.target.dataset["table"];
+
+    input.value = `DELETE FROM \`${table}\` WHERE id=${id}`;
+    if (confirm("Da li ste sigurni da želite obrisati predmet?"))
+        document.querySelector("#change").submit();
 }
-const rmBtns= document.querySelectorAll(".delete");
-const modBtns= document.querySelectorAll(".edit");
 
-
-rmBtns.forEach((btn)=>{
-    btn.addEventListener("click", showForm);
-})
-modBtns.forEach((btn)=>{
-    btn.addEventListener("click", (e)=>{
-        console.log(e.target.dataset["id"])
-        
-
-    });
-})
+document.querySelectorAll(".delete").forEach((btn) => btn.addEventListener("click", remove))
+document.querySelectorAll(".edit").forEach((btn) => btn.addEventListener("click", edit))

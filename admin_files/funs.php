@@ -18,10 +18,10 @@ function printInTable(
     echo "<table><th>{$th}</th>";
     while ($row = $result->fetch_assoc())
         echo "<tr>
-        <td>{$row["naziv"]} </td> " .  
-        button($row["id"], $btnText1, $table, "delete") . 
-        button($row["id"], $btnText2, $table, "edit") . 
-        "</tr>";
+        <td>{$row["naziv"]} </td> " .
+            button($row["id"], $btnText1, $table, "delete") .
+            button($row["id"], $btnText2, $table, "edit") .
+            "</tr>";
     echo "</table>";
 }
 
@@ -34,11 +34,9 @@ function button(
     return "
     <td>
     <button 
-    data-id=$id 
-    data-table=$table 
-    class={$html_class}>
-    $txt 
-    </button></td>";
+        data-id=$id 
+        data-table=$table 
+        class={$html_class}>$txt</button></td>";
 }
 
 function selectMenu($database, $q, $n)
@@ -51,10 +49,10 @@ function selectMenu($database, $q, $n)
     }
 
     echo "<select name='$n'>";
-    echo "<option value=" . 000 . "> --- </option>";
+    echo "<option value=" . 000 . "> List svih predmeta </option>";
     while ($predmet = $res->fetch_assoc())
         echo "<option value=" . $predmet["id"] . ">" . $predmet["naziv"] . "</option>";
-    echo "</select> <button>Ukloni</button>";;
+    echo "</select> ";
 }
 
 function grade($grade, $class, $subject)
@@ -112,8 +110,9 @@ function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message)
     echo "</table>";
 }
 
-function predmetiU($mydb, $class)
+function predmetiU($class)
 {
+    include "conn.php";
     echo "<div class='Predmeti'>
     <h2>
         Predmeti u {$class}. razredu
@@ -135,6 +134,6 @@ function predmetiU($mydb, $class)
     <button>dodaj</button>
     </form>
     <form method='POST'>";
-    selectMenu($mydb, sviPred($class), 'izbrisi_predmet_{$class}');
+
     echo "</form></div>";
 }

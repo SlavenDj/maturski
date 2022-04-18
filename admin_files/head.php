@@ -3,6 +3,9 @@ include 'conn.php';
 include 'querys.php';
 include "funs.php";
 include "add_erase.php";
+if(isset($_POST["query"])){
+    $mydb->query($_POST["query"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,3 +21,4 @@ include "add_erase.php";
     <title>Admin</title>
 </head>
 <body> 
+    
