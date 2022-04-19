@@ -8,12 +8,11 @@
 </head>
 <body>
     <?php
-    include "imports/conn.php";
+    include "../admin_files/conn.php";
 $unosUcenika=
 "INSERT INTO ucenik
 (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
 VALUES
-
 (
     '{$_POST["ime"]}', 
     '{$_POST["prezime"]}', 
@@ -23,11 +22,26 @@ VALUES
     '{$_POST["datum_rodjenja"]}', 
     '{$_POST["mestoR"]}',
     '{$_POST["adresa"]}'
-    )
-    
-
-
+    );
 ";
+
+
+$mydb->query($unosUcenika);
+
+$jmbg=$_POST["jmbg"];
+
+$unosUcenika=
+"UPDATE ucenik
+SET
+jezik_od_3= '{$_POST["j3"]}',
+jezik_od_6= '{$_POST["j6"]}',
+osnovna_skola= '{$_POST["os"]}',
+djelovodni_broj= '{$_POST["dbroj"]}',
+datum_izdavanja= '{$_POST["datum-izdavanja"]}',
+mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
+ WHERE jmbg='{$jmbg}';
+";
+
 $mydb->query($unosUcenika);
 
 ?>

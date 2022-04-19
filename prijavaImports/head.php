@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form method="post" action="hvala.php">
+    <form method="post" action="prijavaImports/hvala.php">
         <?php
         include "admin_files/conn.php";
         include "admin_files/funs.php";
