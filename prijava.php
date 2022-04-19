@@ -27,25 +27,27 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input value="Slaven" type="text" id="ime" name="ime"><br><br>
 
     <label for="prezime">Prezime:</label><br>
-    <input value="Slaven" type="text" id="prezime" name="prezime"><br><br>
+    <input value="Đervida" type="text" id="prezime" name="prezime"><br><br>
 
     <label for="telefon">Telefon:</label><br>
-    <input value="066/887-516" type="tel" id="telefon" name="telefon" placeholder="###/###-###" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}"><br>
+    <input value="066/887-516" type="tel" id="telefon" name="telefon" 
+        placeholder="###/###-###" 
+        pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}"><br>
     <small>Npr. 066/887-516</small>
     <br>
     <br>
 
     <label for="mail">E-mail:</label><br>
-    <input value="slave@dsaas.c" type="email" id="mail" name="mail"><br><br>
+    <input value="slavendjervida@gmail.com" type="email" id="mail" name="mail"><br><br>
 
     <label for="jmbg">JMBG:</label><br>
-    <input value="slave@dsaas.c" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13"><br><br>
+    <input value="3112020160017" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13"><br><br>
 
     <label for="datum-rodjenja">Datum rođenja:</label><br>
-    <input value="slave@dsaas.c" type="date" id="datum-rodjenja" name="datum_rodjenja"><br><br>
+    <input value="2002-12-31" type="date" id="datum-rodjenja" name="datum_rodjenja"><br><br>
 
     <label for="mestoR">Mesto rođenja:</label><br>
-    <input value="slave@dsaas.c" type="text" id="mestoR" name="mestoR"><br><br>
+    <input value="Prijedor" type="text" id="mestoR" name="mestoR"><br><br>
 
     <label for="adresa">Adresa prebivališta:</label><br>
     <input type="text" id="adresa" name="adresa"><br><br>
@@ -60,11 +62,19 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 
 
     <label for="j3">Jezik od 3.:</label><br>
-    <input value="slave@dsaas.c" type="text" id="j3" name="j3"><br><br>
+    <select id="j3" name="j3">
+        <option value="">Koji jezik si počeo učiti u 3. razredu</option>
+        <option value="engleski jezik">Engleski jezik</option>
+        <option value="nemacki jezik">Njemački jezik</option>
+    </select>
 
 
     <label for="j6">Jezik od 6.:</label><br>
-    <input value="slave@dsaas.c" type="text" id="j6" name="j6"><br><br>
+    <select id="j6" name="j6">
+        <option value="">Koji jezik si počeo učiti u 6. razredu</option>
+        <option value="engleski jezik">Engleski jezik</option>
+        <option value="nemacki jezik">Njemački jezik</option>
+    </select>
 
     <label for="veronauka">Veronauka ili etika/kultura religije</label>
     <select name="veronauka" id="veronauka">
@@ -85,24 +95,25 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 
 
     <label for="os">Naziv osnovne škole:</label><br>
-    <input value="slave@dsaas.c" type="text" id="os" name="os"><br><br>
+    <input value="Vuk" type="text" id="os" name="os"><br><br>
 
 
     <label for="dbroj">Djelovodni broj</label><br>
-    <input value="slave@dsaas.c" type="text" id="dbroj" name="dbroj"><br><br>
+    <input value="1234" type="text" id="dbroj" name="dbroj"><br><br>
     <small>
-        On se nalazi u gornje dijelu svjedočanstva. <b>
+        On se nalazi u gornje dijelu svjedočanstva. 
+        <b>
 
-            Prikaži
+            Prikaži 
         </b>
     </small>
 
 
     <label for="datum-izdavanja">Datum izdavanja:</label><br>
-    <input value="slave@dsaas.c" type="date" id="datum-izdavanja" name="datum-izdavanja"><br><br>
+    <input value="2018-06-01" type="date" id="datum-izdavanja" name="datum-izdavanja"><br><br>
 
     <label for="mesto-izdavanja">Mjesto izdavanja:</label><br>
-    <input value="slave@dsaas.c" type="text" id="mesto-izdavanja" name="mesto-izdavanja"><br><br>
+    <input value="Prijedor" type="text" id="mesto-izdavanja" name="mesto-izdavanja"><br><br>
 
 
     <button type='button'>Nazad</button>
@@ -122,7 +133,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-majke" name="prezime-majke"><br><br>
 
     <label for="telefon-majke">Broj telefona Majke:</label><br>
-    <input type="text" id="telefon-majke" name="telefon-majke"><br><br>
+    <input type="tel" id="telefon-majke" name="telefon-majke"><br><br>
 
     <label for="zanimanje-majke">Zanimanje Majke:</label><br>
     <input type="text" id="zanimanje-majke" name="zanimanje-majke"><br><br>
@@ -147,7 +158,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-oca" name="prezime-oca"><br><br>
 
     <label for="telefon-oca">Broj telefona oca:</label><br>
-    <input type="text" id="telefon-oca" name="telefon-oca"><br><br>
+    <input type="tel" id="telefon-oca" name="telefon-oca"><br><br>
 
     <label for="zanimanje-oca">Zanimanje oca:</label><br>
     <input type="text" id="zanimanje-oca" name="zanimanje-oca"><br><br>

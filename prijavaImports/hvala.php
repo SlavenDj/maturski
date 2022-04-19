@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hvala!</title>
 </head>
+
 <body>
     <?php
     include "../admin_files/conn.php";
-$unosUcenika=
-"INSERT INTO ucenik
+    $unosUcenika =
+        "INSERT INTO ucenik
 (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
 VALUES
 (
@@ -26,24 +28,42 @@ VALUES
 ";
 
 
-$mydb->query($unosUcenika);
+    $mydb->query($unosUcenika);
 
-$jmbg=$_POST["jmbg"];
+    $jmbg = $_POST["jmbg"];
 
-$unosUcenika=
-"UPDATE ucenik
-SET
-jezik_od_3= '{$_POST["j3"]}',
-jezik_od_6= '{$_POST["j6"]}',
-osnovna_skola= '{$_POST["os"]}',
-djelovodni_broj= '{$_POST["dbroj"]}',
-datum_izdavanja= '{$_POST["datum-izdavanja"]}',
-mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
- WHERE jmbg='{$jmbg}';
-";
+    $unosUcenika =
+        "UPDATE ucenik
+        SET
+            jezik_od_3= '{$_POST["j3"]}',
+            jezik_od_6= '{$_POST["j6"]}',
+            osnovna_skola= '{$_POST["os"]}',
+            djelovodni_broj= '{$_POST["dbroj"]}',
+            datum_izdavanja= '{$_POST["datum-izdavanja"]}',
+            mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
+        WHERE jmbg='{$jmbg}';";
 
-$mydb->query($unosUcenika);
+    $mydb->query($unosUcenika);
 
-?>
+    $unosUcenika =
+        "UPDATE ucenik
+        SET
+            ime_majke= '{$_POST["ime-majke"]}',
+            prezime_majke= '{$_POST["prezime-majke"]}',
+            telefon_majke= '{$_POST["telefon-majke"]}',
+            zanimanje_majke= '{$_POST["zanimanje-majke"]}',
+            adresa_majke= '{$_POST["adresa-majke"]}',
+
+            ime_oca= '{$_POST["ime-oca"]}',
+            prezime_oca= '{$_POST["prezime-oca"]}',
+            telefon_oca= '{$_POST["telefon-oca"]}',
+            zanimanje_oca= '{$_POST["zanimanje-oca"]}',
+            adresa_oca= '{$_POST["adresa-oca"]}'
+        WHERE jmbg='{$jmbg}';";
+
+    $mydb->query($unosUcenika);
+
+    ?>
 </body>
+
 </html>
