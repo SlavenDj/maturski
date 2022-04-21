@@ -11,7 +11,7 @@ $sviSmerovi = "SELECT id, naziv FROM smer";
 function sviPred($class)
 {
     return 
-    "SELECT veza_razred_predmet.id, naziv
+    "SELECT veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
     FROM   `veza_razred_predmet`
     INNER JOIN `predmeti`
             ON predmeti.id = veza_razred_predmet.predmet

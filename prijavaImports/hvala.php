@@ -11,27 +11,28 @@
 <body>
     <?php
     include "../admin_files/conn.php";
-    $unosUcenika =
-        "INSERT INTO ucenik
-(ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
-VALUES
-(
-    '{$_POST["ime"]}', 
-    '{$_POST["prezime"]}', 
-    '{$_POST["telefon"]}', 
-    '{$_POST["mail"]}', 
-    '{$_POST["jmbg"]}', 
-    '{$_POST["datum_rodjenja"]}', 
-    '{$_POST["mestoR"]}',
-    '{$_POST["adresa"]}'
-    );
-";
 
-
-    $mydb->query($unosUcenika);
-
+    
     $jmbg = $_POST["jmbg"];
 
+    $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
+    $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
+    $ucenikID = $ucenikID["ID"];
+    $unosUcenika =
+        "INSERT INTO ucenik
+            (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
+        VALUES
+        (
+            '{$_POST["ime"]}', 
+            '{$_POST["prezime"]}', 
+            '{$_POST["telefon"]}', 
+            '{$_POST["mail"]}', 
+            '{$_POST["jmbg"]}', 
+            '{$_POST["datum_rodjenja"]}', 
+            '{$_POST["mestoR"]}',
+            '{$_POST["adresa"]}'
+            );";
+    $mydb->query($unosUcenika);
     $unosUcenika =
         "UPDATE ucenik
         SET
@@ -44,7 +45,6 @@ VALUES
         WHERE jmbg='{$jmbg}';";
 
     $mydb->query($unosUcenika);
-
     $unosUcenika =
         "UPDATE ucenik
         SET
@@ -63,6 +63,39 @@ VALUES
 
     $mydb->query($unosUcenika);
 
+    function sviPred($class)
+    {
+        return
+            "SELECT veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
+    FROM   `veza_razred_predmet`
+    INNER JOIN `predmeti`
+            ON predmeti.id = veza_razred_predmet.predmet
+            AND razred = $class 
+    ORDER  BY redni_broj";
+    }
+    
+    for ($class = 6; $class <= 9; $class++) {
+        $res = $mydb->query(sviPred($class));
+        if ($res->num_rows > 0) {
+            while ($subject = $res->fetch_assoc()) {
+                $idPredmeta = $subject["ID_predmeta"];
+                if (isset($_POST["$idPredmeta-$class"])) {
+                    $unesiOcenu =
+                        "INSERT INTO ocena
+                            (predmet, razred, ucenik, ocena)
+                            VALUES
+                            (
+                                $idPredmeta,
+                                $class, 
+                                $ucenikID, 
+                                {$_POST["$idPredmeta-$class"]}
+                                )";
+
+                    $mydb->query($unesiOcenu);
+                }
+            }
+        }
+    }
     ?>
 </body>
 

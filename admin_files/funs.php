@@ -85,10 +85,10 @@ function showSubjects($res, $class)
     echo "<table><th>Naziv predmeta</th>";
     while ($subject = $res->fetch_assoc())
         echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
-            grade(2, $class, $subject["naziv"]) .
-            grade(3, $class, $subject["naziv"]) .
-            grade(4, $class, $subject["naziv"]) .
-            grade(5, $class, $subject["naziv"]) .
+            grade(2, $class, $subject["ID_predmeta"]) .
+            grade(3, $class, $subject["ID_predmeta"]) .
+            grade(4, $class, $subject["ID_predmeta"]) .
+            grade(5, $class, $subject["ID_predmeta"]) .
             "</td></tr>";
     echo "</table>";
 }
