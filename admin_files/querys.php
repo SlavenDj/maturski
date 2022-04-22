@@ -1,10 +1,7 @@
 <?php
-
-//svi predmeti
 $sviPred = 
-"SELECT id, naziv 
-FROM predmeti";
-
+    "SELECT id, naziv 
+        FROM predmeti";
 
 $sviSmerovi = "SELECT id, naziv FROM smer";
 
@@ -31,5 +28,9 @@ function qryInsert($class)
     return "INSERT INTO `veza_razred_predmet` 
     (`predmet`,`Razred`,`redni_broj`) VALUES 
     (" . $_POST["dodaj_predmet_$class"] . ",$class," . (int)$_POST["redni_broj_$class"] . ")";
+}
+
+function findUcenik($jmbg){
+    return "SELECT * FROM ucenik JOIN ocena ON ucenik.id=ocena.ucenik WHERE jmbg='$jmbg';";
 }
 
