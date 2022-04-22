@@ -137,3 +137,23 @@ function predmetiU($class)
 
     echo "</form></div>";
 }
+function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_message, $polje_name, $ucenik)
+{
+    $res = $mydb->query($sviSmerovi);
+
+    if ($res->num_rows == 0) {
+        echo "<p class='not-found'>{$not_found_message}</p>";
+        return;
+    }
+
+    echo "<table><th>{$title}</th>";
+    while ($row = $res->fetch_assoc()) {
+        echo "<tr><td> {$row["naziv"]} </td> 
+                <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'";
+        if ($ucenik[$polje_name] == $row["id"])
+            echo "checked";
+        echo "></td>
+            </tr>";
+    }
+    echo "</table>";
+}

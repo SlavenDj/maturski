@@ -26,33 +26,9 @@ $ime = $ucenik["ime"];
 
 <body>
     <form method="post" action="prijavaImports/hvala.php">
-        <?php
-
-        function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_message, $polje_name, $ucenik)
-        {
-            $res = $mydb->query($sviSmerovi);
-
-            if ($res->num_rows == 0) {
-                echo "<p class='not-found'>{$not_found_message}</p>";
-                return;
-            }
-
-            echo "<table><th>{$title}</th>";
-            while ($row = $res->fetch_assoc()) {
-                echo "<tr><td> {$row["naziv"]} </td> 
-                <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'";
-                if ($ucenik[$polje_name] == $row["id"])
-                    echo "checked";
-                echo "></td>
-            </tr>";
-            }
-            echo "</table>";
-        }
-
-        $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
-        ?>
         <div>
             <?php
+            $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
             for ($i = 0; $i < 2; $i++) {
                 $j = $i + 1;
                 prikaziSmerUcenik($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi", "smer$j", $ucenik);
