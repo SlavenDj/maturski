@@ -1,5 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php 
+include "admin_files/conn.php";
+include "admin_files/funs.php";
+include "admin_files/querys.php";
+$res = $mydb->query("SELECT * FROM ucenik JOIN ocena ON ucenik.id=ocena.ucenik;");
+
+$ucenik = $res->fetch_assoc();
+
+?>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Ucenik - <?php echo $ucenik["ime"];?></title>
+</head>
+
+<body>
+    <form method="post" action="prijavaImports/hvala.php">
+        <?php
+         ?>
 <?php
-include "prijavaImports/head.php";
+
+
+
 function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_message, $polje_name, $ucenik)
 {
     $res = $mydb->query($sviSmerovi);
@@ -26,10 +51,7 @@ function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_messag
     }
     echo "</table>";
 }
-$res = $mydb->query("SELECT * FROM ucenik JOIN ocena ON ucenik.id=ocena.ucenik;");
 
-$ucenik = $res->fetch_assoc();
-echo $ucenik["ime"];
 
 
 
