@@ -31,6 +31,6 @@ function qryInsert($class)
 }
 
 function findUcenik($jmbg){
-    return "SELECT * FROM ucenik JOIN ocena ON ucenik.id=ocena.ucenik WHERE jmbg='$jmbg';";
+    return "SELECT *, ucenik.id AS ucenikID FROM ucenik JOIN ocena ON ucenik.id=ocena.ucenik WHERE jmbg='$jmbg';";
 }
 

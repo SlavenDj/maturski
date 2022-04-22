@@ -30,8 +30,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input value="Đervida" type="text" id="prezime" name="prezime">
 
     <label for="telefon">Telefon:</label>
-    <input value="066/887-516" type="tel" id="telefon" name="telefon" placeholder="###/###-###" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
-    <small>Npr. 066/887-516</small>
+    <input value="066/123-456" type="tel" id="telefon" name="telefon" placeholder="###/###-###" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
+    <small>Npr. 066/123-456</small>
     <br>
 
 

@@ -1,9 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='sr'>
 <?php
 include "admin_files/conn.php";
 include "admin_files/funs.php";
 include "admin_files/querys.php";
+
+//
+
+
+if(isset($_POST["ime"])){
+    $jmbg = $_POST["jmbg"];
+    $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
+    $row = $res->fetch_assoc();
+
+
+    if ($row == null) {
+        $unosUcenika =
+            "INSERT INTO ucenik
+            (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
+        VALUES
+        (
+            '{$_POST["ime"]}', 
+            '{$_POST["prezime"]}', 
+            '{$_POST["telefon"]}', 
+            '{$_POST["mail"]}', 
+            '{$_POST["jmbg"]}', 
+            '{$_POST["datum_rodjenja"]}', 
+            '{$_POST["mestoR"]}',
+            '{$_POST["adresa"]}'
+            );";
+        $mydb->query($unosUcenika);
+    } else {
+        $unosUcenika =
+            "UPDATE ucenik
+            SET
+                ime ='{$_POST["ime"]}',
+                prezime ='{$_POST["ime"]}',
+                telefon ='{$_POST["telefon"]}',
+                datum_rodjenja ='{$_POST["datum_rodjenja"]}',
+                mesto_rodjenja ='{$_POST["mestoR"]}',
+                adresa ='{$_POST["adresa"]}'
+            WHERE jmbg='$jmbg';";
+    }
+    $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
+    $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
+    $ucenikID = $ucenikID["ID"];
+    $unosUcenika =
+        "UPDATE ucenik
+        SET
+            jezik_od_3= '{$_POST["j3"]}',
+            jezik_od_6= '{$_POST["j6"]}',
+            veronauka= '{$_POST["j6"]}',
+            osnovna_skola= '{$_POST["os"]}',
+            djelovodni_broj= '{$_POST["dbroj"]}',
+            datum_izdavanja= '{$_POST["datum-izdavanja"]}',
+            mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
+        WHERE jmbg='{$jmbg}';";
+
+    $mydb->query($unosUcenika);
+    $unosUcenika =
+        "UPDATE ucenik
+        SET
+            ime_majke= '{$_POST["ime-majke"]}',
+            prezime_majke= '{$_POST["prezime-majke"]}',
+            telefon_majke= '{$_POST["telefon-majke"]}',
+            zanimanje_majke= '{$_POST["zanimanje-majke"]}',
+            adresa_majke= '{$_POST["adresa-majke"]}',
+
+            ime_oca= '{$_POST["ime-oca"]}',
+            prezime_oca= '{$_POST["prezime-oca"]}',
+            telefon_oca= '{$_POST["telefon-oca"]}',
+            zanimanje_oca= '{$_POST["zanimanje-oca"]}',
+            adresa_oca= '{$_POST["adresa-oca"]}'
+        WHERE jmbg='{$jmbg}';";
+
+    $mydb->query($unosUcenika);
+
+
+    $unosUcenika =
+        "UPDATE ucenik
+    SET
+        smer1= '{$_POST["smer-0"]}',
+        smer2= '{$_POST["smer-1"]}'
+    WHERE jmbg='{$jmbg}';";
+
+
+    $mydb->query($unosUcenika);
+
+
+
+
+
+
+
+
+    function sviPred2($class)
+    {
+        return
+            "SELECT veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
+    FROM   `veza_razred_predmet`
+    INNER JOIN `predmeti`
+            ON predmeti.id = veza_razred_predmet.predmet
+            AND razred = $class 
+    ORDER  BY redni_broj";
+    }
+
+    for ($class = 6; $class <= 9; $class++) {
+        $res = $mydb->query(sviPred2($class));
+        if ($res->num_rows > 0) {
+            while ($subject = $res->fetch_assoc()) {
+                $idPredmeta = $subject["ID_predmeta"];
+                if (isset($_POST["$idPredmeta-$class"])) {
+                    $jmbg = $_POST["jmbg"];
+
+
+                    if ($row == null)
+                        $unesiOcenu =
+                            "INSERT INTO ocena
+                            (predmet, razred, ucenik, ocena)
+                            VALUES
+                            (
+                                $idPredmeta,
+                                $class, 
+                                $ucenikID, 
+                                {$_POST["$idPredmeta-$class"]}
+                                )";
+                    else
+                        $unesiOcenu =
+                            "UPDATE ocena
+                        SET
+                             ocena.ocena={$_POST["$idPredmeta-$class"]}
+                            
+                                 WHERE ucenik=$ucenikID AND predmet=$idPredmeta AND razred=$class
+                                 
+                                
+                                ";
+                    $mydb->query($unesiOcenu);
+                }
+            }
+        }
+    }
+}
+    
+    
+//
 
 
 $jmbg = $_POST["jmbg"];
@@ -25,19 +165,18 @@ $ime = $ucenik["ime"];
 </head>
 
 <body>
-    <form method="post" action="prijavaImports/hvala.php">
-        <div>
+    <form method="post">
+        <div id="smerovi">
             <?php
             $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
             for ($i = 0; $i < 2; $i++) {
                 $j = $i + 1;
                 prikaziSmerUcenik($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi", "smer$j", $ucenik);
-                echo "smer$j";
             }
             ?>
             <button type='button'>Dalje</button>
         </div>
-        <div id="vuk">
+        <!-- <div id="vuk">
             <p>Da li si vukovac?</p>
             <input type="radio" name="vukovac" id="vukovac-da" value="1">
             <label for="vukovac-da">Jesam</label>
@@ -46,7 +185,7 @@ $ime = $ucenik["ime"];
             <label for="vukovac-ne">Nisam</label>
 
             <button type='button'>Dalje</button>
-        </div>
+        </div> -->
 
         <div id="podaci-ucenika">
 
@@ -58,7 +197,7 @@ $ime = $ucenik["ime"];
 
             <label for="telefon">Telefon:</label>
             <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
-            <small>Npr. 066/887-516</small>
+            <small>Npr. 066/123-456</small>
             <br>
 
 
@@ -200,13 +339,30 @@ $ime = $ucenik["ime"];
 
         <?php
 
-        function insertingGradesUcenik($database, $class)
+        function gradeUcenik($grade, $class, $subject, $mark)
+        {
+            $stringX = "
+    <label for='$subject-grad-$grade-class-$class'> $grade
+        <input type = 'radio' 
+            value='$grade' 
+            id='$subject-grad-$grade-class-$class'  
+            name='$subject-$class' 
+            ";
+
+
+            if ($mark == $grade)
+                $stringX .= "checked";
+
+            $stringX .= "> </label>";
+            return $stringX;
+        }
+        function insertingGradesUcenik($database, $class, $ucenikId)
         {
             echo "<div>";
             echo "<p>Ocene u $class. razredu</p>";
-            $res = $database->query(sviPred($class));
+            $res = $database->query(sviPred2($class));
             if ($res->num_rows > 0) {
-                showSubjects($res, $class);
+                showSubjectsUcenik($res, $class, $ucenikId);
                 echo "</div>";
                 return;
             }
@@ -215,26 +371,32 @@ $ime = $ucenik["ime"];
             echo "</div>";
         }
 
-        function showSubjectsUcenik($res, $class)
+        function showSubjectsUcenik($res, $class, $ucenikId)
         {
+            include "admin_files/conn.php";
             echo "<table><th>Naziv predmeta</th>";
-            while ($subject = $res->fetch_assoc())
+            while ($subject = $res->fetch_assoc()) {
+                $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
+                $mark = $mark->fetch_assoc();
+                $mark = $mark["ocena"];
+                //echo $mark;
                 echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
-                    grade(2, $class, $subject["ID_predmeta"]) .
-                    grade(3, $class, $subject["ID_predmeta"]) .
-                    grade(4, $class, $subject["ID_predmeta"]) .
-                    grade(5, $class, $subject["ID_predmeta"]) .
+                    gradeUcenik(2, $class, $subject["ID_predmeta"], $mark) .
+                    gradeUcenik(3, $class, $subject["ID_predmeta"], $mark) .
+                    gradeUcenik(4, $class, $subject["ID_predmeta"], $mark) .
+                    gradeUcenik(5, $class, $subject["ID_predmeta"], $mark) .
                     "</td></tr>";
+            }
             echo "</table>";
         }
 
         for ($raz = 6; $raz < 10; $raz++)
-            insertingGrades($mydb, $raz);
+            insertingGradesUcenik($mydb, $raz, $ucenik["ucenikID"]);
 
         $mydb->close();
         ?>
 
-        <button>Prijavi se</button>
+        <button>Sačujav</button>
     </form>
 </body>
 

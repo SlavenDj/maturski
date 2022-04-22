@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='sr'>
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <?php
     include "../admin_files/conn.php";
 
-
+if(isset($_POST["ime"])){
     $jmbg = $_POST["jmbg"];
     $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
     $row = $res->fetch_assoc();
@@ -144,6 +144,8 @@
             }
         }
     }
+}
+    
     ?>
 </body>
 

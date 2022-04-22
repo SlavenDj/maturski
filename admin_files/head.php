@@ -8,7 +8,7 @@ if(isset($_POST["query"])){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang='sr'>
 
 <head>
     <meta charset="UTF-8">

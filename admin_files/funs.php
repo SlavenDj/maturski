@@ -1,54 +1,53 @@
 <?php
 function printInTable(
-    //parametri
-    mysqli $database,
-    string $table,
-    string $query,
-    string $th,
-    string $btnText1 = "Ukloni",
-    string $btnText2 = "Promeni raspored"
+    $database,
+    $sql_table,
+    $query,
+    $table_header,
+    $btnText1 = "Ukloni",
+    $btnText2 = "Promeni raspored"
 ) {
     $result = $database->query($query);
 
     if ($result->num_rows == 0) {
-        echo "<p class='not-found'>Nema rezultata</p>";
+        echo "<div class='not-found'>Nema rezultata</div>";
         return;
     }
 
-    echo "<table><th>{$th}</th>";
+    echo "<table><th>{$table_header}</th>";
     while ($row = $result->fetch_assoc())
-        echo "<tr>
-        <td>{$row["naziv"]} </td> " .
-            button($row["id"], $btnText1, $table, "delete") .
-            button($row["id"], $btnText2, $table, "edit") .
+        echo
+        "<tr><td>{$row["naziv"]} </td> " .
+            button($row["id"], $btnText1, $sql_table, "delete") .
+            button($row["id"], $btnText2, $sql_table, "edit") .
             "</tr>";
     echo "</table>";
 }
 
 function button(
-    string $id,
-    string $txt,
-    $table,
+    $id,
+    $txt,
+    $sql_table,
     $html_class
 ) {
     return "
     <td>
     <button 
         data-id=$id 
-        data-table=$table 
+        data-table=$sql_table 
         class={$html_class}>$txt</button></td>";
 }
 
-function selectMenu($database, $q, $n)
+function selectMenu($database, $query, $selectMenuName)
 {
-    $res = $database->query($q);
+    $res = $database->query($query);
 
     if ($res->num_rows == 0) {
         echo "<p class='not-found'>Nema rezultata</p>";
         return;
     }
 
-    echo "<select name='$n'>";
+    echo "<select name='$selectMenuName'>";
     echo "<option value=" . 000 . "> List svih predmeta </option>";
     while ($predmet = $res->fetch_assoc())
         echo "<option value=" . $predmet["id"] . ">" . $predmet["naziv"] . "</option>";
