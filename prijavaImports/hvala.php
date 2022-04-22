@@ -12,14 +12,15 @@
     <?php
     include "../admin_files/conn.php";
 
-    
-    $jmbg = $_POST["jmbg"];
 
-    $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
-    $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
-    $ucenikID = $ucenikID["ID"];
-    $unosUcenika =
-        "INSERT INTO ucenik
+    $jmbg = $_POST["jmbg"];
+    $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
+    $row = $res->fetch_assoc();
+
+
+    if ($row == null) {
+        $unosUcenika =
+            "INSERT INTO ucenik
             (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
         VALUES
         (
@@ -32,12 +33,28 @@
             '{$_POST["mestoR"]}',
             '{$_POST["adresa"]}'
             );";
-    $mydb->query($unosUcenika);
+        $mydb->query($unosUcenika);
+    } else {
+        $unosUcenika =
+            "UPDATE ucenik
+            SET
+                ime ='{$_POST["ime"]}',
+                prezime ='{$_POST["ime"]}',
+                telefon ='{$_POST["telefon"]}',
+                datum_rodjenja ='{$_POST["datum_rodjenja"]}',
+                mesto_rodjenja ='{$_POST["mestoR"]}',
+                adresa ='{$_POST["adresa"]}'
+            WHERE jmbg='$jmbg';";
+    }
+    $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
+    $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
+    $ucenikID = $ucenikID["ID"];
     $unosUcenika =
         "UPDATE ucenik
         SET
             jezik_od_3= '{$_POST["j3"]}',
             jezik_od_6= '{$_POST["j6"]}',
+            veronauka= '{$_POST["j6"]}',
             osnovna_skola= '{$_POST["os"]}',
             djelovodni_broj= '{$_POST["dbroj"]}',
             datum_izdavanja= '{$_POST["datum-izdavanja"]}',
@@ -63,6 +80,24 @@
 
     $mydb->query($unosUcenika);
 
+
+    $unosUcenika =
+        "UPDATE ucenik
+    SET
+        smer1= '{$_POST["smer-0"]}',
+        smer2= '{$_POST["smer-1"]}'
+    WHERE jmbg='{$jmbg}';";
+
+
+    $mydb->query($unosUcenika);
+
+
+
+
+
+
+
+
     function sviPred($class)
     {
         return
@@ -73,15 +108,19 @@
             AND razred = $class 
     ORDER  BY redni_broj";
     }
-    
+
     for ($class = 6; $class <= 9; $class++) {
         $res = $mydb->query(sviPred($class));
         if ($res->num_rows > 0) {
             while ($subject = $res->fetch_assoc()) {
                 $idPredmeta = $subject["ID_predmeta"];
                 if (isset($_POST["$idPredmeta-$class"])) {
-                    $unesiOcenu =
-                        "INSERT INTO ocena
+                    $jmbg = $_POST["jmbg"];
+
+
+                    if ($row == null)
+                        $unesiOcenu =
+                            "INSERT INTO ocena
                             (predmet, razred, ucenik, ocena)
                             VALUES
                             (
@@ -90,7 +129,16 @@
                                 $ucenikID, 
                                 {$_POST["$idPredmeta-$class"]}
                                 )";
-
+                    else
+                        $unesiOcenu =
+                            "UPDATE ocena
+                        SET
+                             ocena.ocena={$_POST["$idPredmeta-$class"]}
+                            
+                                 WHERE ucenik=$ucenikID AND predmet=$idPredmeta AND razred=$class
+                                 
+                                
+                                ";
                     $mydb->query($unesiOcenu);
                 }
             }
