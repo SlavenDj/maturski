@@ -11,7 +11,7 @@ table {
     padding: 0.25rem 1rem;
   }
   table :nth-child(n+2):not(td):hover {
-    outline: solid var(--blue) 3px;
+    outline: solid var(--blue) 1px;
   }
   td {
     padding: 0.5rem 1rem;

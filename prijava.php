@@ -3,7 +3,7 @@ include "prijavaImports/head.php";
 
 $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 ?>
-<div>
+<div id="smer">
     <?php
     for ($i = 0; $i < 2; $i++)
         prikaziSmer($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi");
@@ -181,6 +181,7 @@ $mydb->close();
 ?>
 
 <button>Prijavi se</button>
+<script src="prijava.js"></script>
 </form>
 </body>
 

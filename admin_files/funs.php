@@ -67,7 +67,7 @@ function grade($grade, $class, $subject)
 
 function insertingGrades($database, $class)
 {
-    echo "<div>";
+    echo "<div id='ocene-$class'>";
     echo "<p>Ocene u $class. razredu</p>";
     $res = $database->query(sviPred($class));
     if ($res->num_rows > 0) {
