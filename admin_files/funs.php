@@ -72,12 +72,17 @@ function insertingGrades($database, $class)
     $res = $database->query(sviPred($class));
     if ($res->num_rows > 0) {
         showSubjects($res, $class);
-        echo "</div>";
+        if ($class == 9)
+        echo "<button type= >Prijavi se</button></div>";
+        else
+        echo "<button type='button' class='back'>Nazad</button>
+        <button type='button' class='next'>Dalje</button></div>";
         return;
     }
 
     echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
-    echo "</div>";
+    echo " <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button></div>";
 }
 function showSubjects($res, $class)
 {

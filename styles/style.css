@@ -20,4 +20,17 @@ body div {
   gap: 1.25rem;
 }
 
-
+#smer,
+#vuk,
+#podaci-ucenika,
+#jezik-ver,
+#svedocansto-9,
+#Majka,
+#otac,
+#ocene-6,
+#ocene-7,
+#ocene-8,
+#ocene-9 {
+  display: none;
+  /* background: red; */
+}

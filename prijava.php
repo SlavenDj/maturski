@@ -8,7 +8,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     for ($i = 0; $i < 2; $i++)
         prikaziSmer($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi");
     ?>
-    <button type='button'>Dalje</button>
+    <button type='button' class='next'>Dalje</button>
 </div>
 <div id="vuk">
     <p>Da li si vukovac?</p>
@@ -17,8 +17,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 
     <input type="radio" name="vukovac" id="vukovac-ne" value="0">
     <label for="vukovac-ne">Nisam</label>
-
-    <button type='button'>Dalje</button>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
 </div>
 
 <div id="podaci-ucenika">
@@ -49,8 +49,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 
     <label for="adresa">Adresa prebivališta:</label>
     <input type="text" id="adresa" name="adresa">
-    <button type='button'>Nazad</button>
-    <button type='button'>Dalje</button>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
 
 </div>
 
@@ -82,8 +82,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         <option value="islamska">Islamaska veronauka</option>
         <option value="etika i kultura religije">etika i kultura religije</option>
     </select>
-    <button type='button'>Nazad</button>
-    <button type='button'>Dalje</button>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
 
 </div>
 
@@ -114,8 +114,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input value="Prijedor" type="text" id="mesto-izdavanja" name="mesto-izdavanja">
 
 
-    <button type='button'>Nazad</button>
-    <button type='button'>Dalje</button>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
 </div>
 
 <div id="Majka">
@@ -139,8 +139,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <label for="adresa-majke">Adresa prebivališta Majke:</label>
     <input type="text" id="adresa-majke" name="adresa-majke">
 
-    <button type='button'>Nazad</button>
-    <button type='button'>Dalje</button>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
 </div>
 
 <div id="otac">
@@ -164,13 +164,10 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <label for="adresa-oca">Adresa prebivališta oca:</label>
     <input type="text" id="adresa-oca" name="adresa-oca">
 
-    <button type='button'>Nazad</button>
-    <button type='button'>Dalje</button>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
 </div>
 
-<p>
-    Ocene
-</p>
 
 <?php
 
@@ -180,7 +177,7 @@ for ($raz = 6; $raz < 10; $raz++)
 $mydb->close();
 ?>
 
-<button>Prijavi se</button>
+
 <script src="prijava.js"></script>
 </form>
 </body>
