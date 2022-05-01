@@ -1,10 +1,11 @@
 input[placeholder="Redni broj predmeta na svedočanstvu"] {
   width: 340px;
 }
-input:not([type="radio"]):focus{
-  outline-color: var(--blue);
-  -webkit-box-shadow: 0px 0px 15px 5px rgba(77,112,184,.25); 
-box-shadow: 0px 0px 15px 5px rgba(77,112,184,.25);
+input:not([type="radio"]):focus {
+  outline: none;
+  border-color: var(--primery-color);
+  --shadow-color: rgb(77 112 184 / 50%);
+  box-shadow: 0 0 3px 2px var(--shadow-color);
 }
 input,
 select {
@@ -17,7 +18,7 @@ select {
   padding: 0.5rem;
   height: 34px;
 }
-select{
+select {
   padding: 0;
 }
 input::placeholder {
@@ -26,6 +27,6 @@ input::placeholder {
 label:not([for^="vuk"]) {
   margin-bottom: -1rem;
 }
-#jmbg{
+#jmbg {
   width: 15ch;
 }

@@ -39,8 +39,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input value="Đervida" type="text" id="prezime" name="prezime">
 
     <label for="telefon">Koji je broj tvog telefona:</label>
-    <input type="tel"  inputmode="numeric" id="telefon" name="telefon" 
-    placeholder="### ###-###" pattern="[0-9]{3} [0-9]{3}-[0-9]{3}">
+    <input type="tel" inputmode="numeric" id="telefon" name="telefon" placeholder="### ###-###" pattern="[0-9]{3} [0-9]{3}-[0-9]{3}">
 
     <label for="mail">Tvoji e-mail:</label>
     <input value="slavendjervida@gmail.com" type="email" id="mail" name="mail">
@@ -113,12 +112,17 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input value="1234" type="text" id="dbroj" name="dbroj">
     <small>
         On se nalazi u gornje dijelu svjedočanstva.
-        <b>
+        <b id="show-tip">
 
             Prikaži
         </b>
     </small>
-
+    <div id="tip">
+        <img src="imgs/tip.gif" alt="gde se nalazi delovodni broj">
+        <p>
+            Dodirni/ kikni bilo gde da bi sakrio sliku.
+        </p>
+    </div>
 
     <label for="datum-izdavanja">Datum izdavanja:</label>
     <input value="2018-06-01" type="date" id="datum-izdavanja" name="datum-izdavanja">

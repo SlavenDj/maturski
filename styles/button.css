@@ -1,15 +1,18 @@
 button {
-    background: var(--pg);
-    color: var(--white);
-    border: none;
-    border-radius: 12px;
-    font-size: 1.125rem;
-    font-weight: 400;
-    padding: .5rem;
-  }
-  
-  button:hover {
-    background: var(--white);
-    color: var(--black);
-    outline: solid var(--blue) 1px;
-  }
+  --background-color: var(--pg);
+  --text-color: var(--white);
+  background: var(--background-color);
+  color: var(--white);
+
+  border: none;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 400;
+  padding: 0.5rem;
+}
+
+button:hover {
+  background: var(--white);
+  color: var(--black);
+  outline: solid var(--primery-color) 1px;
+}

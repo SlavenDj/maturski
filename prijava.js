@@ -33,6 +33,25 @@ btnsForNext.forEach((btn) => {
     })
 })
 
+addEventListener("keydown", e=>{
+    if(e.key==="Escape")
+    document.activeElement.blur();
+    
+    if(document.activeElement.tagName !== "BODY")
+    return;
+    if(e.key=="ArrowLeft" && currentSection){
+        hide(sections[currentSection])
+        currentSection--;
+        show(sections[currentSection]);
+    }
+    if(e.key=="ArrowRight" && currentSection+1 < sections.length){
+        hide(sections[currentSection])
+        currentSection++;
+        show(sections[currentSection]);
+    }
+    
+})
+
 const btnsForBack = document.querySelectorAll(".back");
 btnsForBack.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -54,3 +73,13 @@ checkBoxes_smer.forEach(checkBox => {
 
 
 });
+function showTip() {
+    document.querySelector("#tip").style.display = "grid";
+}
+function hideTip() {
+    document.querySelector("#tip").style.display = "none";
+}
+const tipBtn = document.querySelector("#show-tip");
+tipBtn.addEventListener("click", showTip)
+
+document.querySelector("#tip").addEventListener("click", hideTip);

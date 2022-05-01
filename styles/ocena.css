@@ -1,29 +1,41 @@
-.ocena::after {
+.ocena {
   --ocena-btn-size: 40px;
-    content: attr(data-ocena);
-    background: green;
-    display: flex;
-    /*top:0;*/
-    border-radius: 99%;
-    position: absolute;
-    height: var(--ocena-btn-size);
-    aspect-ratio: 1/1;
-    text-align: center;
-    align-items: center;
-    justify-content: space-around;
-  }
-  .ocena:checked::after {
-    background: red;
-    color: #0b690b;
-  }
-  .ocena:focus::after,
-  .ocena:hover::after {
-    outline: 3px solid var(--blue);
-  }
-  .ocena {
-    height: var(--ocena-btn-size);
-    aspect-ratio: 1/1;
-  }
-  .ocena:focus {
-    outline: none;
-  }
+  width: var(--ocena-btn-size);
+  aspect-ratio: 1/1;
+}
+.ocena:focus {
+  outline: none;
+}
+
+.ocena::after {
+  content: attr(data-ocena);
+  
+  background: #fff;
+  font-size: 1.25rem;
+  display: flex;
+  color: var(--black);
+  border-radius: 99%;
+  position: absolute;
+  height: var(--ocena-btn-size);
+  aspect-ratio: 1/1;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  outline: solid 1px var(--black);
+}
+[data-ocena="2"]:checked::after {
+  background: hsl(36, 68%, 64%);
+}
+[data-ocena="3"]:checked::after {
+  background: hsl(51, 68%, 64%);
+}
+[data-ocena="4"]:checked::after {
+  background: hsl(75, 68%, 64%);
+}
+[data-ocena="5"]:checked::after {
+  background: hsl(98, 68%, 64%);
+}
+.ocena:focus::after,
+.ocena:hover::after {
+  outline: 3px solid var(--primery-color);
+}

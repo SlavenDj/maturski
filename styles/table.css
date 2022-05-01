@@ -10,11 +10,11 @@ table > :nth-child(n + 2):hover {
 th {
   color: var(--grey-600);
   font-weight: 500;
-  border-bottom: 1px solid var(--blue);
+  border-bottom: 1px solid var(--primery-color);
   padding: 0.25rem 1rem;
 }
 table :nth-child(n + 2):not(td):not(input):hover {
-  outline: solid var(--blue) 1px;
+  outline: solid var(--primery-color) 1px;
 }
 td {
   padding: 0.5rem 1rem;

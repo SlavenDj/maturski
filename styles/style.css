@@ -32,9 +32,28 @@ body div {
   user-select: none;
 }
 
-[type="date"] {
+[type="date"], [type="tel"] {
   width: 15ch;
 }
 @media (min-width: 1025px) {
   
+}
+#dbroj{
+  width: 7ch;
+}
+
+#tip{
+  inset: 0;
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-items: center;
+  background: rgba(5, 5, 5, 0.411);
+  backdrop-filter: blur(5px);
+  color: #fff;
+}
+#tip *{
+  border-radius: 18px;
+  display: block;
+  width: max-content;
 }
