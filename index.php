@@ -39,19 +39,20 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input value="Đervida" type="text" id="prezime" name="prezime">
 
     <label for="telefon">Koji je broj tvog telefona:</label>
-    <input type="tel" id="telefon" name="telefon" placeholder="Format ###/###-### (npr. 066/123-456)" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
+    <input type="tel"  inputmode="numeric" id="telefon" name="telefon" 
+    placeholder="### ###-###" pattern="[0-9]{3} [0-9]{3}-[0-9]{3}">
 
     <label for="mail">Tvoji e-mail:</label>
     <input value="slavendjervida@gmail.com" type="email" id="mail" name="mail">
 
     <label for="jmbg">Koji je tvoj JMBG:</label>
-    <input value="3112020160017" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13">
+    <input value="3112020160017" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" inputmode="numeric">
 
     <label for="datum-rodjenja">Kad si rođen:
     </label>
     <input placeholder="dd-mm-yyyy" type="date" id="datum-rodjenja" name="datum_rodjenja">
 
-    <label for="mestoR">Gde si rođen:</label>
+    <label for="mestoR">Gde si rođen (u kom mestu, u kojoj opštini):</label>
     <input type="text" id="mestoR" name="mestoR">
 
     <label for="adresa">Na kojoj adresi živiš:</label>
@@ -143,7 +144,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-majke" name="prezime-majke">
 
     <label for="telefon-majke">Broj telefona Majke:</label>
-    <input type="tel" id="telefon-majke" name="telefon-majke">
+    <input type="tel" inputmode="numeric" id="telefon-majke" name="telefon-majke">
 
     <label for="zanimanje-majke">Zanimanje Majke:</label>
     <input type="text" id="zanimanje-majke" name="zanimanje-majke">
@@ -168,7 +169,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-oca" name="prezime-oca">
 
     <label for="telefon-oca">Broj telefona oca:</label>
-    <input type="tel" id="telefon-oca" name="telefon-oca">
+    <input type="tel" inputmode="numeric" id="telefon-oca" name="telefon-oca">
 
     <label for="zanimanje-oca">Zanimanje oca:</label>
     <input type="text" id="zanimanje-oca" name="zanimanje-oca">

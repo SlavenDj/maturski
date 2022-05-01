@@ -23,4 +23,18 @@ body div {
   gap: 1.25rem;
 }
 
+.prijava * {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
 
+[type="date"] {
+  width: 15ch;
+}
+@media (min-width: 1025px) {
+  
+}

@@ -1,12 +1,13 @@
 .ocena::after {
+  --ocena-btn-size: 40px;
     content: attr(data-ocena);
     background: green;
     display: flex;
     /*top:0;*/
     border-radius: 99%;
     position: absolute;
-    height: 44px;
-    width: 44px;
+    height: var(--ocena-btn-size);
+    aspect-ratio: 1/1;
     text-align: center;
     align-items: center;
     justify-content: space-around;
@@ -20,8 +21,8 @@
     outline: 3px solid var(--blue);
   }
   .ocena {
-    width: 44px;
-    height: 44px;
+    height: var(--ocena-btn-size);
+    aspect-ratio: 1/1;
   }
   .ocena:focus {
     outline: none;
