@@ -2,6 +2,9 @@
 @import url("table.css");
 @import url("color.css");
 @import url("button.css");
+@import url("ocena.css");
+@import url("formElemets.css");
+@import url("forms.css");
 /* :root {
   
 } */
@@ -20,17 +23,4 @@ body div {
   gap: 1.25rem;
 }
 
-#smer,
-#vuk,
-#podaci-ucenika,
-#jezik-ver,
-#svedocansto-9,
-#Majka,
-#otac,
-#ocene-6,
-#ocene-7,
-#ocene-8,
-#ocene-9 {
-  display: none;
-  /* background: red; */
-}
+

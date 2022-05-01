@@ -56,13 +56,27 @@ function selectMenu($database, $query, $selectMenuName)
 
 function grade($grade, $class, $subject)
 {
-    return "
+    /*return "
     <label for='$subject-grad-$grade-class-$class'> $grade
         <input type = 'radio' 
             value='$grade' 
             id='$subject-grad-$grade-class-$class'  
-            name='$subject-$class' > 
-    </label>";
+            name='$subject-$class' 
+            class='ocena'
+            data-ocena='$grade'
+            > 
+    </label>";*/
+
+    return "
+    
+        <input type = 'radio' 
+            value='$grade' 
+            id='$subject-grad-$grade-class-$class'  
+            name='$subject-$class' 
+            class='ocena'
+            data-ocena='$grade'
+            > 
+    ";
 }
 
 function insertingGrades($database, $class)
@@ -109,7 +123,7 @@ function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message)
     echo "<table><th>{$title}</th>";
     while ($row = $res->fetch_assoc())
         echo "<tr><td> {$row["naziv"]} </td> 
-        <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'value=></td>
+        <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'></td>
     </tr>";
     echo "</table>";
 }

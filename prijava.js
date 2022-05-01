@@ -41,3 +41,14 @@ btnsForBack.forEach((btn)=>{
         show(sections[currentSection]);
     })
 })
+
+const checkBoxes_smer= document.querySelectorAll("input[name^='smer-']");
+console.log(checkBoxes_smer);
+checkBoxes_smer.forEach(checkBox => {
+    checkBox.parentElement.parentElement.addEventListener("click", e=>{
+        const currentCheckbox=e.target.parentElement.querySelector("input[name^='smer-']")
+        currentCheckbox.checked= !currentCheckbox.checked;
+    })
+    
+    
+});

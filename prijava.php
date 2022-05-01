@@ -12,42 +12,49 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 </div>
 <div id="vuk">
     <p>Da li si vukovac?</p>
-    <input type="radio" name="vukovac" id="vukovac-da" value="1">
-    <label for="vukovac-da">Jesam</label>
+    <section id="vuk-background">
+        <div>
+            <input type="radio" name="vukovac" id="vukovac-da" value="1">
+            <label for="vukovac-da">Jesam</label>
 
-    <input type="radio" name="vukovac" id="vukovac-ne" value="0">
-    <label for="vukovac-ne">Nisam</label>
+        </div>
+        <div>
+
+            <input type="radio" name="vukovac" id="vukovac-ne" value="0">
+            <label for="vukovac-ne">Nisam</label>
+        </div>
+    </section>
+
+
     <button type='button' class='back'>Nazad</button>
     <button type='button' class='next'>Dalje</button>
 </div>
 
 <div id="podaci-ucenika">
 
-    <label for="ime">Ime:</label>
+    <label for="ime">Kako se zoveš:</label>
     <input value="Slaven" type="text" id="ime" name="ime">
 
-    <label for="prezime">Prezime:</label>
+    <label for="prezime">Kako se prezivaš:</label>
     <input value="Đervida" type="text" id="prezime" name="prezime">
 
-    <label for="telefon">Telefon:</label>
-    <input value="066/123-456" type="tel" id="telefon" name="telefon" placeholder="###/###-###" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
-    <small>Npr. 066/123-456</small>
-    <br>
+    <label for="telefon">Koji je broj tvog telefona:</label>
+    <input type="tel" id="telefon" name="telefon" placeholder="Format ###/###-### (npr. 066/123-456)" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
 
-
-    <label for="mail">E-mail:</label>
+    <label for="mail">Tvoji e-mail:</label>
     <input value="slavendjervida@gmail.com" type="email" id="mail" name="mail">
 
-    <label for="jmbg">JMBG:</label>
+    <label for="jmbg">Koji je tvoj JMBG:</label>
     <input value="3112020160017" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13">
 
-    <label for="datum-rodjenja">Datum rođenja:</label>
-    <input value="2002-12-31" type="date" id="datum-rodjenja" name="datum_rodjenja">
+    <label for="datum-rodjenja">Kad si rođen:
+    </label>
+    <input placeholder="dd-mm-yyyy" type="date" id="datum-rodjenja" name="datum_rodjenja">
 
-    <label for="mestoR">Mesto rođenja:</label>
-    <input value="Prijedor" type="text" id="mestoR" name="mestoR">
+    <label for="mestoR">Gde si rođen:</label>
+    <input type="text" id="mestoR" name="mestoR">
 
-    <label for="adresa">Adresa prebivališta:</label>
+    <label for="adresa">Na kojoj adresi živiš:</label>
     <input type="text" id="adresa" name="adresa">
     <button type='button' class='back'>Nazad</button>
     <button type='button' class='next'>Dalje</button>
@@ -82,6 +89,11 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         <option value="islamska">Islamaska veronauka</option>
         <option value="etika i kultura religije">etika i kultura religije</option>
     </select>
+    <small>
+        Veronauku imaš sve 4 godine ako nju izabereš.
+        A ako izabereš etiku i kulture religije onda češ kulturu religije imati 1. i 2. razred a etiku do kraja.
+
+    </small>
     <button type='button' class='back'>Nazad</button>
     <button type='button' class='next'>Dalje</button>
 

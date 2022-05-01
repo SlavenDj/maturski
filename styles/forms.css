@@ -1,0 +1,24 @@
+#smer,
+#vuk,
+#podaci-ucenika,
+#jezik-ver,
+#svedocansto-9,
+#Majka,
+#otac,
+#ocene-6,
+#ocene-7,
+#ocene-8,
+#ocene-9 {
+  display: none;
+}
+
+#vuk div {
+  display: flex;
+  flex-direction: row;
+}
+
+#vuk-background {
+  background: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+}

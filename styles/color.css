@@ -2,13 +2,14 @@
   --pg-100-opcty: 0.25;
   --blue: #4d70b8;
   --pg: linear-gradient(119.59deg, #9d81b3 0%, var(--blue) 100%);
+  --white: #eceff9;
+  --grey-100: #dfe2eb;
+  --grey-600: #4f4f52;
+  --grey-800: #474747;
+  --black: #262626;
   --pg-100: linear-gradient(
     119.59deg,
     hsla(274, 25%, 60%, var(--pg-100-opcty)) 0%,
     hsla(220, 43%, 51%, var(--pg-100-opcty)) 100%
   );
-  --white: #eceff9;
-  --grey-100: #dfe2eb;
-  --grey-600: #4f4f52;
-  --black: #262626;
 }

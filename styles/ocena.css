@@ -1,0 +1,28 @@
+.ocena::after {
+    content: attr(data-ocena);
+    background: green;
+    display: flex;
+    /*top:0;*/
+    border-radius: 99%;
+    position: absolute;
+    height: 44px;
+    width: 44px;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .ocena:checked::after {
+    background: red;
+    color: #0b690b;
+  }
+  .ocena:focus::after,
+  .ocena:hover::after {
+    outline: 3px solid var(--blue);
+  }
+  .ocena {
+    width: 44px;
+    height: 44px;
+  }
+  .ocena:focus {
+    outline: none;
+  }
