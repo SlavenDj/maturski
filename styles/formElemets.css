@@ -27,6 +27,4 @@ input::placeholder {
 label:not([for^="vuk"]) {
   margin-bottom: -1rem;
 }
-#jmbg {
-  width: 15ch;
-}
+

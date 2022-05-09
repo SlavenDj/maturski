@@ -13,10 +13,14 @@ th {
   border-bottom: 1px solid var(--primery-color);
   padding: 0.25rem 1rem;
 }
+/* tr{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+} */
 table :nth-child(n + 2):not(td):not(input):hover {
   outline: solid var(--primery-color) 1px;
 }
 td {
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
 }
 

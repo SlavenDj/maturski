@@ -5,144 +5,136 @@ include "admin_files/conn.php";
 include "admin_files/funs.php";
 include "admin_files/querys.php";
 
-//
-
-
-if(isset($_POST["ime"])){
+if (isset($_POST["ime"])) {
     $jmbg = $_POST["jmbg"];
-    $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
+    $ucenikID = "SELECT id FROM ucenik where jmbg='$jmbg'";
+    $res = $mydb->query($ucenikID);
     $row = $res->fetch_assoc();
-
-
+    $ucenikID = $row["id"];
     if ($row == null) {
         $unosUcenika =
             "INSERT INTO ucenik
-            (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
-        VALUES
-        (
-            '{$_POST["ime"]}', 
-            '{$_POST["prezime"]}', 
-            '{$_POST["telefon"]}', 
-            '{$_POST["mail"]}', 
-            '{$_POST["jmbg"]}', 
-            '{$_POST["datum_rodjenja"]}', 
-            '{$_POST["mestoR"]}',
-            '{$_POST["adresa"]}'
-            );";
+                (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa)
+            VALUES
+            (
+                '{$_POST["ime"]}', 
+                '{$_POST["prezime"]}', 
+                '{$_POST["telefon"]}', 
+                '{$_POST["mail"]}', 
+                '{$_POST["jmbg"]}', 
+                '{$_POST["datum_rodjenja"]}', 
+                '{$_POST["mestoR"]}',
+                '{$_POST["adresa"]}'
+                );";
         $mydb->query($unosUcenika);
     } else {
-        $unosUcenika =
+        $azurirajUcenika =
             "UPDATE ucenik
+                SET
+                    ime ='{$_POST["ime"]}',
+                    prezime ='{$_POST["prezime"]}',
+                    telefon ='{$_POST["telefon"]}',
+                    datum_rodjenja ='{$_POST["datum_rodjenja"]}',
+                    mesto_rodjenja ='{$_POST["mestoR"]}',
+                    adresa ='{$_POST["adresa"]}'
+                WHERE id=$ucenikID;";
+        $mydb->query($azurirajUcenika);
+    }
+    $ucenikID = $row["id"];
+    $azurirajUcenikaJezik =
+        "UPDATE ucenik
             SET
-                ime ='{$_POST["ime"]}',
-                prezime ='{$_POST["ime"]}',
-                telefon ='{$_POST["telefon"]}',
-                datum_rodjenja ='{$_POST["datum_rodjenja"]}',
-                mesto_rodjenja ='{$_POST["mestoR"]}',
-                adresa ='{$_POST["adresa"]}'
-            WHERE jmbg='$jmbg';";
-    }
-    $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
-    $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
-    $ucenikID = $ucenikID["ID"];
-    $unosUcenika =
+                jezik_od_3= '{$_POST["j3"]}',
+                jezik_od_6= '{$_POST["j6"]}',
+                zeljeniJezik= '{$_POST["zeljeniJezik"]}',
+                jezikPre= '{$_POST["jezikPre"]}',
+                veronauka= '{$_POST["veronauka"]}',
+                osnovna_skola= '{$_POST["os"]}',
+                djelovodni_broj= '{$_POST["dbroj"]}',
+                datum_izdavanja= '{$_POST["datum-izdavanja"]}',
+                mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
+            WHERE id=$ucenikID;";
+
+    $mydb->query($azurirajUcenikaJezik);
+    $AzurirajPodatkeORoditeljimaUcenika =
+        "UPDATE ucenik
+            SET
+                ime_majke= '{$_POST["ime-majke"]}',
+                prezime_majke= '{$_POST["prezime-majke"]}',
+                telefon_majke= '{$_POST["telefon-majke"]}',
+                zanimanje_majke= '{$_POST["zanimanje-majke"]}',
+                adresa_majke= '{$_POST["adresa-majke"]}',
+
+                ime_oca= '{$_POST["ime-oca"]}',
+                prezime_oca= '{$_POST["prezime-oca"]}',
+                telefon_oca= '{$_POST["telefon-oca"]}',
+                zanimanje_oca= '{$_POST["zanimanje-oca"]}',
+                adresa_oca= '{$_POST["adresa-oca"]}',
+
+                ime_staratelja= '{$_POST["ime-staratelja"]}',
+                prezime_staratelja= '{$_POST["prezime-staratelja"]}',
+                telefon_staratelja= '{$_POST["telefon-staratelja"]}',
+                zanimanje_staratelja= '{$_POST["zanimanje-staratelja"]}',
+                adresa_staratelja= '{$_POST["adresa-staratelja"]}'
+            WHERE jmbg='{$jmbg}';";
+
+    $mydb->query($AzurirajPodatkeORoditeljimaUcenika);
+    $AzurirajSmer =
         "UPDATE ucenik
         SET
-            jezik_od_3= '{$_POST["j3"]}',
-            jezik_od_6= '{$_POST["j6"]}',
-            veronauka= '{$_POST["j6"]}',
-            osnovna_skola= '{$_POST["os"]}',
-            djelovodni_broj= '{$_POST["dbroj"]}',
-            datum_izdavanja= '{$_POST["datum-izdavanja"]}',
-            mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
+            smer1= '{$_POST["smer-0"]}',
+            smer2= '{$_POST["smer-1"]}'
         WHERE jmbg='{$jmbg}';";
-
-    $mydb->query($unosUcenika);
-    $unosUcenika =
-        "UPDATE ucenik
-        SET
-            ime_majke= '{$_POST["ime-majke"]}',
-            prezime_majke= '{$_POST["prezime-majke"]}',
-            telefon_majke= '{$_POST["telefon-majke"]}',
-            zanimanje_majke= '{$_POST["zanimanje-majke"]}',
-            adresa_majke= '{$_POST["adresa-majke"]}',
-
-            ime_oca= '{$_POST["ime-oca"]}',
-            prezime_oca= '{$_POST["prezime-oca"]}',
-            telefon_oca= '{$_POST["telefon-oca"]}',
-            zanimanje_oca= '{$_POST["zanimanje-oca"]}',
-            adresa_oca= '{$_POST["adresa-oca"]}'
-        WHERE jmbg='{$jmbg}';";
-
-    $mydb->query($unosUcenika);
-
-
-    $unosUcenika =
-        "UPDATE ucenik
-    SET
-        smer1= '{$_POST["smer-0"]}',
-        smer2= '{$_POST["smer-1"]}'
-    WHERE jmbg='{$jmbg}';";
-
-
-    $mydb->query($unosUcenika);
-
-
-
-
-
-
-
-
-    function sviPred2($class)
-    {
-        return
-            "SELECT veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
-    FROM   `veza_razred_predmet`
-    INNER JOIN `predmeti`
-            ON predmeti.id = veza_razred_predmet.predmet
-            AND razred = $class 
-    ORDER  BY redni_broj";
-    }
-
+    $mydb->query($AzurirajSmer);
+    //AzurirajOcene
     for ($class = 6; $class <= 9; $class++) {
         $res = $mydb->query(sviPred2($class));
-        if ($res->num_rows > 0) {
+        if ($res->num_rows)
             while ($subject = $res->fetch_assoc()) {
                 $idPredmeta = $subject["ID_predmeta"];
                 if (isset($_POST["$idPredmeta-$class"])) {
-                    $jmbg = $_POST["jmbg"];
 
+                    /*
+                    ! OVDE JE GREŠKA ZA ISRPAVKU OCENA
+                    */
+                    //echo $_POST["$idPredmeta-$class"];
+                    $postojiLi = $mydb->query(
+                        "SELECT ocena.ocena AS oc FROM ocena 
+                            WHERE 
+                                ucenik=$ucenikID AND 
+                                razred=$class AND 
+                                predmet=$idPredmeta"
+                    );
+                    //echo $postojiLi;
+                    $postojiLi = $postojiLi->fetch_array();
 
-                    if ($row == null)
+                    if (isset($postojiLi["oc"]) == false)
                         $unesiOcenu =
                             "INSERT INTO ocena
-                            (predmet, razred, ucenik, ocena)
-                            VALUES
-                            (
-                                $idPredmeta,
-                                $class, 
-                                $ucenikID, 
-                                {$_POST["$idPredmeta-$class"]}
-                                )";
+                                (predmet, razred, ucenik, ocena)
+                                VALUES
+                                (
+                                    $idPredmeta,
+                                    $class, 
+                                    $ucenikID, 
+                                    {$_POST["$idPredmeta-$class"]}
+                                    )";
                     else
                         $unesiOcenu =
                             "UPDATE ocena
-                        SET
-                             ocena.ocena={$_POST["$idPredmeta-$class"]}
-                            
-                                 WHERE ucenik=$ucenikID AND predmet=$idPredmeta AND razred=$class
-                                 
-                                
-                                ";
+                            SET
+                                ocena.ocena={$_POST["$idPredmeta-$class"]}
+                            WHERE 
+                                ucenik=$ucenikID AND 
+                                predmet=$idPredmeta AND 
+                                razred=$class";
                     $mydb->query($unesiOcenu);
                 }
             }
-        }
     }
 }
-    
-    
+
+
 //
 
 
@@ -174,18 +166,8 @@ $ime = $ucenik["ime"];
                 prikaziSmerUcenik($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi", "smer$j", $ucenik);
             }
             ?>
-            <button type='button'>Dalje</button>
+            
         </div>
-        <!-- <div id="vuk">
-            <p>Da li si vukovac?</p>
-            <input type="radio" name="vukovac" id="vukovac-da" value="1">
-            <label for="vukovac-da">Jesam</label>
-
-            <input type="radio" name="vukovac" id="vukovac-ne" value="0">
-            <label for="vukovac-ne">Nisam</label>
-
-            <button type='button'>Dalje</button>
-        </div> -->
 
         <div id="podaci-ucenika">
 
@@ -196,8 +178,8 @@ $ime = $ucenik["ime"];
             <input value="<?php echo $ucenik["prezime"]; ?>" type="text" id="prezime" name="prezime">
 
             <label for="telefon">Telefon:</label>
-            <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3}">
-            <small>Npr. 066/123-456</small>
+            <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###">
+            
             <br>
 
 
@@ -215,8 +197,7 @@ $ime = $ucenik["ime"];
 
             <label for="adresa">Adresa prebivališta:</label>
             <input value="<?php echo $ucenik["adresa"]; ?>" type="text" id="adresa" name="adresa">
-            <button type='button'>Nazad</button>
-            <button type='button'>Dalje</button>
+
 
         </div>
 
@@ -224,20 +205,65 @@ $ime = $ucenik["ime"];
 
             <p>Strani jezici i veronauka</p>
 
-
+            <?php
+            $jezici = array("engleski jezik", "nemacki jezik", "francuski jezik", "ruski jezik");
+            ?>
             <label for="j3">Jezik od 3.:</label>
             <select id="j3" name="j3" value="<?php echo $ucenik["jezik_od_3"]; ?>">
                 <option value="">Koji jezik si počeo učiti u 3. razredu</option>
-                <option value="engleski jezik">Engleski jezik</option>
-                <option value="nemacki jezik">Njemački jezik</option>
+
+                <?php
+                for ($i = 0; $i < 4; $i++) {
+                    echo "<option value='{$jezici[$i]}'";
+                    if (($ucenik["jezik_od_3"] == $jezici[$i]))
+                        echo "selected";
+                    echo ">{$jezici[$i]}</option>";
+                }
+
+                ?>
             </select>
 
 
             <label for="j6">Jezik od 6.:</label>
             <select id="j6" name="j6" value="<?php echo $ucenik["jezik_od_6"]; ?>">
                 <option value="">Koji jezik si počeo učiti u 6. razredu</option>
-                <option value="engleski jezik">Engleski jezik</option>
-                <option value="nemacki jezik">Njemački jezik</option>
+                <?php
+                for ($i = 0; $i < 4; $i++) {
+                    echo "<option value='{$jezici[$i]}'";
+                    if (($ucenik["jezik_od_6"] == $jezici[$i]))
+                        echo "selected";
+                    echo ">{$jezici[$i]}</option>";
+                }
+
+                ?>
+            </select>
+
+            <label for="jezikPre">Jezik od proslog razreda:</label>
+            <select id="jezikPre" name="jezikPre" value="<?php echo $ucenik["jezikPre"]; ?>">
+                <option value="">Koji jezik si učio u prošlom razredu</option>
+                <?php
+                for ($i = 0; $i < 4; $i++) {
+                    echo "<option value='{$jezici[$i]}'";
+                    if (($ucenik["jezikPre"] == $jezici[$i]))
+                        echo "selected";
+                    echo ">{$jezici[$i]}</option>";
+                }
+
+                ?>
+            </select>
+
+            <label for="zeljeniJezik">Zeljeni jezik.:</label>
+            <select id="zeljeniJezik" name="zeljeniJezik" value="<?php echo $ucenik["zeljeniJezik"]; ?>">
+                <option value="">Koji jezik želiš dalje izučavati</option>
+                <?php
+                for ($i = 0; $i < 2; $i++) {
+                    echo "<option value='{$jezici[$i]}'";
+                    if (($ucenik["zeljeniJezik"] == $jezici[$i]))
+                        echo "selected";
+                    echo ">{$jezici[$i]}</option>";
+                }
+
+                ?>
             </select>
 
             <label for="veronauka">Veronauka ili etika/kultura religije</label>
@@ -248,8 +274,7 @@ $ime = $ucenik["ime"];
                 <option <?php if ($ucenik["veronauka"] == "islamska") echo "selected"; ?> value="islamska">Islamaska veronauka</option>
                 <option <?php if ($ucenik["veronauka"] == "etika i kultura religije") echo "selected"; ?> value="etika i kultura religije">etika i kultura religije</option>
             </select>
-            <button type='button'>Nazad</button>
-            <button type='button'>Dalje</button>
+
 
         </div>
 
@@ -263,13 +288,7 @@ $ime = $ucenik["ime"];
 
             <label for="dbroj">Djelovodni broj</label>
             <input value="<?php echo $ucenik["djelovodni_broj"]; ?>" type="text" id="dbroj" name="dbroj">
-            <small>
-                On se nalazi u gornje dijelu svjedočanstva.
-                <b>
-
-                    Prikaži
-                </b>
-            </small>
+            
 
 
             <label for="datum-izdavanja">Datum izdavanja:</label>
@@ -279,8 +298,7 @@ $ime = $ucenik["ime"];
             <input value="<?php echo $ucenik["mesto_izdavanja"]; ?>" type="text" id="mesto-izdavanja" name="mesto-izdavanja">
 
 
-            <button type='button'>Nazad</button>
-            <button type='button'>Dalje</button>
+
         </div>
 
         <div id="Majka">
@@ -304,8 +322,7 @@ $ime = $ucenik["ime"];
             <label for="adresa-majke">Adresa prebivališta Majke:</label>
             <input value="<?php echo $ucenik["adresa_majke"]; ?>" type="text" id="adresa-majke" name="adresa-majke">
 
-            <button type='button'>Nazad</button>
-            <button type='button'>Dalje</button>
+
         </div>
 
         <div id="otac">
@@ -329,8 +346,30 @@ $ime = $ucenik["ime"];
             <label for="adresa-oca">Adresa prebivališta oca:</label>
             <input value="<?php echo $ucenik["adresa_oca"]; ?>" type="text" id="adresa-oca" name="adresa-oca">
 
-            <button type='button'>Nazad</button>
-            <button type='button'>Dalje</button>
+
+        </div>
+        <div id="otac">
+
+            <p>
+                Podaci o staretelju
+            </p>
+
+            <label for="ime-staratelja">Ime staratelja:</label>
+            <input value="<?php echo $ucenik["ime_staratelja"]; ?>" type="text" id="ime-staratelja" name="ime-staratelja">
+
+            <label for="prezime-staratelja">Prezime staratelja:</label>
+            <input value="<?php echo $ucenik["prezime_staratelja"]; ?>" type="text" id="prezime-staratelja" name="prezime-staratelja">
+
+            <label for="telefon-staratelja">Broj telefona staratelja:</label>
+            <input value="<?php echo $ucenik["telefon_staratelja"]; ?>" type="tel" id="telefon-staratelja" name="telefon-staratelja">
+
+            <label for="zanimanje-staratelja">Zanimanje staratelja:</label>
+            <input value="<?php echo $ucenik["zanimanje_staratelja"]; ?>" type="text" id="zanimanje-staratelja" name="zanimanje-staratelja">
+
+            <label for="adresa-staratelja">Adresa prebivališta staratelja:</label>
+            <input value="<?php echo $ucenik["adresa_staratelja"]; ?>" type="text" id="adresa-staratelja" name="adresa-staratelja">
+
+
         </div>
 
         <p>
@@ -356,6 +395,7 @@ $ime = $ucenik["ime"];
             $stringX .= "> </label>";
             return $stringX;
         }
+
         function insertingGradesUcenik($database, $class, $ucenikId)
         {
             echo "<div>";
@@ -378,7 +418,8 @@ $ime = $ucenik["ime"];
             while ($subject = $res->fetch_assoc()) {
                 $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
                 $mark = $mark->fetch_assoc();
-                $mark = $mark["ocena"];
+
+                @$mark = $mark["ocena"];
                 //echo $mark;
                 echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
                     gradeUcenik(2, $class, $subject["ID_predmeta"], $mark) .
@@ -393,11 +434,236 @@ $ime = $ucenik["ime"];
         for ($raz = 6; $raz < 10; $raz++)
             insertingGradesUcenik($mydb, $raz, $ucenik["ucenikID"]);
 
-        $mydb->close();
+
         ?>
 
-        <button>Sačujav</button>
+        <button>Sačuvaj</button>
     </form>
+
+    <div id="pdf">
+        <header>
+            <div id="skola">
+                ЈУ ЕЛЕКТРОТЕХНИЧКА ШКОЛА
+            </div>
+            <div id="skolska-godina-y">
+                <?php
+                echo intval(date("Y"));
+                ?>
+            </div>
+            <div id="skolska-godina-y2">
+                <?php
+                echo intval(date("Y")) + 1;
+                ?>
+            </div>
+            <div id="mesto-gore">
+                ПРИЈЕДОР
+            </div>
+        </header>
+        <div id="table-header">
+            <div id="razred-text">
+                <?php
+                if ($ucenik["razredUpisa"] == 1)
+                    echo "prvi";
+                if ($ucenik["razredUpisa"] == 2)
+                    echo "drugi";
+                if ($ucenik["razredUpisa"] == 3)
+                    echo "treci";
+                if ($ucenik["razredUpisa"] == 4)
+                    echo "cetvrti";
+                ?>
+            </div>
+            <div id="razred-rismki">
+                <?php
+                if ($ucenik["razredUpisa"] == 1)
+                    echo "I";
+                if ($ucenik["razredUpisa"] == 2)
+                    echo "II";
+                if ($ucenik["razredUpisa"] == 3)
+                    echo "III";
+                if ($ucenik["razredUpisa"] == 4)
+                    echo "IV";
+                ?>
+            </div>
+            <div id="puni-naziv-skole">
+                ЈУ Електротехничка школа Приједор
+            </div>
+            <div id="prazno-1">
+                ----/---
+            </div>
+            <div id="struka-1">
+                електротехника
+            </div>
+            <div id="struka-2">
+                електротехника
+            </div>
+            <div id="smer-1">
+                <?php
+                $smer1 = $mydb->query("SELECT naziv FROM smer JOIN ucenik ON smer.id=ucenik.smer1");
+                $smer1 = $smer1->fetch_array();
+                echo $smer1["naziv"];
+                ?>
+            </div>
+            <div id="smer-2">
+                <?php
+                $smer2 = $mydb->query("SELECT smer2 FROM ucenik where id={$ucenik["ucenikID"]}");
+                $smer2 = $smer2->fetch_array();
+                if ($smer2["smer2"] != 0) {
+                    $smer2 = $mydb->query("SELECT naziv FROM smer JOIN ucenik ON smer.id=ucenik.smer2");
+                    $smer2 = $smer2->fetch_array();
+                    echo $smer2["naziv"];
+                } else
+                    echo "Ne zelim drugo zanimanje"
+                ?>
+            </div>
+        </div>
+
+        <div id="main_data">
+            <div id="imeUcenika">
+                <?php
+                echo $ucenik["ime"] . " " . $ucenik["prezime"]
+                ?>
+            </div>
+            <div id="rodjUcenika">
+                <?php
+                echo
+                date('d.m.Y', strtotime($ucenik["datum_rodjenja"]));
+                ?>
+            </div>
+            <div id="mestoRodjUcenika">
+                <?php
+                echo  $ucenik["mesto_rodjenja"]
+                ?>
+            </div>
+            <div id="otac">
+                <?php
+                if ($ucenik["ime_oca"] != null)
+                    echo  $ucenik["ime_oca"] . " " .
+                        $ucenik["prezime_oca"] . ", " .
+                        $ucenik["adresa_oca"] . ", " .
+                        $ucenik["zanimanje_oca"];
+                else
+                    echo "--------------------";
+                ?>
+
+            </div>
+            <div id="Majka">
+                <?php
+                if ($ucenik["ime_majke"] != null)
+                    echo  $ucenik["ime_majke"] . " " .
+                        $ucenik["prezime_majke"] . ", " .
+                        $ucenik["adresa_majke"] . ", " .
+                        $ucenik["zanimanje_majke"];
+                else
+                    echo "--------------------";
+                ?>
+            </div>
+            <div id="staratelj">
+                <?php
+                if ($ucenik["ime_staratelja"] != null)
+                    echo  $ucenik["ime_staratelja"] . " " .
+                        $ucenik["prezime_staratelja"] . ", " .
+                        $ucenik["adresa_staratelja"] . ", " .
+                        $ucenik["zanimanje_staratelja"];
+                else
+                    echo "--------------------";
+                ?>
+            </div>
+            <div id="adresaUcenika">
+                <?php
+                echo  $ucenik["adresa"]
+                ?>
+            </div>
+            <div id="osnovna-skola">
+                <?php
+                echo  $ucenik["osnovna_skola"]
+                ?>
+            </div>
+            <div id="delovodni-broj">
+                <?php
+                echo  $ucenik["djelovodni_broj"]
+                ?>
+            </div>
+            <div id="datum-mesto-idaje">
+                <?php
+                echo
+                date('d.m.Y', strtotime($ucenik["datum_izdavanja"])) .
+                    ", " . $ucenik["mesto_izdavanja"];
+                ?>
+            </div>
+            <div id="j-3">
+                <?php
+                echo $ucenik["jezik_od_3"]
+
+                ?>
+            </div>
+            <div id="j-6">
+                <?php
+                echo $ucenik["jezik_od_6"]
+
+                ?>
+            </div>
+            <div id="prethodni-razred">
+                <?php
+                echo $ucenik["jezikPre"]
+
+                ?>
+            </div>
+            <div id="zeljeni-jezik">
+                <?php
+                echo $ucenik["zeljeniJezik"]
+
+                ?>
+            </div>
+            <div id="veronauka">
+                <!-- ДА - православну вјеронауку -->
+                <?php
+                echo $ucenik["veronauka"]
+                ?>
+            </div>
+        </div>
+        <div id="broj-tel-rod">
+            Број телефона родитеља: 065 522 111
+        </div>
+        <div id="broj-tel-uc">
+            Број телефона ученика: <?php
+                                    echo $ucenik["telefon"]
+
+                                    ?>
+        </div>
+        <img src="ePrijava za upis učenika u srednju školu-pdf.svg" alt="" draggable="false" />
+        <div id="placehoder-za-mesto-datum">
+            У ____________________________, ________20___.год.
+        </div>
+        <div id="mesto-2">
+            Приједору
+        </div>
+        <div id="potpis">
+            Потпис ученика-це
+        </div>
+        <div id="datum-d-m">
+
+            <?php
+            echo date("d.m.");
+            ?>
+        </div>
+        <div id="datum-y">
+            <?php
+            echo intval(date("Y")) % 100;
+            ?>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 </body>
+<?php
+$mydb->close();
+?>
 
 </html>

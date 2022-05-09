@@ -56,17 +56,6 @@ function selectMenu($database, $query, $selectMenuName)
 
 function grade($grade, $class, $subject)
 {
-    /*return "
-    <label for='$subject-grad-$grade-class-$class'> $grade
-        <input type = 'radio' 
-            value='$grade' 
-            id='$subject-grad-$grade-class-$class'  
-            name='$subject-$class' 
-            class='ocena'
-            data-ocena='$grade'
-            > 
-    </label>";*/
-
     return "
     
         <input type = 'radio' 
@@ -87,16 +76,23 @@ function insertingGrades($database, $class)
     if ($res->num_rows > 0) {
         showSubjects($res, $class);
         if ($class == 9)
-        echo "<button type= >Prijavi se</button></div>";
+            echo "<div class='buttons'> <button type= >Prijavi se</button></div></div>";
         else
-        echo "<button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button></div>";
+            echo "
+        <div class='buttons'>
+        <button type='button' class='back'>Nazad</button>
+        <button type='button' class='next'>Dalje</button>
+    </div>
+        </div>
+        ";
         return;
     }
 
     echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
-    echo " <button type='button' class='back'>Nazad</button>
-    <button type='button' class='next'>Dalje</button></div>";
+    echo " <div class='buttons'>
+    <button type='button' class='back'>Nazad</button>
+    <button type='button' class='next'>Dalje</button>
+</div>";
 }
 function showSubjects($res, $class)
 {
@@ -121,9 +117,13 @@ function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message)
 
 
     echo "<table><th>{$title}</th>";
+    if ($index + 1 == 2)
+        echo "<tr><td><label for='nista'> Ne želim drugo zanimanje </label></td> 
+        <td> <input value = '0' type='radio' name='smer-{$index}' id='nista'></td>
+    </tr>";
     while ($row = $res->fetch_assoc())
-        echo "<tr><td> {$row["naziv"]} </td> 
-        <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'></td>
+        echo "<tr><td><label for='{$index}-{$row["id"]}'> {$row["naziv"]} </label></td> 
+        <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}' id='{$index}-{$row["id"]}'></td>
     </tr>";
     echo "</table>";
 }
@@ -163,8 +163,15 @@ function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_messag
         echo "<p class='not-found'>{$not_found_message}</p>";
         return;
     }
-
     echo "<table><th>{$title}</th>";
+
+    if ($index + 1 == 2)
+       { echo "<tr><td><label for='nista'> Ne želim drugo zanimanje </label></td> 
+        <td> <input value = '0' type='radio' name='smer-{$index}' id='nista'
+        ";
+    if ($ucenik[$polje_name] == 0)
+        echo "checked";
+    echo "></td> </tr>";}
     while ($row = $res->fetch_assoc()) {
         echo "<tr><td> {$row["naziv"]} </td> 
                 <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'";
@@ -174,4 +181,15 @@ function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_messag
             </tr>";
     }
     echo "</table>";
+}
+
+function sviPred2($class)
+{
+    return
+        "SELECT veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
+                    FROM   `veza_razred_predmet`
+                    INNER JOIN `predmeti`
+                            ON predmeti.id = veza_razred_predmet.predmet
+                            AND razred = $class 
+                    ORDER  BY redni_broj";
 }

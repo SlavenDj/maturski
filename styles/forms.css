@@ -1,18 +1,9 @@
-#smer,
-#vuk,
-#podaci-ucenika,
-#jezik-ver,
-#svedocansto-9,
-#Majka,
-#otac,
-#ocene-6,
-#ocene-7,
-#ocene-8,
-#ocene-9 {
+#main-form > *, #insertJMBG {
   display: none;
 }
 
-#vuk div {
+
+#vuk div:not(.buttons) {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;

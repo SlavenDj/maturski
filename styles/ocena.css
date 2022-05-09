@@ -1,15 +1,17 @@
-.ocena {
+.ocena,
+.razred {
   --ocena-btn-size: 40px;
+  height: var(--ocena-btn-size);
   width: var(--ocena-btn-size);
-  aspect-ratio: 1/1;
 }
-.ocena:focus {
+.ocena:focus,
+.razred:focus {
   outline: none;
 }
 
 .ocena::after {
   content: attr(data-ocena);
-  
+
   background: #fff;
   font-size: 1.25rem;
   display: flex;
@@ -36,6 +38,28 @@
   background: hsl(98, 68%, 64%);
 }
 .ocena:focus::after,
-.ocena:hover::after {
+.ocena:hover::after,
+.razred:focus::after,
+.razred:hover::after {
   outline: 3px solid var(--primery-color);
+}
+
+.razred::after {
+  content: attr(data-razred);
+
+  background: #fff;
+  font-size: 1.25rem;
+  display: flex;
+  color: var(--black);
+  border-radius: 99%;
+  position: absolute;
+  height: var(--ocena-btn-size);
+  aspect-ratio: 1/1;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  outline: solid 1px var(--black);
+}
+.razred:checked::after {
+  background: hsl(98, 68%, 64%);
 }

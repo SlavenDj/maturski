@@ -1,85 +1,116 @@
-const sections = [
-    "smer",
-    "vuk",
-    "podaci-ucenika",
-    "jezik-ver",
-    "svedocansto-9",
-    "Majka",
-    "otac",
-    "ocene-6",
-    "ocene-7",
-    "ocene-8",
-    "ocene-9"
-]
+import * as fun from "./functions.js";
+//fun.IsjmbgValidator
+
+// const sections = [
+//     "uvod",
+//     "smer",
+//     "vuk",
+//     "podaci-ucenika",
+//     "jezik-ver",
+//     "svedocansto-9",
+//     "Majka",
+//     "otac",
+//     "ocene-6",
+//     "ocene-7",
+//     "ocene-8",
+//     "ocene-9"
+// ]
+const sections=Array.from(document.querySelectorAll("#main-form > *")).map(e=>e.id)
+
 let currentSection = 0;
 addEventListener("load", () => {
-    show(sections[currentSection]);
+    fun.showElement(sections[currentSection]);
 })
-function hide(e) {
-    const obrazac = document.querySelector(`#${e}`);
-    obrazac.style.display = "none";
+
+let test={
+    ime: "Slaven",
+    prezime: "Đervida",
+    mail: "slavendjervida@gmail.com",
+    brtel: "066 887-516",
+    adresa: "Gradina bb",
+    rodenjdan: "2002-12-31",
+    mestorodjenja: "Prijedor, Prijedor, RS, BiH",
+    jmbg: "3112002017016",
+    imeMajke: "Anđelka",
+    prezimeMajke: "Đervida",
+    zanimanjeMajke: "Programer",
+    telMajke: "066 059-176",
+    adresaMajke: "Gradina bb",
+    imeo: "Konj",
+    prezo: "Konj",
+    zano: "Konj",
+    telo: "Konj",
+    adresao: "...",
+
 }
-function show(e) {
-    const obrazac = document.querySelector(`#${e}`);
-    obrazac.style.display = "flex";
-}
+
+
+
+addEventListener("keydown", e => {
+    fun.onEscapeBlur(e)
+    if (document.activeElement.tagName !== "BODY")
+        return;
+    if (fun.edgeCases(sections[currentSection]) === false) return;
+    if (e.key == "ArrowLeft" && currentSection) {
+        fun.hideElement(sections[currentSection])
+        currentSection--;
+        fun.showElement(sections[currentSection]);
+    }
+    if (e.key == "ArrowRight" && currentSection + 1 < sections.length) {
+        fun.hideElement(sections[currentSection])
+        currentSection++;
+        fun.showElement(sections[currentSection]);
+    }
+
+})
 
 const btnsForNext = document.querySelectorAll(".next");
 btnsForNext.forEach((btn) => {
     btn.addEventListener("click", () => {
-        hide(sections[currentSection])
+        if (fun.edgeCases(sections[currentSection]) === false) return;
+        fun.hideElement(sections[currentSection])
         currentSection++;
-        show(sections[currentSection]);
+        fun.showElement(sections[currentSection]);
     })
 })
-
-addEventListener("keydown", e=>{
-    if(e.key==="Escape")
-    document.activeElement.blur();
-    
-    if(document.activeElement.tagName !== "BODY")
-    return;
-    if(e.key=="ArrowLeft" && currentSection){
-        hide(sections[currentSection])
-        currentSection--;
-        show(sections[currentSection]);
-    }
-    if(e.key=="ArrowRight" && currentSection+1 < sections.length){
-        hide(sections[currentSection])
-        currentSection++;
-        show(sections[currentSection]);
-    }
-    
-})
-
 const btnsForBack = document.querySelectorAll(".back");
 btnsForBack.forEach((btn) => {
+    
     btn.addEventListener("click", () => {
-        hide(sections[currentSection])
+        if (fun.edgeCases(sections[currentSection]) === false) return;
+        fun.hideElement(sections[currentSection])
         currentSection--;
-        show(sections[currentSection]);
+        fun.showElement(sections[currentSection]);
     })
 })
+
+const tipBtn = document.querySelector("#show-tip");
+tipBtn.addEventListener("click", fun.showTip)
+document.querySelector("#tip").addEventListener("click", fun.hideTip);
 
 const checkBoxes_smer = document.querySelectorAll("input[name^='smer-']");
 checkBoxes_smer.forEach(checkBox => {
     checkBox.parentElement.parentElement.addEventListener("click", e => {
-        //e.preventDefault();
         const currentCheckbox = e.target.parentElement.querySelector("input[name^='smer-']")
         currentCheckbox.checked = true;
-
-
     })
-
-
 });
-function showTip() {
-    document.querySelector("#tip").style.display = "grid";
-}
-function hideTip() {
-    document.querySelector("#tip").style.display = "none";
-}
-const tipBtn = document.querySelector("#show-tip");
-tipBtn.addEventListener("click", showTip)
 
-document.querySelector("#tip").addEventListener("click", hideTip);
+
+
+const yes_no_vukovac = document.querySelectorAll("#vuk-background div")
+yes_no_vukovac[0].addEventListener("click", e => {
+    const marks5 = document.querySelectorAll("[data-ocena='5']");
+    marks5.forEach(mark => {
+        mark.checked = true;
+    })
+})
+
+yes_no_vukovac[1].addEventListener("click", e => {
+    const marks5 = document.querySelectorAll("[data-ocena='5']");
+    marks5.forEach(mark => {
+        mark.checked = false;
+    })
+})
+
+

@@ -2,12 +2,10 @@
 @import url("table.css");
 @import url("color.css");
 @import url("button.css");
-@import url("ocena.css");
 @import url("formElemets.css");
 @import url("forms.css");
-/* :root {
-  
-} */
+@import url("ocena.css");
+@import url("pdf.css");
 
 body {
   padding: 0.75rem 2.5rem;
@@ -15,6 +13,7 @@ body {
   gap: 2rem;
   color: var(--black);
   width: clamp(100px, 100%, 836px);
+  min-height: 100vh;
 }
 
 body div {
@@ -32,14 +31,11 @@ body div {
   user-select: none;
 }
 
-[type="date"], [type="tel"] {
+[type="date"], [type="tel"], #dbroj, #jmbg {
   width: 15ch;
 }
 @media (min-width: 1025px) {
   
-}
-#dbroj{
-  width: 7ch;
 }
 
 #tip{
@@ -56,4 +52,22 @@ body div {
   border-radius: 18px;
   display: block;
   width: max-content;
+}
+
+.buttons{
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  padding: 0.75rem 2.5rem;
+
+  background: #fff;
+  max-width: 300vmin;
+  display: flex;
+}
+
+#razredi{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

@@ -13,7 +13,7 @@
 </head>
 
 <body class="prijava">
-    <form method="post" action="prijavaImports/hvala.php">
+    <form method="post" action="prijavaImports/hvala.php" id="main-form">
         <?php
         include "admin_files/conn.php";
         include "admin_files/funs.php";

@@ -1,0 +1,160 @@
+#pdf {
+  display: none;
+  font-family: "Times New Roman" !important;
+}
+#pdf * {
+  font-family: "Times New Roman", Times, serif;
+}
+@media print {
+  #pdf {
+    display: block;
+  }
+  form {
+    display: none;
+  }
+  *:not(img) {
+    position: absolute;
+    font-size: 24px;
+  }
+  #table-header,
+  header,
+  #main_data {
+    width: 100%;
+  }
+  #skola {
+    left: 230px;
+    top: 179px;
+    font-size: 24px;
+  }
+  #skolska-godina-y {
+    left: 933px;
+    top: 180px;
+    font-size: 24px;
+  }
+  #skolska-godina-y2 {
+    left: 1023px;
+    top: 180px;
+    font-size: 24px;
+  }
+  #mesto-gore {
+    left: 230px;
+    top: 235px;
+  }
+  #razred-text {
+    left: 382px;
+    top: 397px;
+  }
+  #razred-rismki {
+    left: 530px;
+    top: 397px;
+  }
+  #puni-naziv-skole {
+    left: 640px;
+    top: 397px;
+  }
+  #prazno-1 {
+    top: 436px;
+    left: 390px;
+  }
+  #struka-1 {
+    top: 476px;
+    left: 224px;
+  }
+  #struka-2 {
+    top: 516px;
+    left: 224px;
+  }
+  #smer-1 {
+    top: 476px;
+    left: 714px;
+  }
+  #smer-2 {
+    top: 516px;
+    left: 714px;
+  }
+  #main_data * {
+    left: 674px;
+  }
+  #imeUcenika {
+    top: 616px;
+
+    font-weight: bold;
+  }
+  #rodjUcenika {
+    top: 662px;
+  }
+  #mestoRodjUcenika {
+    top: 706px;
+  }
+  #otac {
+    top: 751px;
+  }
+  #Majka {
+    top: 796px;
+  }
+  #staratelj {
+    top: 844px;
+  }
+  #adresaUcenika {
+    top: 896px;
+  }
+  #osnovna-skola {
+    top: 940px;
+  }
+  #delovodni-broj {
+    top: 986px;
+  }
+  #datum-mesto-idaje {
+    top: 1030px;
+  }
+  #zeljeni-jezik {
+    top: 1190px;
+  }
+  #veronauka {
+    top: 1236px;
+  }
+  #j-3 {
+    top: 1076px;
+    left: 886px;
+  }
+  #j-6 {
+    top: 1110px;
+    left: 886px;
+  }
+  #prethodni-razred {
+    top: 1146px;
+    left: 935px;
+  }
+
+  #broj-tel-rod {
+    top: 1430px;
+    left: 150px;
+  }
+  #broj-tel-uc {
+    top: 1430px;
+    left: 600px;
+  }
+  :root {
+    --placehoder-top: 1500px;
+  }
+  #placehoder-za-mesto-datum {
+    top: var(--placehoder-top);
+    left: 115px;
+  }
+  #mesto-2 {
+    top: var(--placehoder-top);
+    left: 255px;
+  }
+  #potpis {
+    top: var(--placehoder-top);
+    left: 865px;
+  }
+  #datum-d-m {
+    top: var(--placehoder-top);
+    left: 518px;
+  }
+  #datum-y {
+    top: var(--placehoder-top);
+    left: 614px;
+  }
+}

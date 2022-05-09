@@ -46,7 +46,7 @@ function findUcenik($jmbg)
     return "SELECT *,
                 ucenik.id AS ucenikID
             FROM   ucenik
-                JOIN ocena
-                ON ucenik.id = ocena.ucenik
+                
+                
             WHERE  jmbg = '$jmbg';";
 }
