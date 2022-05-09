@@ -157,7 +157,11 @@ $ime = $ucenik["ime"];
 </head>
 
 <body>
+
     <form method="post">
+        <button type="button" id="print">
+            Odštampaj
+        </button>
         <div id="smerovi">
             <?php
             $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
@@ -166,7 +170,7 @@ $ime = $ucenik["ime"];
                 prikaziSmerUcenik($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi", "smer$j", $ucenik);
             }
             ?>
-            
+
         </div>
 
         <div id="podaci-ucenika">
@@ -179,7 +183,7 @@ $ime = $ucenik["ime"];
 
             <label for="telefon">Telefon:</label>
             <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###">
-            
+
             <br>
 
 
@@ -288,7 +292,7 @@ $ime = $ucenik["ime"];
 
             <label for="dbroj">Djelovodni broj</label>
             <input value="<?php echo $ucenik["djelovodni_broj"]; ?>" type="text" id="dbroj" name="dbroj">
-            
+
 
 
             <label for="datum-izdavanja">Datum izdavanja:</label>
@@ -659,7 +663,11 @@ $ime = $ucenik["ime"];
 
 
 
-
+<script>
+    document.getElementById("print").addEventListener("click", ()=>{
+        print()
+    })
+</script>
 
 </body>
 <?php

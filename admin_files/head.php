@@ -1,5 +1,5 @@
 <?php
-include 'conn.php';
+include 'admin_files/conn.php';
 include 'querys.php';
 include "funs.php";
 include "add_erase.php";

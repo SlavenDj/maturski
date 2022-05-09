@@ -1,21 +1,27 @@
 #pdf {
   display: none;
-  font-family: "Times New Roman" !important;
+  height: 1600px;
+  overflow: hidden;
 }
+
 #pdf * {
   font-family: "Times New Roman", Times, serif;
 }
+
 @media print {
   #pdf {
-    display: block;
+    display: inline;
   }
+
   form {
     display: none;
   }
+
   *:not(img) {
     position: absolute;
     font-size: 24px;
   }
+
   #table-header,
   header,
   #main_data {

@@ -71,3 +71,8 @@ body div {
   align-items: center;
   justify-content: center;
 }
+#print{
+  position: sticky;
+  top: 0;
+  left: 0;
+}
