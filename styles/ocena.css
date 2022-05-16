@@ -37,18 +37,15 @@
 [data-ocena="5"]:checked::after {
   background: hsl(98, 68%, 64%);
 }
+
 .ocena:focus::after,
-.ocena:hover::after,
-.razred:focus::after,
-.razred:hover::after {
+.razred:focus::after {
   outline: 3px solid var(--primery-color);
 }
 
 .razred::after {
   content: attr(data-razred);
-
   background: #fff;
-  font-size: 1.25rem;
   display: flex;
   color: var(--black);
   border-radius: 99%;
@@ -62,4 +59,11 @@
 }
 .razred:checked::after {
   background: hsl(98, 68%, 64%);
+}
+
+#razredi {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

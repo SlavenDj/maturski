@@ -28,3 +28,9 @@ label:not([for^="vuk"]) {
   margin-bottom: -1rem;
 }
 
+[type="date"],
+[type="tel"],
+#dbroj,
+#jmbg {
+  width: 15ch;
+}

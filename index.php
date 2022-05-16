@@ -6,8 +6,10 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 
 
 <div id="uvod">
+    <p>
+        U koji razred se upisuješ
+    </p>
 
-    U koji razred se upisuješ
     <div id="razredi">
         <input type="radio" data-razred="1" class="razred" name="razred" value="1">
         <input type="radio" data-razred="2" class="razred" name="razred" value="2">
@@ -74,8 +76,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     </label>
     <input placeholder="dd-mm-yyyy" type="date" id="datum-rodjenja" name="datum_rodjenja">
 
-    <label for="mestoR">Gde si rođen (u kom mestu, u kojoj opštini):</label>
-    <input type="text" id="mestoR" name="mestoR">
+    <label for="mesto_rodjenja">Gde si rođen (u kom mestu, u kojoj opštini):</label>
+    <input type="text" id="mesto_rodjenja" name="mesto_rodjenja">
 
     <label for="adresa">Na kojoj adresi živiš:</label>
     <input type="text" id="adresa" name="adresa">
@@ -94,8 +96,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <?php
     $jezici = array("engleski jezik", "nemacki jezik", "francuski jezik", "ruski jezik");
     ?>
-    <label for="j3">Jezik od 3.:</label>
-    <select id="j3" name="j3">
+    <label for="jezik_od_3">Jezik od 3.:</label>
+    <select id="jezik_od_3" name="jezik_od_3">
         <option value="">Koji jezik si počeo učiti u 3. razredu</option>
         <?php
         for ($i = 0; $i < 4; $i++) {
@@ -108,8 +110,8 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     </select>
 
 
-    <label for="j6">Jezik od 6.:</label>
-    <select id="j6" name="j6">
+    <label for="jezik_od_6">Jezik od 6.:</label>
+    <select id="jezik_od_6" name="jezik_od_6">
         <option value="">Koji jezik si počeo učiti u 6. razredu</option>
         <?php
         for ($i = 0; $i < 4; $i++) {
@@ -172,12 +174,12 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <p>Podaci sa svedočansta 9 razreda</p>
 
 
-    <label for="os">Naziv osnovne škole:</label>
-    <input value="Vuk" type="text" id="os" name="os">
+    <label for="osnovna_skola">Naziv osnovne škole:</label>
+    <input type="text" id="osnovna_skola" name="osnovna_skola">
 
 
-    <label for="dbroj">Djelovodni broj</label>
-    <input value="1234" type="text" id="dbroj" name="dbroj">
+    <label for="djelovodni_broj">Djelovodni broj</label>
+    <input type="text" id="djelovodni_broj" name="djelovodni_broj">
     <small>
         On se nalazi u gornje dijelu svjedočanstva.
         <b id="show-tip">
@@ -192,11 +194,11 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         </p>
     </div>
 
-    <label for="datum-izdavanja">Datum izdavanja:</label>
-    <input value="2018-06-01" type="date" id="datum-izdavanja" name="datum-izdavanja">
+    <label for="datum_izdavanja">Datum izdavanja:</label>
+    <input type="date" id="datum_izdavanja" name="datum_izdavanja">
 
-    <label for="mesto-izdavanja">Mjesto izdavanja:</label>
-    <input value="Prijedor" type="text" id="mesto-izdavanja" name="mesto-izdavanja">
+    <label for="mesto_izdavanja">Mjesto izdavanja:</label>
+    <input type="text" id="mesto_izdavanja" name="mesto_izdavanja">
 
 
 
@@ -219,7 +221,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-majke" name="prezime-majke">
 
     <label for="telefon-majke">Broj telefona Majke:</label>
-    <input type="tel" inputmode="numeric" id="telefon-majke" name="telefon-majke">
+    <input type="tel" inputmode="numeric" id="telefon-majke" name="telefon-majke" placeholder="### ###-###">
 
     <label for="zanimanje-majke">Zanimanje Majke:</label>
     <input type="text" id="zanimanje-majke" name="zanimanje-majke">
@@ -247,7 +249,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-oca" name="prezime-oca">
 
     <label for="telefon-oca">Broj telefona oca:</label>
-    <input type="tel" inputmode="numeric" id="telefon-oca" name="telefon-oca">
+    <input type="tel" inputmode="numeric" id="telefon-oca" name="telefon-oca" placeholder="### ###-###">
 
     <label for="zanimanje-oca">Zanimanje oca:</label>
     <input type="text" id="zanimanje-oca" name="zanimanje-oca">
@@ -275,7 +277,7 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <input type="text" id="prezime-staratelja" name="prezime-staratelja">
 
     <label for="telefon-staratelja">Broj telefona staratelja:</label>
-    <input type="tel" inputmode="numeric" id="telefon-staratelja" name="telefon-staratelja">
+    <input type="tel" inputmode="numeric" id="telefon-staratelja" name="telefon-staratelja" placeholder="### ###-###">
 
     <label for="zanimanje-staratelja">Zanimanje staratelja:</label>
     <input type="text" id="zanimanje-staratelja" name="zanimanje-staratelja">
@@ -306,7 +308,7 @@ $mydb->close();
         <label for="find-jmbg">Unesi svoji JMBG</label>
         <input type="text" id="find-jmbg" name="jmbg">
         <div class="buttons">
-            <button>Pronađi me</button>
+            <button id="pronadi-me">Pronađi me</button>
         </div>
     </form>
 </div>

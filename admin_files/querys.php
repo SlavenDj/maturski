@@ -27,18 +27,17 @@ function qryDelete($class)
 
 function qryInsert($class)
 {
-    return "INSERT INTO `veza_razred_predmet`
-                        (
-                                    `predmet`,
-                                    `razred`,
-                                    `redni_broj`
-                        )
-                        VALUES
-                        (
-                                    {$_POST["dodaj_predmet_$class"]},
-                                    $class,
-                                    " . (int)$_POST["redni_broj_$class"] . "
-                        )";
+    return "INSERT INTO `veza_razred_predmet` (
+                    `predmet`,
+                    `razred`,
+                    `redni_broj`
+                )
+                VALUES
+                (
+                    {$_POST["dodaj_predmet_$class"]},
+                    $class,
+                    " . (int)$_POST["redni_broj_$class"] . "
+                )";
 }
 
 function findUcenik($jmbg)

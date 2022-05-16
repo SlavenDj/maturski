@@ -12,8 +12,8 @@
     <?php
     include "../admin_files/conn.php";
 
+    $jmbg = $_POST["jmbg"];
     if (isset($_POST["ime"])) {
-        $jmbg = $_POST["jmbg"];
         $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
         $row = $res->fetch_assoc();
 
@@ -21,7 +21,7 @@
         if ($row == null) {
             $unosUcenika =
                 "INSERT INTO ucenik
-            (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa, razredUpisa)
+            (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa, razredUpisa )
         VALUES
         (
             '{$_POST["ime"]}', 
@@ -30,7 +30,7 @@
             '{$_POST["mail"]}', 
             '{$_POST["jmbg"]}', 
             '{$_POST["datum_rodjenja"]}', 
-            '{$_POST["mestoR"]}',
+            '{$_POST["mesto_rodjenja"]}',
             '{$_POST["adresa"]}',
             {$_POST["razred"]}
             );";
@@ -44,9 +44,9 @@
                 prezime ='{$_POST["ime"]}',
                 telefon ='{$_POST["telefon"]}',
                 datum_rodjenja ='{$_POST["datum_rodjenja"]}',
-                mesto_rodjenja ='{$_POST["mestoR"]}',
+                mesto_rodjenja ='{$_POST["mesto_rodjenja"]}',
                 adresa ='{$_POST["adresa"]}',
-                razred ={$_POST["razred"]}
+                razredUpisa = {$_POST["razred"]}
             WHERE jmbg='$jmbg';";
         }
         $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
@@ -55,15 +55,15 @@
         $unosUcenika =
             "UPDATE ucenik
                 SET
-                    jezik_od_3= '{$_POST["j3"]}',
-                    jezik_od_6= '{$_POST["j6"]}',
+                    jezik_od_3= '{$_POST["jezik_od_3"]}',
+                    jezik_od_6= '{$_POST["jezik_od_6"]}',
                     zeljeniJezik= '{$_POST["zeljeniJezik"]}',
                     jezikPre= '{$_POST["jezikPre"]}',
                     veronauka= '{$_POST["veronauka"]}',
-                    osnovna_skola= '{$_POST["os"]}',
-                    djelovodni_broj= '{$_POST["dbroj"]}',
-                    datum_izdavanja= '{$_POST["datum-izdavanja"]}',
-                    mesto_izdavanja= '{$_POST["mesto-izdavanja"]}'
+                    osnovna_skola= '{$_POST["osnovna_skola"]}',
+                    djelovodni_broj= '{$_POST["djelovodni_broj"]}',
+                    datum_izdavanja= '{$_POST["datum_izdavanja"]}',
+                    mesto_izdavanja= '{$_POST["mesto_izdavanja"]}'
                 WHERE jmbg='{$jmbg}';";
 
         $mydb->query($unosUcenika);
@@ -120,9 +120,6 @@
                 while ($subject = $res->fetch_assoc()) {
                     $idPredmeta = $subject["ID_predmeta"];
                     if (isset($_POST["$idPredmeta-$class"])) {
-                        $jmbg = $_POST["jmbg"];
-
-
                         if ($row == null)
                             $unesiOcenu =
                                 "INSERT INTO ocena

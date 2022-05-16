@@ -17,19 +17,33 @@ function hideTip() {
 
 }
 function showJMBGInputsection() {
-    document.getElementById("insertJMBG").style.display="flex";
+    document.getElementById("insertJMBG").style.display = "flex";
 }
+const
+    MAX_DAYS_IN_MONTH = 31,
+    LAST_MONTH = 12;
 function IsjmbgValidator(jmbg) {
+
     const
         dd = Number(`${jmbg[0]}${jmbg[1]}`),
         mm = Number(`${jmbg[2]}${jmbg[3]}`),
-        ggg = Number(`${jmbg[4]}${jmbg[5]}${jmbg[6]}`),
-        rr = Number(`${jmbg[7]}${jmbg[8]}`),
-        bbb = Number(`${jmbg[9]}${jmbg[10]}${jmbg[11]}`),
         k = Number(`${jmbg[12]}`)
+    let suma = 0, multipler = 7;
+    for (let i = 0; i < jmbg.length - 1; i++) {
+        suma += multipler-- * Number(jmbg[i]);
+        if (multipler == 1) multipler = 7;
+    }
 
-
-    return true;
+    let m = suma % 11;
+    if (
+        dd <= MAX_DAYS_IN_MONTH
+        &&
+        mm <= LAST_MONTH
+        &&
+        (m == k || k == 11 - m)
+    )
+        return true;
+    return false;
 }
 function isClassCheked() {
     const classes = document.querySelectorAll(".razred");
@@ -48,10 +62,10 @@ function onEscapeBlur(e) {
 
 function edgeCases(section) {
     if (section === "podaci-ucenika" &&
-        IsjmbgValidator(document.querySelector("#jmbg").value) === false){
-            alert("Moraš izabrati razred.")
-            return false;
-        }
+        IsjmbgValidator(document.querySelector("#jmbg").value) === false) {
+        alert("Nije validan JMBG.")
+        return false;
+    }
     if (!isClassCheked()) {
         alert("Moraš izabrati razred.")
         return false;

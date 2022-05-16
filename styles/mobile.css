@@ -1,0 +1,45 @@
+@media not all and (pointer: coarse) {
+  button:hover {
+    background: var(--white);
+    color: var(--black);
+    outline: solid var(--primery-color) 1px;
+  }
+}
+@media not all and (pointer: coarse) {
+  .razred:hover::after,
+  .ocena:hover::after {
+    outline: 3px solid var(--primery-color);
+  }
+}
+@media (max-width: 767px) {
+  body {
+    padding: 0.75rem 1rem;
+  }
+}
+@media (max-width: 767px) {
+  #razredi {
+    display: grid;
+    font-size: 3rem;
+    justify-content: space-around;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+  .razred {
+    --razred: 25vw;
+    height: var(--razred);
+    width: var(--razred);
+  }
+  .razred::after {
+    width: var(--razred);
+    height: var(--razred);
+    font-size: 3rem;
+  }
+}
+@media not all and (pointer: coarse) {
+    table > :nth-child(n + 2):hover {
+      background: var(--pg-100);
+    }
+    table :nth-child(n + 2):not(td):not(input):hover {
+      outline: solid var(--primery-color) 1px;
+    }
+  }

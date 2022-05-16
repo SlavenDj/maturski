@@ -15,14 +15,14 @@ import * as fun from "./functions.js";
 //     "ocene-8",
 //     "ocene-9"
 // ]
-const sections=Array.from(document.querySelectorAll("#main-form > *")).map(e=>e.id)
+const sections = Array.from(document.querySelectorAll("#main-form > *")).map(e => e.id)
 
 let currentSection = 0;
 addEventListener("load", () => {
     fun.showElement(sections[currentSection]);
 })
 
-let test={
+let test = {
     ime: "Slaven",
     prezime: "Đervida",
     mail: "slavendjervida@gmail.com",
@@ -50,13 +50,13 @@ addEventListener("keydown", e => {
     fun.onEscapeBlur(e)
     if (document.activeElement.tagName !== "BODY")
         return;
-    if (fun.edgeCases(sections[currentSection]) === false) return;
-    if (e.key == "ArrowLeft" && currentSection) {
+    if (e.key == "ArrowLeft" && currentSection && fun.edgeCases(sections[currentSection])) {
         fun.hideElement(sections[currentSection])
         currentSection--;
         fun.showElement(sections[currentSection]);
     }
-    if (e.key == "ArrowRight" && currentSection + 1 < sections.length) {
+    if (e.key == "ArrowRight" && currentSection + 1 < sections.length
+        && fun.edgeCases(sections[currentSection])) {
         fun.hideElement(sections[currentSection])
         currentSection++;
         fun.showElement(sections[currentSection]);
@@ -75,7 +75,7 @@ btnsForNext.forEach((btn) => {
 })
 const btnsForBack = document.querySelectorAll(".back");
 btnsForBack.forEach((btn) => {
-    
+
     btn.addEventListener("click", () => {
         if (fun.edgeCases(sections[currentSection]) === false) return;
         fun.hideElement(sections[currentSection])
@@ -114,3 +114,60 @@ yes_no_vukovac[1].addEventListener("click", e => {
 })
 
 
+const jmbgFiledForFinding = document.querySelector("#find-jmbg")
+const btnFindMe = document.querySelector("#pronadi-me");
+jmbgFiledForFinding.addEventListener("input", () => {
+    if (jmbgFiledForFinding.value.length === 13) {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let message = this.responseText
+
+                if (message === "false") {
+                    btnFindMe.innerText = "Nema takvog JMBG kod nas";
+                    btnFindMe.toggleAttribute("disabled", true)
+
+                }
+                else{
+                    btnFindMe.innerText = message;
+                    btnFindMe.toggleAttribute("disabled", false)
+                }
+
+            }
+        };
+        xmlhttp.open("GET", "searchJMBG.php?q=" + jmbgFiledForFinding.value, true);
+        xmlhttp.send();
+    }
+})
+
+document.querySelector('[data-razred="1"]').addEventListener("click",
+
+    () => {
+        if (fun.edgeCases(sections[currentSection]) === false) return;
+        fun.hideElement(sections[currentSection])
+        currentSection++;
+        fun.showElement(sections[currentSection]);
+    }
+)
+
+document.querySelector('[data-razred="2"]').addEventListener("click", () => {
+    document.getElementById("insertJMBG").style.display = "flex";
+    fun.hideElement(sections[currentSection]);
+
+}
+
+)
+document.querySelector('[data-razred="3"]').addEventListener("click", () => {
+    document.getElementById("insertJMBG").style.display = "flex";
+    fun.hideElement(sections[currentSection]);
+
+}
+
+)
+document.querySelector('[data-razred="4"]').addEventListener("click", () => {
+    document.getElementById("insertJMBG").style.display = "flex";
+    fun.hideElement(sections[currentSection]);
+
+}
+
+)

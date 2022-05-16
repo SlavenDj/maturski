@@ -4,23 +4,14 @@ table {
   width: 100%;
   background-color: #fff;
 }
-table > :nth-child(n + 2):hover {
-  background: var(--pg-100);
-}
+
 th {
   color: var(--grey-600);
   font-weight: 500;
   border-bottom: 1px solid var(--primery-color);
   padding: 0.25rem 1rem;
 }
-/* tr{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-} */
-table :nth-child(n + 2):not(td):not(input):hover {
-  outline: solid var(--primery-color) 1px;
-}
+
 td {
   padding: 0.25rem 1rem;
 }
-

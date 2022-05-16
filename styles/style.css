@@ -6,6 +6,7 @@
 @import url("forms.css");
 @import url("ocena.css");
 @import url("pdf.css");
+@import url("mobile.css");
 
 body {
   padding: 0.75rem 2.5rem;
@@ -23,22 +24,10 @@ body div {
 }
 
 .prijava * {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
 
-[type="date"], [type="tel"], #dbroj, #jmbg {
-  width: 15ch;
-}
-@media (min-width: 1025px) {
-  
-}
-
-#tip{
+#tip {
   inset: 0;
   position: absolute;
   display: none;
@@ -48,31 +37,12 @@ body div {
   backdrop-filter: blur(5px);
   color: #fff;
 }
-#tip *{
+#tip * {
   border-radius: 18px;
   display: block;
   width: max-content;
 }
 
-.buttons{
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  padding: 0.75rem 2.5rem;
-
-  background: #fff;
-  max-width: 300vmin;
-  display: flex;
-}
-
-#razredi{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-#print{
-  position: sticky;
-  top: 0;
-  left: 0;
+.naziv-predmeta {
+  width: calc(100vw - 250px);
 }
