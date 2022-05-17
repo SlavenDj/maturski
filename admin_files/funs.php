@@ -115,17 +115,13 @@ function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message)
         return;
     }
 
-
-    echo "<table><th>{$title}</th>";
+    echo "<label for='smer$index'>{$title}</label>";
+    echo "<select name='smer-$index' id='smer$index'>";
     if ($index + 1 == 2)
-        echo "<tr><td><label for='nista'> Ne želim drugo zanimanje </label></td> 
-        <td> <input value = '0' type='radio' name='smer-{$index}' id='nista'></td>
-    </tr>";
+        echo "<option value='0'> Ne želim drugo zanimanje </option> ";
     while ($row = $res->fetch_assoc())
-        echo "<tr><td><label for='{$index}-{$row["id"]}'> {$row["naziv"]} </label></td> 
-        <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}' id='{$index}-{$row["id"]}'></td>
-    </tr>";
-    echo "</table>";
+        echo "<option value='{$row["id"]}'> {$row["naziv"]} </option> ";
+    echo "</select>";
 }
 
 function predmetiU($class)
@@ -163,24 +159,19 @@ function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_messag
         echo "<p class='not-found'>{$not_found_message}</p>";
         return;
     }
-    echo "<table><th>{$title}</th>";
-
-    if ($index + 1 == 2)
-       { echo "<tr><td><label for='nista'> Ne želim drugo zanimanje </label></td> 
-        <td> <input value = '0' type='radio' name='smer-{$index}' id='nista'
+    echo "<label for =''>{$title}</label>";
+    echo "<select name='smer-{$index}'> id='smer-{$index}'>";
+    if ($index + 1 == 2) 
+        echo "<option> Ne želim drugo zanimanje </option>
         ";
-    if ($ucenik[$polje_name] == 0)
-        echo "checked";
-    echo "></td> </tr>";}
+    
     while ($row = $res->fetch_assoc()) {
-        echo "<tr><td> {$row["naziv"]} </td> 
-                <td> <input value = '{$row["id"]}' type='radio' name='smer-{$index}'";
+        echo "<option value='{$row["id"]}'";
         if ($ucenik[$polje_name] == $row["id"])
-            echo "checked";
-        echo "></td>
-            </tr>";
+            echo "selected";
+        echo "> {$row["naziv"]} </option>  ";
     }
-    echo "</table>";
+    echo "</select>";
 }
 
 function sviPred2($class)
@@ -194,13 +185,9 @@ function sviPred2($class)
                     ORDER  BY redni_broj";
 }
 
-
-
-//ucenicke funcjije
-
 function gradeUcenik($grade, $class, $subject, $mark)
-        {
-            $stringX = "
+{
+    $stringX = "
     <label for='$subject-grad-$grade-class-$class'> $grade
         <input type = 'radio' 
             value='$grade' 
@@ -209,44 +196,44 @@ function gradeUcenik($grade, $class, $subject, $mark)
             ";
 
 
-            if ($mark == $grade)
-                $stringX .= "checked";
+    if ($mark == $grade)
+        $stringX .= "checked";
 
-            $stringX .= "> </label>";
-            return $stringX;
-        }
+    $stringX .= "> </label>";
+    return $stringX;
+}
 
-        function insertingGradesUcenik($database, $class, $ucenikId)
-        {
-            echo "<div>";
-            echo "<p>Ocene u $class. razredu</p>";
-            $res = $database->query(sviPred2($class));
-            if ($res->num_rows > 0) {
-                showSubjectsUcenik($res, $class, $ucenikId);
-                echo "</div>";
-                return;
-            }
+function insertingGradesUcenik($database, $class, $ucenikId)
+{
+    echo "<div>";
+    echo "<p>Ocene u $class. razredu</p>";
+    $res = $database->query(sviPred2($class));
+    if ($res->num_rows > 0) {
+        showSubjectsUcenik($res, $class, $ucenikId);
+        echo "</div>";
+        return;
+    }
 
-            echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
-            echo "</div>";
-        }
+    echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
+    echo "</div>";
+}
 
-        function showSubjectsUcenik($res, $class, $ucenikId)
-        {
-            include "admin_files/conn.php";
-            echo "<table><th>Naziv predmeta</th>";
-            while ($subject = $res->fetch_assoc()) {
-                $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
-                $mark = $mark->fetch_assoc();
+function showSubjectsUcenik($res, $class, $ucenikId)
+{
+    include "admin_files/conn.php";
+    echo "<table><th>Naziv predmeta</th>";
+    while ($subject = $res->fetch_assoc()) {
+        $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
+        $mark = $mark->fetch_assoc();
 
-                @$mark = $mark["ocena"];
-                //echo $mark;
-                echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
-                    gradeUcenik(2, $class, $subject["ID_predmeta"], $mark) .
-                    gradeUcenik(3, $class, $subject["ID_predmeta"], $mark) .
-                    gradeUcenik(4, $class, $subject["ID_predmeta"], $mark) .
-                    gradeUcenik(5, $class, $subject["ID_predmeta"], $mark) .
-                    "</td></tr>";
-            }
-            echo "</table>";
-        }
+        @$mark = $mark["ocena"];
+        //echo $mark;
+        echo "<tr><td>" . $subject["naziv"] . "</td> <td>" .
+            gradeUcenik(2, $class, $subject["ID_predmeta"], $mark) .
+            gradeUcenik(3, $class, $subject["ID_predmeta"], $mark) .
+            gradeUcenik(4, $class, $subject["ID_predmeta"], $mark) .
+            gradeUcenik(5, $class, $subject["ID_predmeta"], $mark) .
+            "</td></tr>";
+    }
+    echo "</table>";
+}

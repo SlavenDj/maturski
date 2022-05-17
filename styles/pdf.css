@@ -132,9 +132,17 @@
     left: 935px;
   }
 
-  #broj-tel-rod {
-    top: 1430px;
-    left: 150px;
+  #broj-tel-majke {
+    top: 1400px;
+    left: 230px;
+  }
+  #broj-tel-oca {
+    top: 1424px;
+    left: 230px;
+  }
+  #broj-tel-staratelja {
+    top: 1450px;
+    left: 230px;
   }
   #broj-tel-uc {
     top: 1430px;

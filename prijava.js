@@ -22,29 +22,43 @@ addEventListener("load", () => {
     fun.showElement(sections[currentSection]);
 })
 
-let test = {
-    ime: "Slaven",
-    prezime: "Đervida",
-    mail: "slavendjervida@gmail.com",
-    brtel: "066 887-516",
-    adresa: "Gradina bb",
-    rodenjdan: "2002-12-31",
-    mestorodjenja: "Prijedor, Prijedor, RS, BiH",
-    jmbg: "3112002017016",
-    imeMajke: "Anđelka",
-    prezimeMajke: "Đervida",
-    zanimanjeMajke: "Programer",
-    telMajke: "066 059-176",
-    adresaMajke: "Gradina bb",
-    imeo: "Konj",
-    prezo: "Konj",
-    zano: "Konj",
-    telo: "Konj",
-    adresao: "...",
 
+
+function Test() {
+    let test = {
+        ime: "Slaven",
+        prezime: "Đervida",
+        brtel: "066 887-516",
+        mail: "slavendjervida@gmail.com",
+        jmbg: "3112002160017",
+        rodenjdan: "2002-12-31",
+        mestorodjenja: "Prijedor, Prijedor, RS, BiH",
+        adresa: "Gradina bb",
+        imeMajke: "Anđelka",
+        prezimeMajke: "Đervida",
+        zanimanjeMajke: "Programer",
+        telMajke: "066 059-176",
+        adresaMajke: "Gradina bb",
+        imeo: "Predragr",
+        prezo: "Đervida",
+        zano: "Električar",
+        telo: "065 659-005",
+        adresao: "Gradina BB"
+
+    }
+
+    let ids = [
+        "ime",
+        "prezime",
+        "telefon",
+        "mail",
+        "jmbg",
+        "datum-rodjenja",
+        "mesto_rodjenja",
+        "adresa",
+
+    ]
 }
-
-
 
 addEventListener("keydown", e => {
     fun.onEscapeBlur(e)
@@ -117,27 +131,37 @@ yes_no_vukovac[1].addEventListener("click", e => {
 const jmbgFiledForFinding = document.querySelector("#find-jmbg")
 const btnFindMe = document.querySelector("#pronadi-me");
 jmbgFiledForFinding.addEventListener("input", () => {
-    if (jmbgFiledForFinding.value.length === 13) {
-        let xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                let message = this.responseText
+    // if (jmbgFiledForFinding.value.length === 13) {
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let message = this.responseText
 
-                if (message === "false") {
-                    btnFindMe.innerText = "Nema takvog JMBG kod nas";
-                    btnFindMe.toggleAttribute("disabled", true)
+            if (message === "false") {
+                btnFindMe.innerText = "Nema takvog JMBG kod nas";
+                btnFindMe.toggleAttribute("disabled", true)
+                // btnFindMe.classList.toggle("not-ok-jmbg", true);
+                btnFindMe.classList.toggle("ok-jmbg", false);
 
-                }
-                else{
-                    btnFindMe.innerText = message;
-                    btnFindMe.toggleAttribute("disabled", false)
-                }
+                document.getElementById("find-form").toggleAttribute("onSubmit='return'", false)
 
             }
-        };
-        xmlhttp.open("GET", "searchJMBG.php?q=" + jmbgFiledForFinding.value, true);
-        xmlhttp.send();
-    }
+            else {
+                btnFindMe.innerText = message;
+                btnFindMe.toggleAttribute("disabled", false)
+
+                // btnFindMe.classList.toggle("not-ok-jmbg", false);
+                btnFindMe.classList.toggle("ok-jmbg", true);
+
+                document.getElementById("find-form").toggleAttribute("onSubmit='return'", true)
+
+            }
+
+        }
+    };
+    xmlhttp.open("GET", "searchJMBG.php?q=" + jmbgFiledForFinding.value, true);
+    xmlhttp.send();
+    // }
 })
 
 document.querySelector('[data-razred="1"]').addEventListener("click",
@@ -149,25 +173,48 @@ document.querySelector('[data-razred="1"]').addEventListener("click",
         fun.showElement(sections[currentSection]);
     }
 )
-
+function razredUpisa(x) {
+    document.getElementById("razred-koji-upisuje").value = x;
+}
 document.querySelector('[data-razred="2"]').addEventListener("click", () => {
     document.getElementById("insertJMBG").style.display = "flex";
     fun.hideElement(sections[currentSection]);
-
+    razredUpisa(2);
 }
 
 )
 document.querySelector('[data-razred="3"]').addEventListener("click", () => {
     document.getElementById("insertJMBG").style.display = "flex";
     fun.hideElement(sections[currentSection]);
-
+    razredUpisa(3);
 }
 
 )
 document.querySelector('[data-razred="4"]').addEventListener("click", () => {
     document.getElementById("insertJMBG").style.display = "flex";
     fun.hideElement(sections[currentSection]);
-
+    razredUpisa(4);
 }
 
 )
+
+addEventListener("mousemove", (event) => {
+    document.querySelectorAll(".buttons").forEach(e => {
+        // console.log(innerWidth)
+        if (innerWidth > 1080) {
+            e.style.top = `${event.y - 30}px`;
+            e.style.bottom = `auto`;
+
+        }
+        else {
+            e.style.top = `auto`;
+            e.style.bottom = `0`;
+        }
+
+    })
+})
+
+document.getElementById("back-find-jmbg").addEventListener("click", () => {
+    fun.showElement(sections[currentSection])
+    fun.hideElement("insertJMBG")
+})

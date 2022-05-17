@@ -11,8 +11,9 @@ button {
   padding: 0.5rem;
 }
 button:disabled{
-  filter: saturate(0);
+  /* filter: saturate(0); */
   opacity: 50%;
+  background: rgb(167, 18, 18);
 }
 
 .buttons {
@@ -30,4 +31,25 @@ button:disabled{
   position: sticky;
   top: 0;
   left: 0;
+}
+@media (min-width: 1024px) {
+  .buttons{
+    left: calc((100vw - 836px)/2 + 836px);
+    bottom: auto;
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+    width: auto;
+  }
+  .buttons > *{
+    width: 100%;
+  }
+  
+}
+
+.ok-jmbg{
+  background: rgba(8, 58, 8, 0.733);
+}
+.not-ok-jmbg{
+  background: rgb(104, 23, 23);
 }

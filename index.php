@@ -1,32 +1,25 @@
 <?php
 include "prijavaImports/head.php";
-
-$naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 ?>
-
-
 <div id="uvod">
     <p>
         U koji razred se upisuješ
     </p>
 
     <div id="razredi">
-        <input type="radio" data-razred="1" class="razred" name="razred" value="1">
-        <input type="radio" data-razred="2" class="razred" name="razred" value="2">
-        <input type="radio" data-razred="3" class="razred" name="razred" value="3">
-        <input type="radio" data-razred="4" class="razred" name="razred" value="4">
-
+        <?php
+        for ($i = 1; $i < 5; $i++)
+            echo "<input type='radio' data-razred='$i' class='razred' name='razred' value='$i'>"
+        ?>
     </div>
     <div class="buttons">
-        <!-- <button type='button' class='back'>Nazad</button> -->
         <button type='button' class='next'>Dalje</button>
     </div>
 </div>
-
 <div id="smer">
     <?php
-    for ($i = 0; $i < 2; $i++)
-        prikaziSmer($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi");
+    prikaziSmer($mydb, $sviSmerovi, "Smer koji želiš da upišeš", 0, "Nema unesenih smerova u bazi");
+    prikaziSmer($mydb, $sviSmerovi, "Alterinativni smer", 1, "Nema unesenih smerova u bazi");
     ?>
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
@@ -39,21 +32,17 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         <div>
             <input type="radio" name="vukovac" id="vukovac-da" value="1">
             <label for="vukovac-da">Jesam</label>
-
         </div>
         <div>
-
             <input type="radio" name="vukovac" id="vukovac-ne" value="0">
             <label for="vukovac-ne">Nisam</label>
         </div>
     </section>
-
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
         <button type='button' class='next'>Dalje</button>
     </div>
 </div>
-
 <div id="podaci-ucenika">
 
     <label for="ime">Kako se zoveš:</label>
@@ -88,14 +77,11 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     </div>
 
 </div>
-
 <div id="jezik-ver">
 
     <p>Strani jezici i veronauka</p>
 
-    <?php
-    $jezici = array("engleski jezik", "nemacki jezik", "francuski jezik", "ruski jezik");
-    ?>
+    <?php $jezici = array("engleski jezik", "nemacki jezik", "francuski jezik", "ruski jezik") ?>
     <label for="jezik_od_3">Jezik od 3.:</label>
     <select id="jezik_od_3" name="jezik_od_3">
         <option value="">Koji jezik si počeo učiti u 3. razredu</option>
@@ -122,20 +108,16 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
 
         ?>
     </select>
-    <!-- // ! PRETHONDI RAZRED (DADATI I U UCENIK.PHP) (BAZA KOLONE: ZELJENIJEZIK I JEZIKPRE) DODATI U HVALA.PHP -->
     <label for="jezikPre">Jezik u prošlom razredu:</label>
     <select id="jezikPre" name="jezikPre">
         <option value="">Koji jezik si učio u prošlom razredu</option>
         <?php
         for ($i = 0; $i < 4; $i++) {
             echo "<option value='{$jezici[$i]}'";
-
             echo ">{$jezici[$i]}</option>";
         }
-
         ?>
     </select>
-    <!-- // ! ZELENI JEZIK (DADATI I U UCENIK.PHP) -->
     <label for="zeljeniJezik6">Zeljeni jezik:</label>
     <select id="zeljeniJezik" name="zeljeniJezik">
         <option value="">Koji jezik želiš dalje izučavati</option>
@@ -144,7 +126,6 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
             echo "<option value='{$jezici[$i]}'";
             echo ">{$jezici[$i]}</option>";
         }
-
         ?>
     </select>
 
@@ -159,31 +140,21 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
     <small>
         Veronauku imaš sve 4 godine ako nju izabereš.
         A ako izabereš etiku i kulture religije onda češ kulturu religije imati 1. i 2. razred a etiku do kraja.
-
     </small>
-
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
         <button type='button' class='next'>Dalje</button>
     </div>
-
 </div>
-
 <div id="svedocansto-9">
-
     <p>Podaci sa svedočansta 9 razreda</p>
-
-
     <label for="osnovna_skola">Naziv osnovne škole:</label>
     <input type="text" id="osnovna_skola" name="osnovna_skola">
-
-
     <label for="djelovodni_broj">Djelovodni broj</label>
     <input type="text" id="djelovodni_broj" name="djelovodni_broj">
     <small>
         On se nalazi u gornje dijelu svjedočanstva.
         <b id="show-tip">
-
             Prikaži
         </b>
     </small>
@@ -193,21 +164,16 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
             Dodirni/ kikni bilo gde da bi sakrio sliku.
         </p>
     </div>
-
     <label for="datum_izdavanja">Datum izdavanja:</label>
     <input type="date" id="datum_izdavanja" name="datum_izdavanja">
 
     <label for="mesto_izdavanja">Mjesto izdavanja:</label>
     <input type="text" id="mesto_izdavanja" name="mesto_izdavanja">
-
-
-
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
         <button type='button' class='next'>Dalje</button>
     </div>
 </div>
-
 <div id="Majka">
 
     <p>
@@ -235,7 +201,6 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         <button type='button' class='next'>Dalje</button>
     </div>
 </div>
-
 <div id="otac">
 
     <p>
@@ -263,7 +228,6 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         <button type='button' class='next'>Dalje</button>
     </div>
 </div>
-
 <div id="staratelj">
 
     <p>
@@ -291,27 +255,24 @@ $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
         <button type='button' class='next'>Dalje</button>
     </div>
 </div>
-
 <?php
-
 for ($raz = 6; $raz < 10; $raz++)
     insertingGrades($mydb, $raz);
-
 $mydb->close();
 ?>
-
-
 </form>
-<script type="module" src="prijava.js"></script>
 <div id="insertJMBG">
-    <form action="ucenik.php" method="post">
+    <form action="ucenik.php" method="post" id="find-form"  onSubmit='return'>
         <label for="find-jmbg">Unesi svoji JMBG</label>
         <input type="text" id="find-jmbg" name="jmbg">
+        <input type="number" id="razred-koji-upisuje" name='razredKojiUpisuje' hidden>
         <div class="buttons">
-            <button id="pronadi-me">Pronađi me</button>
+        <button type='button' class='back' id="back-find-jmbg">Nazad</button>
+            <button id="pronadi-me" disabled>Pronađi me</button>
         </div>
     </form>
 </div>
+<script type="module" src="prijava.js"></script>
 </body>
 
 </html>

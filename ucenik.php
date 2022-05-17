@@ -6,6 +6,7 @@ include "admin_files/funs.php";
 include "admin_files/querys.php";
 
 $jmbg = $_POST["jmbg"];
+
 if (isset($_POST["ime"])) {
     $ucenikID = "SELECT id FROM ucenik where jmbg='$jmbg'";
     $res = $mydb->query($ucenikID);
@@ -71,11 +72,12 @@ if (isset($_POST["ime"])) {
 
     $mydb->query($podaciRoditelja);
     $AzurirajSmer =
-        "UPDATE ucenik
+        @"UPDATE ucenik
         SET
             smer1= '{$_POST["smer-0"]}',
             smer2= '{$_POST["smer-1"]}'
-        WHERE id=$ucenikID;;";
+            
+        WHERE id=$ucenikID;";
     $mydb->query($AzurirajSmer);
     //AzurirajOcene
     for ($class = 6; $class <= 9; $class++) {
@@ -121,12 +123,14 @@ if (isset($_POST["ime"])) {
 }
 
 $ucenik = $mydb->query(findUcenik($jmbg));
-if ($ucenik->num_rows == 0) {
-    echo "Nema učnika sa JMBG: ";
-    return;
-}
+// if ($ucenik->num_rows == 0) {
+//     echo "Nema učnika sa JMBG: ";
+//     return;
+// }
 $ucenik = $ucenik->fetch_assoc();
 $ime = $ucenik["ime"];
+if (isset($_POST["razredKojiUpisuje"]))
+    $ucenik["razredUpisa"] = $_POST["razredKojiUpisuje"];
 ?>
 
 <head>
@@ -143,45 +147,52 @@ $ime = $ucenik["ime"];
         <button type="button" id="print">
             Odštampaj
         </button>
-        <div id="smerovi">
-            <?php
-            $naslovi = array("Smer koji želiš da upišeš", "Alternativni smer");
-            for ($i = 0; $i < 2; $i++) {
-                $j = $i + 1;
-                prikaziSmerUcenik($mydb, $sviSmerovi, $naslovi[$i], $i, "Nema unesenih smerova u bazi", "smer$j", $ucenik);
-            }
-            ?>
 
-        </div>
 
         <div id="podaci-ucenika">
-            <label for="raz-ups">Razred:</label>
-            <input type="text" value="<?php echo $ucenik["razredUpisa"]; ?>" id="raz-ups" name="razred">
+
+            <input type="text" value="<?php echo $ucenik["razredUpisa"]; ?>" id="raz-ups" name="razred" hidden>
             <label for="ime">Ime:</label>
             <input value="<?php echo $ucenik["ime"]; ?>" type="text" id="ime" name="ime">
 
             <label for="prezime">Prezime:</label>
             <input value="<?php echo $ucenik["prezime"]; ?>" type="text" id="prezime" name="prezime">
 
-            <label for="telefon">Telefon:</label>
-            <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###">
 
-            <label for="mail">E-mail:</label>
-            <input value="<?php echo $ucenik["mail"]; ?>" type="email" id="mail" name="mail">
 
-            <label for="jmbg">JMBG:</label>
-            <input value="<?php echo $ucenik["jmbg"]; ?>" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13">
 
-            <label for="datum-rodjenja">Datum rođenja:</label>
-            <input value="<?php echo $ucenik["datum_rodjenja"]; ?>" type="date" id="datum-rodjenja" name="datum_rodjenja">
-
-            <label for="mesto_rodjenja">Mesto rođenja:</label>
-            <input value="<?php echo $ucenik["mesto_rodjenja"]; ?>" type="text" id="mesto_rodjenja" name="mesto_rodjenja">
-
-            <label for="adresa">Adresa prebivališta:</label>
-            <input value="<?php echo $ucenik["adresa"]; ?>" type="text" id="adresa" name="adresa">
 
         </div>
+        <div id="svedocansto-9">
+
+            <p>Podaci sa svedočansta prethodnog razreda</p>
+
+            <label for="osnovna_skola">Naziv škole:</label>
+            <input value="<?php echo $ucenik["osnovna_skola"]; ?>" type="text" id="osnovna_skola" name="osnovna_skola">
+
+            <label for="djelovodni_broj">Djelovodni broj svedočanstva:</label>
+            <input value="<?php echo $ucenik["djelovodni_broj"]; ?>" type="text" id="djelovodni_broj" name="djelovodni_broj">
+            <small>
+                On se nalazi u gornje dijelu svjedočanstva.
+                <b id="show-tip">
+                    Prikaži
+                </b>
+            </small>
+            <div id="tip">
+                <img src="imgs/tip.gif" alt="gde se nalazi delovodni broj" loading="lazy">
+                <p>
+                    Dodirni/ kikni bilo gde da bi sakrio sliku.
+                </p>
+            </div>
+            <label for="datum_izdavanja">Datum izdavanja svedočanstva:</label>
+            <input value="<?php echo $ucenik["datum_izdavanja"]; ?>" type="date" id="datum_izdavanja" name="datum_izdavanja">
+
+            <label for="mesto_izdavanja">Mjesto izdavanja svedočanstva:</label>
+            <input value="<?php echo $ucenik["mesto_izdavanja"]; ?>" type="text" id="mesto_izdavanja" name="mesto_izdavanja">
+
+        </div>
+
+
 
         <div id="jezik-ver" <?php
                             if ($ucenik["razredUpisa"] > 1)
@@ -259,26 +270,28 @@ $ime = $ucenik["ime"];
 
         </div>
 
-        <div id="svedocansto-9">
 
-            <p>Podaci sa svedočansta 9 razreda</p>
 
-            <label for="osnovna_skola">Naziv osnovne škole:</label>
-            <input value="<?php echo $ucenik["osnovna_skola"]; ?>" type="text" id="osnovna_skola" name="osnovna_skola">
-
-            <label for="djelovodni_broj">Djelovodni broj</label>
-            <input value="<?php echo $ucenik["djelovodni_broj"]; ?>" type="text" id="djelovodni_broj" name="djelovodni_broj">
-
-            <label for="datum_izdavanja">Datum izdavanja:</label>
-            <input value="<?php echo $ucenik["datum_izdavanja"]; ?>" type="date" id="datum_izdavanja" name="datum_izdavanja">
-
-            <label for="mesto_izdavanja">Mjesto izdavanja:</label>
-            <input value="<?php echo $ucenik["mesto_izdavanja"]; ?>" type="text" id="mesto_izdavanja" name="mesto_izdavanja">
-
-        </div>
 
         <div id="Majka">
+            <p>Proveri da li su sledeći odaci tačni</p>
+            <label for="telefon">Telefon:</label>
+            <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###">
 
+            <label for="mail">E-mail:</label>
+            <input value="<?php echo $ucenik["mail"]; ?>" type="email" id="mail" name="mail">
+
+            <!-- <label for="jmbg">JMBG:</label> -->
+            <input value="<?php echo $ucenik["jmbg"]; ?>" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" hidden>
+
+            <!-- <label for="datum-rodjenja">Datum rođenja:</label> -->
+            <input value="<?php echo $ucenik["datum_rodjenja"]; ?>" type="date" id="datum-rodjenja" name="datum_rodjenja" hidden>
+
+            <!-- <label for="mesto_rodjenja">Mesto rođenja:</label> -->
+            <input value="<?php echo $ucenik["mesto_rodjenja"]; ?>" type="text" id="mesto_rodjenja" name="mesto_rodjenja" hidden>
+
+            <label for="adresa">Adresa prebivališta:</label>
+            <input value="<?php echo $ucenik["adresa"]; ?>" type="text" id="adresa" name="adresa">
             <p>
                 Podaci o Majci
             </p>
@@ -322,7 +335,7 @@ $ime = $ucenik["ime"];
             <input value="<?php echo $ucenik["adresa_oca"]; ?>" type="text" id="adresa-oca" name="adresa-oca">
 
         </div>
-        <div id="otac">
+        <div id="staratelj">
 
             <p>
                 Podaci o staretelju
@@ -344,7 +357,13 @@ $ime = $ucenik["ime"];
             <input value="<?php echo $ucenik["adresa_staratelja"]; ?>" type="text" id="adresa-staratelja" name="adresa-staratelja">
 
         </div>
+        <div id="smerovi">
+            <?php
+            prikaziSmerUcenik($mydb, $sviSmerovi, "Smer koji želiš da upišeš", 0, "Nema unesenih smerova u bazi", "smer1", $ucenik);
+            if ($ucenik["razredUpisa"] == 1) prikaziSmerUcenik($mydb, $sviSmerovi, "Alternativni smer", 1, "Nema unesenih smerova u bazi", "smer2", $ucenik);
+            ?>
 
+        </div>
         <p <?php
             if ($ucenik["razredUpisa"] > 1)
                 echo "style='display:none'";
@@ -358,7 +377,7 @@ $ime = $ucenik["ime"];
                 insertingGradesUcenik($mydb, $raz, $ucenik["ucenikID"]);
         ?>
 
-        <button>Sačuvaj</button>
+        <button>Sačuvaj izmene</button>
     </form>
 
     <div id="pdf">
@@ -383,14 +402,14 @@ $ime = $ucenik["ime"];
         <div id="table-header">
             <div id="razred-text">
                 <?php
-                $razredTxtIRimski=array("I","II","III","IV", "prvi", "drugi", "treći", "četvrti");
-                echo $razredTxtIRimski[$ucenik["razredUpisa"]+3];
-                
+                $razredTxtIRimski = array("I", "II", "III", "IV", "prvi", "drugi", "treći", "četvrti");
+                echo $razredTxtIRimski[$ucenik["razredUpisa"] + 3];
+
                 ?>
             </div>
             <div id="razred-rismki">
                 <?php
-                 echo $razredTxtIRimski[$ucenik["razredUpisa"]-1];
+                echo $razredTxtIRimski[$ucenik["razredUpisa"] - 1];
                 ?>
             </div>
             <div id="puni-naziv-skole">
@@ -416,7 +435,7 @@ $ime = $ucenik["ime"];
                 <?php
                 $smer2 = $mydb->query("SELECT smer2 FROM ucenik where id={$ucenik["ucenikID"]}");
                 $smer2 = $smer2->fetch_array();
-                if ($smer2["smer2"] != 0) {
+                if ($smer2["smer2"] != 0 && $ucenik["razredUpisa"] == 1) {
                     $smer2 = $mydb->query("SELECT naziv FROM smer JOIN ucenik ON smer.id=ucenik.smer2");
                     $smer2 = $smer2->fetch_array();
                     echo $smer2["naziv"];
@@ -513,8 +532,20 @@ $ime = $ucenik["ime"];
                 ?>
             </div>
         </div>
-        <div id="broj-tel-rod">
-            Број телефона родитеља: <?php echo $ucenik["telefon_majke"] . ", " . $ucenik["telefon_oca"]; ?>
+        <div id="broj-tel-majke">
+            <?php
+            if ($ucenik["telefon_majke"])
+                echo "Бр. тел. мајке:  {$ucenik["telefon_majke"]}"  ?>
+        </div>
+        <div id="broj-tel-oca">
+            <?php
+            if ($ucenik["telefon_oca"])
+                echo "Бр. тел. оца:  {$ucenik["telefon_oca"]}"  ?>
+        </div>
+        <div id="broj-tel-staratelja">
+            <?php
+            if ($ucenik["telefon_staratelja"])
+                echo "Бр. тел. старатеља:  {$ucenik["telefon_staratelja"]}"  ?>
         </div>
         <div id="broj-tel-uc">
             Број телефона ученика: <?php echo $ucenik["telefon"] ?>
@@ -547,7 +578,7 @@ $ime = $ucenik["ime"];
             print()
         })
     </script>
-
+    <script src="prijava.js"></script>
 </body>
 <?php
 $mydb->close();
