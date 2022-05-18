@@ -17,7 +17,7 @@ function printInTable(
     echo "<table><th>{$table_header}</th>";
     while ($row = $result->fetch_assoc())
         echo
-        "<tr><td>{$row["naziv"]} </td> " .
+        "<tr><td> <p class='predmer'> {$row["naziv"]}</p> </td> " .
             button($row["id"], $btnText1, $sql_table, "delete") .
             button($row["id"], $btnText2, $sql_table, "edit") .
             "</tr>";
