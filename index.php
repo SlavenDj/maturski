@@ -12,9 +12,6 @@ include "prijavaImports/head.php";
             echo "<input type='radio' data-razred='$i' class='razred' name='razred' value='$i'>"
         ?>
     </div>
-    <div class="buttons">
-        <button type='button' class='next'>Dalje</button>
-    </div>
 </div>
 <div id="smer">
     <?php
@@ -149,7 +146,18 @@ include "prijavaImports/head.php";
 <div id="svedocansto-9">
     <p>Podaci sa svedočansta 9 razreda</p>
     <label for="osnovna_skola">Naziv osnovne škole:</label>
-    <input type="text" id="osnovna_skola" name="osnovna_skola">
+    <input type="text" id="osnovna_skola" name="osnovna_skola" list="unesene-skole">
+
+     <datalist id="unesene-skole">
+        <?php 
+        $res=$mydb->query("SELECT osnovna_skola FROM ucenik group by osnovna_skola");
+        while($row=$res->fetch_array())
+            echo "<option value='{$row["osnovna_skola"]}'>";
+        
+        ?>
+
+     </datalist>
+
     <label for="djelovodni_broj">Djelovodni broj</label>
     <input type="text" id="djelovodni_broj" name="djelovodni_broj">
     <small>

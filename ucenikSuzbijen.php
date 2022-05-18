@@ -141,7 +141,7 @@ if (isset($_POST["razredKojiUpisuje"]))
     <title>Ucenik - <?php echo $ime; ?></title>
 </head>
 
-<body>
+<body class="suzen">
 
     <form method="post">
         <button type="button" id="print">
@@ -291,14 +291,14 @@ if (isset($_POST["razredKojiUpisuje"]))
             <label for="mail">E-mail:</label>
             <input value="<?php echo $ucenik["mail"]; ?>" type="email" id="mail" name="mail">
 
-            <!-- <label for="jmbg">JMBG:</label> -->
-            <input value="<?php echo $ucenik["jmbg"]; ?>" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" hidden>
+            <label for="jmbg">JMBG:</label>
+            <input value="<?php echo $ucenik["jmbg"]; ?>" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" >
 
-            <!-- <label for="datum-rodjenja">Datum rođenja:</label> -->
-            <input value="<?php echo $ucenik["datum_rodjenja"]; ?>" type="date" id="datum-rodjenja" name="datum_rodjenja" hidden>
+            <label for="datum-rodjenja">Datum rođenja:</label>
+            <input value="<?php echo $ucenik["datum_rodjenja"]; ?>" type="date" id="datum-rodjenja" name="datum_rodjenja" >
 
-            <!-- <label for="mesto_rodjenja">Mesto rođenja:</label> -->
-            <input value="<?php echo $ucenik["mesto_rodjenja"]; ?>" type="text" id="mesto_rodjenja" name="mesto_rodjenja" hidden>
+            <label for="mesto_rodjenja">Mesto rođenja:</label>
+            <input value="<?php echo $ucenik["mesto_rodjenja"]; ?>" type="text" id="mesto_rodjenja" name="mesto_rodjenja" >
 
             <label for="adresa">Adresa prebivališta:</label>
             <input value="<?php echo $ucenik["adresa"]; ?>" type="text" id="adresa" name="adresa">
