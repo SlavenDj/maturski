@@ -7,7 +7,7 @@ function sviPred($class)
     return
         "SELECT
         veza_razred_predmet.id,
-        predmeti.naziv,
+        predmeti.naziv, Redni_broj,
         predmeti.id AS ID_predmeta
         FROM
             `veza_razred_predmet`

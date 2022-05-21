@@ -10,7 +10,7 @@ const edit = e => {
             document.querySelector("#change").submit();
         return "hi";
     }
-    let ans = prompt(`Koji je novi redni broj predmet na svedočanstvu?`)
+    let ans = prompt(`Koji je novi redni broj predmet na svedočanstvu? (trenutni je: ${e.target.dataset["redniBroj"]})`)
     input.value = `UPDATE \`${table}\` SET Redni_broj = '${ans}' WHERE id=${id}`;
     if (ans != null) {
         document.querySelector("#change").submit();

@@ -1,0 +1,17 @@
+
+# Options +FollowSymLinks
+# RewriteEngine on
+# RewriteCond %{HTTP_HOST} ^slaven.atwebpages.com/[nc]
+# RewriteRule ^(.*)$ http://www.slaven.atwebpages.com//$1 [r=301,nc]
+# 
+# 
+# <Files /admin/admin.php>
+# AuthName "Prompt"
+# AuthType Basic
+# AuthUserFile 
+# Require valid-user
+# </Files>
+# 
+# 
+# Options All -Indexes
+ 

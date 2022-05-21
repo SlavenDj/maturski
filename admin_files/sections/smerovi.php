@@ -9,8 +9,8 @@ else {
     while ($row = $res->fetch_assoc())
         echo "<tr><td>{$row["naziv"]} </td> 
             <td> " .
-            button($row["id"], "Ukloni", $table, "delete") .
-            button($row["id"], "Preimenuj", $table, "edit") .
+            button($row["id"], "Ukloni", $table, "delete", null) .
+            button($row["id"], "Preimenuj", $table, "edit", null) .
             "</td></tr>";
     echo "</table>";
 }

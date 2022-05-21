@@ -16,11 +16,19 @@ function printInTable(
 
     echo "<table><th>{$table_header}</th>";
     while ($row = $result->fetch_assoc())
+    //<p class='predmer'></p>
+
+       { $prefix=""; $redni_broj="";
+           if(isset($row["Redni_broj"])){
+            $prefix=$row["Redni_broj"].".";
+            $redni_broj=$row["Redni_broj"];
+       }
+           
         echo
-        "<tr><td> <p class='predmer'> {$row["naziv"]}</p> </td> " .
-            button($row["id"], $btnText1, $sql_table, "delete") .
-            button($row["id"], $btnText2, $sql_table, "edit") .
-            "</tr>";
+        "<tr><td> $prefix {$row["naziv"]} </td> " .
+            button($row["id"], $btnText1, $sql_table, "delete" , $redni_broj) .
+            button($row["id"], $btnText2, $sql_table, "edit" , $redni_broj) .
+            "</tr>";}
     echo "</table>";
 }
 
@@ -28,15 +36,18 @@ function button(
     $id,
     $txt,
     $sql_table,
-    $html_class
+    $html_class,
+    $redniBroj 
 ) {
     return "
     <td>
     <button 
-        data-id=$id 
-        data-table=$sql_table 
-        class={$html_class}>$txt</button></td>";
+        data-id='$id' 
+        data-redni-broj='$redniBroj '
+        data-table='$sql_table'
+        class='{$html_class}'>$txt</button></td>";
 }
+
 
 function selectMenu($database, $query, $selectMenuName)
 {
