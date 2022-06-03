@@ -107,7 +107,7 @@ if (isset($_POST["ime"])) {
                                     $ucenikID, 
                                     {$_POST["$idPredmeta-$class"]}
                                     )";
-                    else
+                    else if (isset($_POST["$idPredmeta-$class"]))
                         $unesiOcenu =
                             "UPDATE ocena
                             SET
@@ -116,6 +116,15 @@ if (isset($_POST["ime"])) {
                                 ucenik = $ucenikID AND 
                                 predmet = $idPredmeta AND 
                                 razred = $class";
+                    else
+                        $unesiOcenu =
+                            "UPDATE ocena
+                    SET
+                        ocena.ocena=''
+                    WHERE 
+                        ucenik = $ucenikID AND 
+                        predmet = $idPredmeta AND 
+                        razred = $class";
                     $mydb->query($unesiOcenu);
                 }
             }
@@ -151,13 +160,16 @@ if (isset($_POST["razredKojiUpisuje"]))
 
         <div id="podaci-ucenika">
 
-            <input type="text" value="<?php echo $ucenik["razredUpisa"]; ?>" id="raz-ups" name="razred" hidden>
-            <label for="ime">Ime:</label>
-            <input value="<?php echo $ucenik["ime"]; ?>" type="text" id="ime" name="ime">
+            <input type="text" value="<?php echo $ucenik["razredUpisa"]; ?>" id="raz-ups" name="razred">
+            <div>
+                <label for="ime">Ime:</label>
+                <input value="<?php echo $ucenik["ime"]; ?>" type="text" id="ime" name="ime">
+            </div>
+            <div>
 
-            <label for="prezime">Prezime:</label>
-            <input value="<?php echo $ucenik["prezime"]; ?>" type="text" id="prezime" name="prezime">
-
+                <label for="prezime">Prezime:</label>
+                <input value="<?php echo $ucenik["prezime"]; ?>" type="text" id="prezime" name="prezime">
+            </div>
 
 
 
@@ -165,11 +177,13 @@ if (isset($_POST["razredKojiUpisuje"]))
         </div>
         <div id="svedocansto-9">
 
-            <p>Podaci sa svedočansta prethodnog razreda</p>
 
-            <label for="osnovna_skola">Naziv škole:</label>
-            <input value="<?php echo $ucenik["osnovna_skola"]; ?>" type="text" id="osnovna_skola" name="osnovna_skola" list="unesene-skole">
 
+            <div>
+                <label for="osnovna_skola">Naziv škole:</label>
+                <input value="<?php echo $ucenik["osnovna_skola"]; ?>" type="text" id="osnovna_skola" name="osnovna_skola" list="unesene-skole">
+
+            </div>
             <datalist id="unesene-skole">
                 <?php
                 $res = $mydb->query("SELECT osnovna_skola FROM ucenik group by osnovna_skola");
@@ -180,25 +194,21 @@ if (isset($_POST["razredKojiUpisuje"]))
 
             </datalist>
 
-            <label for="djelovodni_broj">Djelovodni broj svedočanstva:</label>
-            <input value="<?php echo $ucenik["djelovodni_broj"]; ?>" type="text" id="djelovodni_broj" name="djelovodni_broj">
-            <small>
-                On se nalazi u gornje dijelu svjedočanstva.
-                <b id="show-tip">
-                    Prikaži
-                </b>
-            </small>
-            <div id="tip">
-                <img src="imgs/tip.gif" alt="gde se nalazi delovodni broj" loading="lazy">
-                <p>
-                    Dodirni/ kikni bilo gde da bi sakrio sliku.
-                </p>
-            </div>
-            <label for="datum_izdavanja">Datum izdavanja svedočanstva:</label>
-            <input value="<?php echo $ucenik["datum_izdavanja"]; ?>" type="date" id="datum_izdavanja" name="datum_izdavanja">
+            <div>
+                <label for="djelovodni_broj">Djelovodni broj svedočanstva:</label>
+                <input value="<?php echo $ucenik["djelovodni_broj"]; ?>" type="text" id="djelovodni_broj" name="djelovodni_broj">
 
-            <label for="mesto_izdavanja">Mjesto izdavanja svedočanstva:</label>
-            <input value="<?php echo $ucenik["mesto_izdavanja"]; ?>" type="text" id="mesto_izdavanja" name="mesto_izdavanja">
+            </div>
+
+            <div>
+                <label for="datum_izdavanja">Datum izdavanja svedočanstva:</label>
+                <input value="<?php echo $ucenik["datum_izdavanja"]; ?>" type="date" id="datum_izdavanja" name="datum_izdavanja">
+            </div>
+            <div>
+
+                <label for="mesto_izdavanja">Mjesto izdavanja svedočanstva:</label>
+                <input value="<?php echo $ucenik["mesto_izdavanja"]; ?>" type="text" id="mesto_izdavanja" name="mesto_izdavanja">
+            </div>
 
         </div>
 
@@ -214,68 +224,78 @@ if (isset($_POST["razredKojiUpisuje"]))
             <?php
             $jezici = array("engleski jezik", "nemacki jezik", "francuski jezik", "ruski jezik");
             ?>
-            <label for="jezik_od_3">Jezik od 3.:</label>
-            <select id="jezik_od_3" name="jezik_od_3" value="<?php echo $ucenik["jezik_od_3"]; ?>">
-                <option value="">Koji jezik si počeo učiti u 3. razredu</option>
+            <div>
+                <label for="jezik_od_3">Jezik od 3.:</label>
+                <select id="jezik_od_3" name="jezik_od_3" value="<?php echo $ucenik["jezik_od_3"]; ?>">
+                    <option value="">Koji jezik si počeo učiti u 3. razredu</option>
 
-                <?php
-                for ($i = 0; $i < 4; $i++) {
-                    echo "<option value='{$jezici[$i]}'";
-                    if (($ucenik["jezik_od_3"] == $jezici[$i]))
-                        echo "selected";
-                    echo ">{$jezici[$i]}</option>";
-                }
-                ?>
-            </select>
+                    <?php
+                    for ($i = 0; $i < 4; $i++) {
+                        echo "<option value='{$jezici[$i]}'";
+                        if (($ucenik["jezik_od_3"] == $jezici[$i]))
+                            echo "selected";
+                        echo ">{$jezici[$i]}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            <label for="jezik_od_6">Jezik od 6.:</label>
-            <select id="jezik_od_6" name="jezik_od_6" value="<?php echo $ucenik["jezik_od_6"]; ?>">
-                <option value="">Koji jezik si počeo učiti u 6. razredu</option>
-                <?php
-                for ($i = 0; $i < 4; $i++) {
-                    echo "<option value='{$jezici[$i]}'";
-                    if (($ucenik["jezik_od_6"] == $jezici[$i]))
-                        echo "selected";
-                    echo ">{$jezici[$i]}</option>";
-                }
-                ?>
-            </select>
+            <div>
+                <label for="jezik_od_6">Jezik od 6.:</label>
+                <select id="jezik_od_6" name="jezik_od_6" value="<?php echo $ucenik["jezik_od_6"]; ?>">
+                    <option value="">Koji jezik si počeo učiti u 6. razredu</option>
+                    <?php
+                    for ($i = 0; $i < 4; $i++) {
+                        echo "<option value='{$jezici[$i]}'";
+                        if (($ucenik["jezik_od_6"] == $jezici[$i]))
+                            echo "selected";
+                        echo ">{$jezici[$i]}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            <label for="jezikPre">Jezik od proslog razreda:</label>
-            <select id="jezikPre" name="jezikPre" value="<?php echo $ucenik["jezikPre"]; ?>">
-                <option value="">Koji jezik si učio u prošlom razredu</option>
-                <?php
-                for ($i = 0; $i < 4; $i++) {
-                    echo "<option value='{$jezici[$i]}'";
-                    if (($ucenik["jezikPre"] == $jezici[$i]))
-                        echo "selected";
-                    echo ">{$jezici[$i]}</option>";
-                }
-                ?>
-            </select>
+            <div>
+                <label for="jezikPre">Jezik od proslog razreda:</label>
+                <select id="jezikPre" name="jezikPre" value="<?php echo $ucenik["jezikPre"]; ?>">
+                    <option value="">Koji jezik si učio u prošlom razredu</option>
+                    <?php
+                    for ($i = 0; $i < 4; $i++) {
+                        echo "<option value='{$jezici[$i]}'";
+                        if (($ucenik["jezikPre"] == $jezici[$i]))
+                            echo "selected";
+                        echo ">{$jezici[$i]}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            <label for="zeljeniJezik">Zeljeni jezik.:</label>
-            <select id="zeljeniJezik" name="zeljeniJezik" value="<?php echo $ucenik["zeljeniJezik"]; ?>">
-                <option value="">Koji jezik želiš dalje izučavati</option>
-                <?php
-                for ($i = 0; $i < 2; $i++) {
-                    echo "<option value='{$jezici[$i]}'";
-                    if (($ucenik["zeljeniJezik"] == $jezici[$i]))
-                        echo "selected";
-                    echo ">{$jezici[$i]}</option>";
-                }
+            <div>
+                <label for="zeljeniJezik">Zeljeni jezik.:</label>
+                <select id="zeljeniJezik" name="zeljeniJezik" value="<?php echo $ucenik["zeljeniJezik"]; ?>">
+                    <option value="">Koji jezik želiš dalje izučavati</option>
+                    <?php
+                    for ($i = 0; $i < 2; $i++) {
+                        echo "<option value='{$jezici[$i]}'";
+                        if (($ucenik["zeljeniJezik"] == $jezici[$i]))
+                            echo "selected";
+                        echo ">{$jezici[$i]}</option>";
+                    }
 
-                ?>
-            </select>
+                    ?>
+                </select>
+            </div>
 
-            <label for="veronauka">Veronauka ili etika/kultura religije</label>
-            <select name="veronauka" id="veronauka" value="">
-                <option <?php if ($ucenik["veronauka"] == "") echo "selected"; ?> value="">Izaberi koji predemt želiš da izučavaš? Veronauku ili etiku</option>
-                <option <?php if ($ucenik["veronauka"] == "pravoslavna") echo "selected"; ?> value="pravoslavna">Pravoslavna veronauka</option>
-                <option <?php if ($ucenik["veronauka"] == "rimokatolicka") echo "selected"; ?> value="rimokatolicka">Rimokatolička veronauka</option>
-                <option <?php if ($ucenik["veronauka"] == "islamska") echo "selected"; ?> value="islamska">Islamaska veronauka</option>
-                <option <?php if ($ucenik["veronauka"] == "etika i kultura religije") echo "selected"; ?> value="etika i kultura religije">etika i kultura religije</option>
-            </select>
+            <div>
+                <label for="veronauka">Veronauka ili etika/kultura religije</label>
+                <select name="veronauka" id="veronauka" value="">
+                    <option <?php if ($ucenik["veronauka"] == "") echo "selected"; ?> value="">Izaberi koji predemt želiš da izučavaš? Veronauku ili etiku</option>
+                    <option <?php if ($ucenik["veronauka"] == "pravoslavna") echo "selected"; ?> value="pravoslavna">Pravoslavna veronauka</option>
+                    <option <?php if ($ucenik["veronauka"] == "rimokatolicka") echo "selected"; ?> value="rimokatolicka">Rimokatolička veronauka</option>
+                    <option <?php if ($ucenik["veronauka"] == "islamska") echo "selected"; ?> value="islamska">Islamaska veronauka</option>
+                    <option <?php if ($ucenik["veronauka"] == "etika i kultura religije") echo "selected"; ?> value="etika i kultura religije">etika i kultura religije</option>
+                </select>
+            </div>
 
 
         </div>
@@ -284,87 +304,123 @@ if (isset($_POST["razredKojiUpisuje"]))
 
 
         <div id="Majka">
-            <p>Proveri da li su sledeći odaci tačni</p>
-            <label for="telefon">Telefon:</label>
-            <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###">
 
-            <label for="mail">E-mail:</label>
-            <input value="<?php echo $ucenik["mail"]; ?>" type="email" id="mail" name="mail">
+            <div>
+                <label for="telefon">Telefon:</label>
+                <input value="<?php echo $ucenik["telefon"]; ?>" type="tel" id="telefon" name="telefon" placeholder="###/###-###">
+            </div>
 
-            <label for="jmbg">JMBG:</label>
-            <input value="<?php echo $ucenik["jmbg"]; ?>" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" >
+            <div>
+                <label for="mail">E-mail:</label>
+                <input value="<?php echo $ucenik["mail"]; ?>" type="email" id="mail" name="mail">
 
-            <label for="datum-rodjenja">Datum rođenja:</label>
-            <input value="<?php echo $ucenik["datum_rodjenja"]; ?>" type="date" id="datum-rodjenja" name="datum_rodjenja" >
+            </div>
+            <div>
+                <label for="jmbg">JMBG:</label>
+                <input value="<?php echo $ucenik["jmbg"]; ?>" type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13">
+            </div>
 
-            <label for="mesto_rodjenja">Mesto rođenja:</label>
-            <input value="<?php echo $ucenik["mesto_rodjenja"]; ?>" type="text" id="mesto_rodjenja" name="mesto_rodjenja" >
+            <div>
+                <label for="datum-rodjenja">Datum rođenja:</label>
+                <input value="<?php echo $ucenik["datum_rodjenja"]; ?>" type="date" id="datum-rodjenja" name="datum_rodjenja">
+            </div>
 
-            <label for="adresa">Adresa prebivališta:</label>
-            <input value="<?php echo $ucenik["adresa"]; ?>" type="text" id="adresa" name="adresa">
-            <p>
-                Podaci o Majci
-            </p>
+            <div>
+                <label for="mesto_rodjenja">Mesto rođenja:</label>
+                <input value="<?php echo $ucenik["mesto_rodjenja"]; ?>" type="text" id="mesto_rodjenja" name="mesto_rodjenja">
+            </div>
 
-            <label for="ime-majke">Ime Majke:</label>
-            <input value="<?php echo $ucenik["ime_majke"]; ?>" type="text" id="ime-majke" name="ime-majke">
+            <div>
+                <label for="adresa">Adresa prebivališta:</label>
+                <input value="<?php echo $ucenik["adresa"]; ?>" type="text" id="adresa" name="adresa">
+            </div>
 
-            <label for="prezime-majke">Prezime Majke:</label>
-            <input value="<?php echo $ucenik["prezime_majke"]; ?>" type="text" id="prezime-majke" name="prezime-majke">
+            <div>
 
-            <label for="telefon-majke">Broj telefona Majke:</label>
-            <input value="<?php echo $ucenik["telefon_majke"]; ?>" type="tel" id="telefon-majke" placeholder="### ###-###" name="telefon-majke">
+                <label for="ime-majke">Ime Majke:</label>
+                <input value="<?php echo $ucenik["ime_majke"]; ?>" type="text" id="ime-majke" name="ime-majke">
+            </div>
+            <div>
 
-            <label for="zanimanje-majke">Zanimanje Majke:</label>
-            <input value="<?php echo $ucenik["zanimanje_majke"]; ?>" type="text" id="zanimanje-majke" name="zanimanje-majke">
+                <label for="prezime-majke">Prezime Majke:</label>
+                <input value="<?php echo $ucenik["prezime_majke"]; ?>" type="text" id="prezime-majke" name="prezime-majke">
+            </div>
+            <div>
 
-            <label for="adresa-majke">Adresa prebivališta Majke:</label>
-            <input value="<?php echo $ucenik["adresa_majke"]; ?>" type="text" id="adresa-majke" name="adresa-majke">
+                <label for="telefon-majke">Broj telefona Majke:</label>
+                <input value="<?php echo $ucenik["telefon_majke"]; ?>" type="tel" id="telefon-majke" placeholder="### ###-###" name="telefon-majke">
+            </div>
+            <div>
+
+                <label for="zanimanje-majke">Zanimanje Majke:</label>
+                <input value="<?php echo $ucenik["zanimanje_majke"]; ?>" type="text" id="zanimanje-majke" name="zanimanje-majke">
+            </div>
+            <div>
+
+                <label for="adresa-majke">Adresa prebivališta Majke:</label>
+                <input value="<?php echo $ucenik["adresa_majke"]; ?>" type="text" id="adresa-majke" name="adresa-majke">
+            </div>
 
         </div>
 
         <div id="otac">
 
-            <p>
-                Podaci o ocu
-            </p>
 
-            <label for="ime-oca">Ime oca:</label>
-            <input value="<?php echo $ucenik["ime_oca"]; ?>" type="text" id="ime-oca" name="ime-oca">
+            <div>
 
-            <label for="prezime-oca">Prezime oca:</label>
-            <input value="<?php echo $ucenik["prezime_oca"]; ?>" type="text" id="prezime-oca" name="prezime-oca">
+                <label for="ime-oca">Ime oca:</label>
+                <input value="<?php echo $ucenik["ime_oca"]; ?>" type="text" id="ime-oca" name="ime-oca">
+            </div>
+            <div>
 
-            <label for="telefon-oca">Broj telefona oca:</label>
-            <input value="<?php echo $ucenik["telefon_oca"]; ?>" type="tel" id="telefon-oca" placeholder="### ###-###" name="telefon-oca">
+                <label for="prezime-oca">Prezime oca:</label>
+                <input value="<?php echo $ucenik["prezime_oca"]; ?>" type="text" id="prezime-oca" name="prezime-oca">
+            </div>
+            <div>
 
-            <label for="zanimanje-oca">Zanimanje oca:</label>
-            <input value="<?php echo $ucenik["zanimanje_oca"]; ?>" type="text" id="zanimanje-oca" name="zanimanje-oca">
+                <label for="telefon-oca">Broj telefona oca:</label>
+                <input value="<?php echo $ucenik["telefon_oca"]; ?>" type="tel" id="telefon-oca" placeholder="### ###-###" name="telefon-oca">
+            </div>
+            <div>
 
-            <label for="adresa-oca">Adresa prebivališta oca:</label>
-            <input value="<?php echo $ucenik["adresa_oca"]; ?>" type="text" id="adresa-oca" name="adresa-oca">
+                <label for="zanimanje-oca">Zanimanje oca:</label>
+                <input value="<?php echo $ucenik["zanimanje_oca"]; ?>" type="text" id="zanimanje-oca" name="zanimanje-oca">
+            </div>
+            <div>
+
+                <label for="adresa-oca">Adresa prebivališta oca:</label>
+                <input value="<?php echo $ucenik["adresa_oca"]; ?>" type="text" id="adresa-oca" name="adresa-oca">
+            </div>
 
         </div>
         <div id="staratelj">
 
-            <p>
-                Podaci o staretelju
-            </p>
 
-            <label for="ime-staratelja">Ime staratelja:</label>
-            <input value="<?php echo $ucenik["ime_staratelja"]; ?>" type="text" id="ime-staratelja" name="ime-staratelja">
+            <div>
 
-            <label for="prezime-staratelja">Prezime staratelja:</label>
-            <input value="<?php echo $ucenik["prezime_staratelja"]; ?>" type="text" id="prezime-staratelja" name="prezime-staratelja">
+                <label for="ime-staratelja">Ime staratelja:</label>
+                <input value="<?php echo $ucenik["ime_staratelja"]; ?>" type="text" id="ime-staratelja" name="ime-staratelja">
+            </div>
+            <div>
 
-            <label for="telefon-staratelja">Broj telefona staratelja:</label>
-            <input value="<?php echo $ucenik["telefon_staratelja"]; ?>" type="tel" placeholder="### ###-###" id="telefon-staratelja" name="telefon-staratelja">
+                <label for="prezime-staratelja">Prezime staratelja:</label>
+                <input value="<?php echo $ucenik["prezime_staratelja"]; ?>" type="text" id="prezime-staratelja" name="prezime-staratelja">
+            </div>
+            <div>
 
-            <label for="zanimanje-staratelja">Zanimanje staratelja:</label>
-            <input value="<?php echo $ucenik["zanimanje_staratelja"]; ?>" type="text" id="zanimanje-staratelja" name="zanimanje-staratelja">
+                <label for="telefon-staratelja">Broj telefona staratelja:</label>
+                <input value="<?php echo $ucenik["telefon_staratelja"]; ?>" type="tel" placeholder="### ###-###" id="telefon-staratelja" name="telefon-staratelja">
 
-            <label for="adresa-staratelja">Adresa prebivališta staratelja:</label>
-            <input value="<?php echo $ucenik["adresa_staratelja"]; ?>" type="text" id="adresa-staratelja" name="adresa-staratelja">
+            </div>
+            <div>
+                <label for="zanimanje-staratelja">Zanimanje staratelja:</label>
+                <input value="<?php echo $ucenik["zanimanje_staratelja"]; ?>" type="text" id="zanimanje-staratelja" name="zanimanje-staratelja">
+            </div>
+            <div>
+
+                <label for="adresa-staratelja">Adresa prebivališta staratelja:</label>
+                <input value="<?php echo $ucenik["adresa_staratelja"]; ?>" type="text" id="adresa-staratelja" name="adresa-staratelja">
+            </div>
 
         </div>
         <div id="smerovi">
@@ -384,7 +440,7 @@ if (isset($_POST["razredKojiUpisuje"]))
         <?php
         if ($ucenik["razredUpisa"] == 1)
             for ($raz = 6; $raz < 10; $raz++)
-                insertingGradesUcenik($mydb, $raz, $ucenik["ucenikID"]);
+                insertingGradesUcenikSuzeni($mydb, $raz, $ucenik["ucenikID"]);
         ?>
 
         <button>Sačuvaj izmene</button>

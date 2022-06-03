@@ -18,17 +18,20 @@ function printInTable(
     while ($row = $result->fetch_assoc())
     //<p class='predmer'></p>
 
-       { $prefix=""; $redni_broj="";
-           if(isset($row["Redni_broj"])){
-            $prefix=$row["Redni_broj"].".";
-            $redni_broj=$row["Redni_broj"];
-       }
-           
+    {
+        $prefix = "";
+        $redni_broj = "";
+        if (isset($row["Redni_broj"])) {
+            $prefix = $row["Redni_broj"] . ".";
+            $redni_broj = $row["Redni_broj"];
+        }
+
         echo
         "<tr><td> $prefix {$row["naziv"]} </td> " .
-            button($row["id"], $btnText1, $sql_table, "delete" , $redni_broj) .
-            button($row["id"], $btnText2, $sql_table, "edit" , $redni_broj) .
-            "</tr>";}
+            button($row["id"], $btnText1, $sql_table, "delete", $redni_broj) .
+            button($row["id"], $btnText2, $sql_table, "edit", $redni_broj) .
+            "</tr>";
+    }
     echo "</table>";
 }
 
@@ -37,7 +40,7 @@ function button(
     $txt,
     $sql_table,
     $html_class,
-    $redniBroj 
+    $redniBroj
 ) {
     return "
     <td>
@@ -172,10 +175,10 @@ function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_messag
     }
     echo "<label for =''>{$title}</label>";
     echo "<select name='smer-{$index}'> id='smer-{$index}'>";
-    if ($index + 1 == 2) 
+    if ($index + 1 == 2)
         echo "<option> Ne želim drugo zanimanje </option>
         ";
-    
+
     while ($row = $res->fetch_assoc()) {
         echo "<option value='{$row["id"]}'";
         if ($ucenik[$polje_name] == $row["id"])
@@ -188,7 +191,7 @@ function prikaziSmerUcenik($mydb, $sviSmerovi, $title, $index, $not_found_messag
 function sviPred2($class)
 {
     return
-        "SELECT veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
+        "SELECT skracenica, veza_razred_predmet.id, naziv, predmeti.id AS ID_predmeta
                     FROM   `veza_razred_predmet`
                     INNER JOIN `predmeti`
                             ON predmeti.id = veza_razred_predmet.predmet
@@ -227,6 +230,46 @@ function insertingGradesUcenik($database, $class, $ucenikId)
 
     echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
     echo "</div>";
+}
+
+function insertingGradesUcenikSuzeni($database, $class, $ucenikId)
+{
+    echo "<div>";
+    // echo "<p>Ocene u $class. razredu</p>";
+    $res = $database->query(sviPred2($class));
+    if ($res->num_rows > 0) {
+        showSubjectsUcenikSuzeni($res, $class, $ucenikId);
+        echo "</div>";
+        return;
+    }
+
+    echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
+    echo "</div>";
+}
+
+function showSubjectsUcenikSuzeni($res, $class, $ucenikId)
+{
+    include "admin_files/conn.php";
+    // echo "<table><th>Naziv predmeta</th>";
+    $skracenice = "<div class='red-sracenica'>";
+    $redOcena = "<div class='red-ocena'>";
+    while ($subject = $res->fetch_assoc()) {
+        $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
+        $mark = $mark->fetch_assoc();
+
+        $mark = $mark["ocena"];
+        //echo $mark;
+        $Tag="span";
+        $skracenice = $skracenice . "<$Tag>{$subject["skracenica"]}  </$Tag>";
+        // ! HERE
+        $redOcena = $redOcena . "<$Tag> <input value='$mark' name='{$subject["ID_predmeta"]}-$class'> </$Tag>";
+        // gradeUcenik(2, $class, $subject["ID_predmeta"], $mark) .
+        // gradeUcenik(3, $class, $subject["ID_predmeta"], $mark) .
+        // gradeUcenik(4, $class, $subject["ID_predmeta"], $mark) .
+        // gradeUcenik(5, $class, $subject["ID_predmeta"], $mark) .
+        // "</div></div>";
+    }
+    echo "$skracenice </div>  $redOcena </div>";
 }
 
 function showSubjectsUcenik($res, $class, $ucenikId)

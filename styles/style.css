@@ -7,6 +7,7 @@
 @import url("ocena.css");
 @import url("pdf.css");
 @import url("mobile.css");
+@import url("suzeni.css");
 
 body {
   padding: 0.75rem 2.5rem;
@@ -46,36 +47,37 @@ body div {
 .naziv-predmeta {
   width: calc(100vw - 250px);
 }
-.suzen button {
-  padding: 0.25rem;
-}
-.suzen div {
-  gap: 0.85rem;
-}
-.suzen label {
-  font-size: 15px;
-}
 
-.suzen input,
-.suzen select {
-  padding: 0.1rem;
-  border-radius: 0;
-}
 #menu {
-  position: absolute;
+  position: fixed;
   background: white;
   inset: 0;
   gap: 1rem;
-  display: grid;
+  display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   justify-items: center;
-  display: none;
+  right: auto;
+  bottom: auto;
+  padding: 1rem 2rem;
+}
+#menu form button,
+#menu form input {
+  width: 100%;
+}
+#find-ucenik-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+#find-ucenik-form label {
+  margin: 0;
 }
 #menu-button:checked ~ #menu {
   display: grid;
 }
-#menu-button-label{
+#menu-button-label {
   position: absolute;
   left: 12px;
   font-size: 24px;
@@ -84,5 +86,5 @@ body div {
   z-index: 3;
 }
 #menu-button:checked ~ label p {
-  color:red;
+  color: red;
 }

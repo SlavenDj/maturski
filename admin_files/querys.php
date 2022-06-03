@@ -36,16 +36,13 @@ function qryInsert($class)
                 (
                     {$_POST["dodaj_predmet_$class"]},
                     $class,
-                    " . (int)$_POST["redni_broj_$class"] . "
+                    {$_POST["redni_broj_$class"]}  
                 )";
 }
 
 function findUcenik($jmbg)
 {
-    return "SELECT *,
-                ucenik.id AS ucenikID
-            FROM   ucenik
-                
-                
+    return "SELECT *, ucenik.id AS ucenikID
+            FROM   ucenik 
             WHERE  jmbg = '$jmbg';";
 }

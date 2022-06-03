@@ -50,13 +50,13 @@ if (isset($_POST["query"])) {
         $mydb->query("UPDATE `admin` set `username`='" . $_GET["new-username"] . "'");
     }
     ?>
-    <label for="menu-button" >
+    <!-- <label for="menu-button" >
         <p id="menu-button-label"> 
 
             Menu
         </p>
-        <input type="checkbox" hidden id="menu-button">
-   
+        <input type="checkbox" hidden id="menu-button"> -->
+
     <div id="menu">
 
 
@@ -78,14 +78,20 @@ if (isset($_POST["query"])) {
             </button>
         </form>
 
-        <form action="../ucenikSuzbijen.php" method="post">
+        <form action="noviUcenikSuzeno.php">
+            <button>
+                Dodaj novog učenika
+            </button>
+        </form>
+
+        <form action="../ucenikSuzbijen.php" method="post" id="find-ucenik-form">
             <label for="jmbg">Unesi JMBG učenika kojeg tražite</label>
             <input type="text" name="jmbg" id="find-jmbg" placeholder="JMBG učenika">
             <button id="pronadi-me">Pronađi učenika</button>
         </form>
     </div>
-    
-    </label>
+
+    <!-- </label> -->
     <?php
     include '../admin_files/sections/predmeti.php';
 

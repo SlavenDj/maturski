@@ -1,0 +1,38 @@
+.suzen button {
+  padding: 0.25rem;
+}
+.suzen div {
+  gap: 0.85rem;
+}
+.suzen label {
+  font-size: 15px;
+}
+
+.suzen input,
+.suzen select {
+  padding: 0.1rem;
+  border-radius: 0;
+}
+
+.suzen div {
+  gap: 4px;
+}
+.suzen form div > div:not(.red-sracenica, .red-ocena) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.red-sracenica,
+.red-ocena {
+  display: flex;
+  /* gap: 4px; */
+  flex-direction: row;
+}
+
+.red-ocena input,
+.red-sracenica span {
+  width: 44px;
+  text-align: center;
+}
+.suzen label {
+  margin: 0;
+}

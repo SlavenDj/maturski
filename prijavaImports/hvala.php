@@ -6,12 +6,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hvala!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            font-family: system-ui;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        #ime-prezime-uper {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        #bodovi {
+            display: grid;
+            width: 430px;
+            align-self: center;
+            grid-template-columns: 1fr auto;
+        }
+    </style>
 </head>
 
 <body>
+
+
+
+
     <?php
     include "../admin_files/conn.php";
-
+    $idijeviPredmetaZaRacunanje = array(1, 2, 14, 20, 16);
     $jmbg = $_POST["jmbg"];
     if (isset($_POST["ime"])) {
         $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
@@ -34,7 +70,7 @@
             '{$_POST["adresa"]}',
             {$_POST["razred"]}
             );";
-            echo $unosUcenika;
+            // echo $unosUcenika;
             $mydb->query($unosUcenika);
         } else {
             $unosUcenika =
@@ -113,12 +149,17 @@
                             AND razred = $class 
                     ORDER  BY redni_broj";
         }
-
+        $opstiUpseh = 0;
+        $predmeti = 0;
         for ($class = 6; $class <= 9; $class++) {
+            $zbir_ocena_u_nekom_razredu = 0;
+            $broj_predmeta = 0;
             $res = $mydb->query(sviPred($class));
             if ($res->num_rows > 0) {
                 while ($subject = $res->fetch_assoc()) {
+
                     $idPredmeta = $subject["ID_predmeta"];
+                    $broj_predmeta++;
                     if (isset($_POST["$idPredmeta-$class"])) {
                         if ($row == null)
                             $unesiOcenu =
@@ -134,21 +175,81 @@
                         else
                             $unesiOcenu =
                                 "UPDATE ocena
-                        SET
-                             ocena.ocena={$_POST["$idPredmeta-$class"]}
-                            
-                                 WHERE ucenik=$ucenikID AND predmet=$idPredmeta AND razred=$class
-                                 
-                                
-                                ";
+                                SET
+                                    ocena.ocena={$_POST["$idPredmeta-$class"]}
+                                WHERE 
+                                    ucenik=$ucenikID AND 
+                                    predmet=$idPredmeta AND 
+                                    razred=$class";
+                        $zbir_ocena_u_nekom_razredu += intval($_POST["$idPredmeta-$class"]);
+                        if (in_array($idPredmeta, $idijeviPredmetaZaRacunanje)) {
+                            // echo $idPredmeta. " ";
+                            if ($class >= 8) {
+                                $predmeti += intval($_POST["$idPredmeta-$class"]) / 5.0 * 2;
+                            }
+                        }
                         $mydb->query($unesiOcenu);
                     }
                 }
             }
+            $broj_bovoda_u_nekom_razredu = $zbir_ocena_u_nekom_razredu * 1.0 / $broj_predmeta;
+            if ($class <= 7)
+                $opstiUpseh += $broj_bovoda_u_nekom_razredu  * 2;
+            else
+                $opstiUpseh += $broj_bovoda_u_nekom_razredu  * 3;
         }
     }
 
     ?>
+
+    <p class="center">
+        Poštovani učeniče,
+        <br>
+        Ako si tačno unio sve podatke, tvoji bodovi izgledaju ovako:
+
+    </p>
+
+    <p id="ime-prezime-uper">
+        <?php
+        echo "{$_POST["ime"]} {$_POST["prezime"]}";
+        ?>
+    </p>
+    <div id="bodovi">
+        <p class="name">
+            Opšti uspjeh
+        </p>
+        <p class="bod">
+            <?php
+            echo $opstiUpseh;
+            ?>
+        </p>
+        <p class="name">
+            Predmeti značajni za struku*
+        </p>
+        <p class="bod">
+            <?php
+            echo $predmeti;
+            ?>
+        </p>
+        <p class="name">
+            <b>
+                UKUPNO
+
+            </b>
+        </p>
+        <p class="bod">
+            <?php
+            echo $predmeti + $opstiUpseh;
+            ?>
+        </p>
+    </div>
+    <p class="center">
+        Hvala ti što si koristio naš sajt. <br>
+        Očekujemo te na upisu!
+    </p>
+    <small>
+        * OBJAŠNJENJE: Broj bodova je izračunat premo predmetima potrebim na <b>elektrotehčiku školu</b>. Za ostale škole, npr. gimnazija, medicinska... ovaj broj bodova ne važi, jer se gledaju drugi predmeti.
+    </small>
 </body>
 
 </html>
