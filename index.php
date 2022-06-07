@@ -13,17 +13,17 @@ include "prijavaImports/head.php";
         ?>
     </div>
 </div>
-<div id="smer">
-    <?php
-    prikaziSmer($mydb, $sviSmerovi, "Smer koji želiš da upišeš", 0, "Nema unesenih smerova u bazi");
-    prikaziSmer($mydb, $sviSmerovi, "Alterinativni smer", 1, "Nema unesenih smerova u bazi");
-    ?>
+
+<div id="tvoj-jmbg">
+    <label for="jmbg">Koji je tvoj JMBG:</label>
+    <input type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" inputmode="numeric">
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
     </div>
 </div>
-<div id="vuk">
+
+<div id="vuk" class='yes_no'>
     <p>Da li si vukovac?</p>
     <section id="vuk-background">
         <div>
@@ -37,9 +37,50 @@ include "prijavaImports/head.php";
     </section>
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
     </div>
 </div>
+
+<?php
+for ($raz = 6; $raz < 10; $raz++)
+    insertingGrades($mydb, $raz);
+?>
+
+<div id='zelis-li-dalje' class='yes_no'>
+    <p>
+        Samo na korak si da se prijaviš za upis u ETŠ. Možemo li te zamoliti da uneseš još nekoliko podataka?
+
+    </p>
+    <section class='vuk-bg'>
+        <div>
+            <input type="radio" id="nastavlja" name="sledeci-korac" value="1">
+            <label for="nastavlja">Da</label>
+        </div>
+        <div>
+            
+            <input type="radio" name="ne-nastavlja" name="sledeci-korac" id="ne-nastavlja" value="0">
+            <label for="ne-nastavlja">Ne
+                
+            </label>
+        </div>
+    </section>
+    <div class="buttons">
+        <button type='button' class='back'>Nazad</button>
+        <button type='button' class='next-button'>Dalje</button>
+    </div>
+
+</div>
+<div id="smer">
+    <?php
+    prikaziSmer($mydb, $sviSmerovi, "Smer koji želiš da upišeš", 0, "Nema unesenih smerova u bazi");
+    prikaziSmer($mydb, $sviSmerovi, "Alterinativni smer", 1, "Nema unesenih smerova u bazi");
+    ?>
+    <div class="buttons">
+        <button type='button' class='back'>Nazad</button>
+        <button type='button' class='next-button'>Dalje</button>
+    </div>
+</div>
+
 <div id="podaci-ucenika">
 
     <label for="ime">Kako se zoveš:</label>
@@ -55,9 +96,6 @@ include "prijavaImports/head.php";
     <label for="mail">Tvoji e-mail:</label>
     <input type="email" id="mail" name="mail">
 
-    <label for="jmbg">Koji je tvoj JMBG:</label>
-    <input type="text" id="jmbg" name="jmbg" minlength="13" maxlength="13" inputmode="numeric">
-
     <label for="datum-rodjenja">Kad si rođen:
     </label>
     <input placeholder="dd-mm-yyyy" type="date" id="datum-rodjenja" name="datum_rodjenja">
@@ -70,7 +108,7 @@ include "prijavaImports/head.php";
 
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
     </div>
 
 </div>
@@ -140,7 +178,10 @@ include "prijavaImports/head.php";
     </small>
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
+        <button class="smorio-se">
+            Smorio sam se
+        </button>
     </div>
 </div>
 <div id="svedocansto-9">
@@ -148,15 +189,15 @@ include "prijavaImports/head.php";
     <label for="osnovna_skola">Naziv osnovne škole:</label>
     <input type="text" id="osnovna_skola" name="osnovna_skola" list="unesene-skole">
 
-     <datalist id="unesene-skole">
-        <?php 
-        $res=$mydb->query("SELECT osnovna_skola FROM ucenik group by osnovna_skola");
-        while($row=$res->fetch_array())
+    <datalist id="unesene-skole">
+        <?php
+        $res = $mydb->query("SELECT osnovna_skola FROM ucenik group by osnovna_skola");
+        while ($row = $res->fetch_array())
             echo "<option value='{$row["osnovna_skola"]}'>";
-        
+
         ?>
 
-     </datalist>
+    </datalist>
 
     <label for="djelovodni_broj">Djelovodni broj</label>
     <input type="text" id="djelovodni_broj" name="djelovodni_broj">
@@ -179,7 +220,10 @@ include "prijavaImports/head.php";
     <input type="text" id="mesto_izdavanja" name="mesto_izdavanja">
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
+        <button class="smorio-se">
+            Smorio sam se
+        </button>
     </div>
 </div>
 <div id="Majka">
@@ -206,7 +250,10 @@ include "prijavaImports/head.php";
 
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
+        <button class="smorio-se">
+            Smorio sam se
+        </button>
     </div>
 </div>
 <div id="otac">
@@ -233,7 +280,10 @@ include "prijavaImports/head.php";
 
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
+        <button class="smorio-se">
+            Smorio sam se
+        </button>
     </div>
 </div>
 <div id="staratelj">
@@ -260,27 +310,27 @@ include "prijavaImports/head.php";
 
     <div class="buttons">
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button>Prijavi se</button>
+        <button class="smorio-se">
+            Smorio sam se
+        </button>
+
     </div>
 </div>
-<?php
-for ($raz = 6; $raz < 10; $raz++)
-    insertingGrades($mydb, $raz);
-$mydb->close();
-?>
+
 </form>
 <div id="insertJMBG">
-    <form action="ucenik.php" method="post" id="find-form"  onSubmit='return'>
+    <form action="ucenik.php" method="post" id="find-form" onSubmit='return'>
         <label for="find-jmbg">Unesi svoji JMBG</label>
         <input type="text" id="find-jmbg" name="jmbg">
         <input type="number" id="razred-koji-upisuje" name='razredKojiUpisuje' hidden>
         <div class="buttons">
-        <button type='button' class='back' id="back-find-jmbg">Nazad</button>
+            <button type='button' class='back' id="back-find-jmbg">Nazad</button>
             <button id="pronadi-me" disabled>Pronađi me</button>
         </div>
     </form>
 </div>
 <script type="module" src="prijava.js"></script>
 </body>
-
+<div id="progress-bar"></div>
 </html>

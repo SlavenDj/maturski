@@ -53,3 +53,13 @@ button:disabled{
 .not-ok-jmbg{
   background: rgb(104, 23, 23);
 }
+
+.smorio-se{
+  background: none;
+  outline: none;
+  color: rgb(57, 57, 201);
+  font-weight: 600;
+}
+.smorio-se{
+  text-decoration: underline;
+}

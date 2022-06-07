@@ -70,14 +70,16 @@ function selectMenu($database, $query, $selectMenuName)
 
 function grade($grade, $class, $subject)
 {
+    $checked='';
+    if($grade == 5) $checked='checked';
     return "
-    
         <input type = 'radio' 
             value='$grade' 
             id='$subject-grad-$grade-class-$class'  
             name='$subject-$class' 
             class='ocena'
             data-ocena='$grade'
+            $checked
             > 
     ";
 }
@@ -89,13 +91,10 @@ function insertingGrades($database, $class)
     $res = $database->query(sviPred($class));
     if ($res->num_rows > 0) {
         showSubjects($res, $class);
-        if ($class == 9)
-            echo "<div class='buttons'><button type='button' class='back'>Nazad</button> <button >Prijavi se</button></div></div>";
-        else
             echo "
         <div class='buttons'>
         <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next'>Dalje</button>
+        <button type='button' class='next-button'>Dalje</button>
     </div>
         </div>
         ";
@@ -105,7 +104,7 @@ function insertingGrades($database, $class)
     echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
     echo " <div class='buttons'>
     <button type='button' class='back'>Nazad</button>
-    <button type='button' class='next'>Dalje</button>
+    <button type='button' class='next-button'>Dalje</button>
 </div>";
 }
 function showSubjects($res, $class)
@@ -262,12 +261,24 @@ function showSubjectsUcenikSuzeni($res, $class, $ucenikId)
         $Tag="span";
         $skracenice = $skracenice . "<$Tag>{$subject["skracenica"]}  </$Tag>";
         // ! HERE
-        $redOcena = $redOcena . "<$Tag> <input value='$mark' name='{$subject["ID_predmeta"]}-$class'> </$Tag>";
-        // gradeUcenik(2, $class, $subject["ID_predmeta"], $mark) .
-        // gradeUcenik(3, $class, $subject["ID_predmeta"], $mark) .
-        // gradeUcenik(4, $class, $subject["ID_predmeta"], $mark) .
-        // gradeUcenik(5, $class, $subject["ID_predmeta"], $mark) .
-        // "</div></div>";
+        $redOcena = $redOcena . "<$Tag> <input value='$mark'
+        class='ocena-polje'
+        
+        type='number' name='{$subject["ID_predmeta"]}-$class' min='2' max='5' placeholder='X'
+        oninput = '
+            
+            let max = parseInt(this.max);
+            let min = parseInt(this.min);
+    
+            if (parseInt(this.value) > max) 
+                this.value = max; 
+                if (parseInt(this.value) < min) 
+                this.value = min; 
+        '
+        
+        
+        > </$Tag>";
+        
     }
     echo "$skracenice </div>  $redOcena </div>";
 }
@@ -290,4 +301,62 @@ function showSubjectsUcenik($res, $class, $ucenikId)
             "</td></tr>";
     }
     echo "</table>";
+}
+
+
+
+function insertingGradesUcenikSuzeni2($database, $class)
+{
+    echo "<div>";
+    // echo "<p>Ocene u $class. razredu</p>";
+    $res = $database->query(sviPred2($class));
+    if ($res->num_rows > 0) {
+        showSubjectsUcenikSuzeni2($res, $class);
+        echo "</div>";
+        return;
+    }
+
+    echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
+    echo "</div>";
+}
+
+
+function showSubjectsUcenikSuzeni2($res, $class)
+{
+    // include "admin_files/conn.php";
+    // echo "<table><th>Naziv predmeta</th>";
+    $skracenice = "<div class='red-sracenica'>";
+    $redOcena = "<div class='red-ocena'>";
+    while ($subject = $res->fetch_assoc()) {
+        
+        //echo $mark;
+        $Tag="span";
+        $skracenice = $skracenice . "<$Tag>{$subject["skracenica"]}  </$Tag>";
+        // ! HERE
+        $redOcena = $redOcena . "<$Tag> <input 
+        class='ocena-polje'
+        
+        type='number' name='{$subject["ID_predmeta"]}-$class' min='2' max='5' placeholder='X'
+        oninput = '
+            let max = parseInt(this.max);
+            let min = parseInt(this.min);
+    
+            if (parseInt(this.value) > max) 
+                this.value = max; 
+                if (parseInt(this.value) < min) 
+                this.value = min; 
+        '
+        
+        
+        > </$Tag>";
+        
+    }
+    echo "$skracenice </div>  $redOcena </div>";
+}
+
+
+function logOut(){
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
 }

@@ -1,16 +1,14 @@
 <?php
 session_start();
+include "../admin_files/funs.php";
+
+
 // * Log Out
-if (isset($_GET["logout"])) {
-    unset($_SESSION["userID"]);
-    unset($_SESSION["username"]);
-    header("Location: index.php");
-    session_destroy();
-}
+if (isset($_GET["logout"])) 
+    logOut();
 
 include '../admin_files/conn.php';
 include '../admin_files/querys.php';
-include "../admin_files/funs.php";
 include "../admin_files/add_erase.php";
 
 if (isset($_POST["query"])) {
@@ -28,41 +26,55 @@ if (isset($_POST["query"])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Admin</title>
+    <link rel="shortcut icon" href="../imgs/folder-admin.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 
-<body>
+<body class="admin">
 
     <?php
-
+    function addNewUserQuery($usename, $password)
+    {
+        return 
+            "INSERT INTO `admin` (`username`, `password`) 
+                VALUE (
+                    '$usename',
+                    '$password')";
+    }
+    function addNewUser($db, $username, $password)
+    {
+        $db->query(addNewUserQuery($username, password_hash($password, PASSWORD_DEFAULT)));
+    }
     if (isset($_POST["new-admin-username"]) && isset($_POST["new-admin-password"])) {
-        $mydb->query("INSERT INTO admin (username, `password`) value ('{$_POST["new-admin-username"]}','" . password_hash($_POST["new-admin-password"], PASSWORD_DEFAULT)
-            . "')");
+        addNewUser($mydb, $_POST["new-admin-username"], $_POST["new-admin-password"]);
     }
 
-
+    function updatePasswordQuery($userId, $password)
+    {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        return
+            "UPDATE `admin` 
+                SET `password`='$password' 
+            WHERE id=$userId";
+    }
     if (isset($_POST["new-pwrd-1"])) {
-        $mydb->query("UPDATE `admin` 
-    set `password`='" . password_hash($_POST["new-pwrd-1"], PASSWORD_DEFAULT) . "' 
-    WHERE id={$_SESSION["userID"]}");
+        $mydb->query(updatePasswordQuery($_SESSION["userID"], $_POST["new-pwrd-1"]));
     }
     if (isset($_POST["new-username"])) {
         $mydb->query("UPDATE `admin` set `username`='" . $_GET["new-username"] . "'");
     }
     ?>
-    <!-- <label for="menu-button" >
-        <p id="menu-button-label"> 
 
-            Menu
-        </p>
-        <input type="checkbox" hidden id="menu-button"> -->
 
     <div id="menu">
 
-
+        
         <form>
             <input type="text" value="true" hidden name="logout">
-            <button>Odjavi se sa <?php echo $_SESSION["username"] ?></button>
+            <button>Odjavi se sa <?php
+                                    if (!isset($_SESSION["username"]))
+                                        header("Location: index.php");
+                                    echo $_SESSION["username"] ?></button>
         </form>
         <form method="post">
             <input type="text" name="new-admin-username" id="new-admin-username" hidden required>
@@ -91,7 +103,7 @@ if (isset($_POST["query"])) {
         </form>
     </div>
 
-    <!-- </label> -->
+   
     <?php
     include '../admin_files/sections/predmeti.php';
 
@@ -104,7 +116,7 @@ if (isset($_POST["query"])) {
 
     <?php
     include '../admin_files/sections/smerovi.php';
-    // include '../admin_files/findUcenikForm.php';
+
     ?>
 
 
@@ -117,7 +129,7 @@ if (isset($_POST["query"])) {
         const jmbgFiledForFinding = document.querySelector("#find-jmbg")
         const btnFindMe = document.querySelector("#pronadi-me");
         jmbgFiledForFinding.addEventListener("input", () => {
-            // if (jmbgFiledForFinding.value.length === 13) {
+            
             let xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -126,7 +138,7 @@ if (isset($_POST["query"])) {
                     if (message === "false") {
                         btnFindMe.innerText = "Nema takvog JMBG kod nas";
                         btnFindMe.toggleAttribute("disabled", true)
-                        // btnFindMe.classList.toggle("not-ok-jmbg", true);
+                    
                         btnFindMe.classList.toggle("ok-jmbg", false);
 
                         document.getElementById("find-form").toggleAttribute("onSubmit='return'", false)
@@ -135,7 +147,7 @@ if (isset($_POST["query"])) {
                         btnFindMe.innerText = message;
                         btnFindMe.toggleAttribute("disabled", false)
 
-                        // btnFindMe.classList.toggle("not-ok-jmbg", false);
+                        
                         btnFindMe.classList.toggle("ok-jmbg", true);
 
                         document.getElementById("find-form").toggleAttribute("onSubmit='return'", true)
@@ -146,7 +158,7 @@ if (isset($_POST["query"])) {
             };
             xmlhttp.open("GET", "../searchJMBG.php?q=" + jmbgFiledForFinding.value, true);
             xmlhttp.send();
-            // }
+           
         })
 
         document.getElementById("dodaj-admina").addEventListener("click", () => {
@@ -166,8 +178,10 @@ if (isset($_POST["query"])) {
 
         )
     </script>
+    <?php
+    ?>
 </body>
 
 </html>
 
-<?php $mydb->close(); ?>
+<?php $mydb->close()?>

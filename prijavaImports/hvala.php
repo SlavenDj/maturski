@@ -42,9 +42,6 @@
 
 <body>
 
-
-
-
     <?php
     include "../admin_files/conn.php";
     $idijeviPredmetaZaRacunanje = array(1, 2, 14, 20, 16);
@@ -52,27 +49,17 @@
     if (isset($_POST["ime"])) {
         $res = $mydb->query("SELECT id FROM ucenik where jmbg='$jmbg'");
         $row = $res->fetch_assoc();
-
-
-        if ($row == null) {
+        
             $unosUcenika =
                 "INSERT INTO ucenik
-            (ime, prezime, telefon, mail, jmbg, datum_rodjenja, mesto_rodjenja, adresa, razredUpisa )
+            (jmbg)
         VALUES
-        (
-            '{$_POST["ime"]}', 
-            '{$_POST["prezime"]}', 
-            '{$_POST["telefon"]}', 
-            '{$_POST["mail"]}', 
-            '{$_POST["jmbg"]}', 
-            '{$_POST["datum_rodjenja"]}', 
-            '{$_POST["mesto_rodjenja"]}',
-            '{$_POST["adresa"]}',
-            {$_POST["razred"]}
+        ( 
+            '{$_POST["jmbg"]}'
             );";
             // echo $unosUcenika;
             $mydb->query($unosUcenika);
-        } else {
+        
             $unosUcenika =
                 "UPDATE ucenik
             SET
@@ -84,7 +71,7 @@
                 adresa ='{$_POST["adresa"]}',
                 razredUpisa = {$_POST["razred"]}
             WHERE jmbg='$jmbg';";
-        }
+        
         $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
         $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
         $ucenikID = $ucenikID["ID"];
@@ -138,7 +125,7 @@
 
         $mydb->query($unosUcenika);
 
-
+    }
         function sviPred($class)
         {
             return
@@ -198,7 +185,7 @@
             else
                 $opstiUpseh += $broj_bovoda_u_nekom_razredu  * 3;
         }
-    }
+    
 
     ?>
 
