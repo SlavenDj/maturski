@@ -5,8 +5,12 @@ const MAX_DAYS_IN_MONTH = 31,
   messages = {
     jmbgNotFound: "Nije validan JMBG.",
     classNotSelected: "Moraš izabrati razred.",
+    mansQustionForVuk:
+      "Da li si vukovac, tj. da li si od 6. do 9. razreda imao sve petice?",
+    womansQustionForVuk:
+      "Da li si vukovac, tj. da li si od 6. do 9. razreda imala sve petice?",
   };
-
+let gender = "man";
 function hideElement(element) {
   document.getElementById(element).style.display = "none";
 }
@@ -17,20 +21,23 @@ function showElement(element) {
 function showTip() {
   document.getElementById("tip").style.display = "grid";
   document
-    .querySelectorAll(".buttons")
+    .querySelectorAll("#buttons")
     .forEach((btns) => (btns.style.display = "none"));
 }
 function hideTip() {
   document.getElementById("tip").style.display = "none";
   document
-    .querySelectorAll(".buttons")
+    .querySelectorAll("#buttons")
     .forEach((btns) => (btns.style.display = "flex"));
 }
 
 function IsjmbgValidator(jmbg) {
   const day = +`${jmbg[0]}${jmbg[1]}`,
     month = +`${jmbg[2]}${jmbg[3]}`,
+    year = +`2${jmbg[4]}${jmbg[5]}${jmbg[6]}`,
+    genderNumber = `${jmbg[9]}${jmbg[10]}${jmbg[11]}`,
     indicatior = +`${jmbg[12]}`;
+
   let suma = 0,
     multipler = 7;
   for (let i = 0; i < jmbg.length - 1; i++) {
@@ -43,8 +50,27 @@ function IsjmbgValidator(jmbg) {
     day <= MAX_DAYS_IN_MONTH &&
     month <= LAST_MONTH &&
     (model == indicatior || indicatior == 11 - model)
-  )
+  ) {
+    console.log(genderNumber);
+    gender = genderNumber > 499 ? "woman" : "man";
+    document.getElementById("vuk-title").innerText =
+      gender === "man"
+        ? messages.mansQustionForVuk
+        : messages.womansQustionForVuk;
+    document.getElementById("datum-rodjenja").value = `${year}-${month}-${day}`;
+    document
+      .querySelectorAll(".ocene-title")
+      .forEach(
+        (title) =>
+          (title.innerText =
+            gender === "man"
+              ? `Označi koje si ocjene imao iz pojedinih predmeta u ${title.dataset["razred"]}. razredu.`
+              : `Označi koje si ocjene imala iz pojedinih predmeta u ${title.dataset["razred"]}. razredu.`)
+      );
+
     return true;
+  }
+
   return false;
 }
 function isClassCheked() {
@@ -57,13 +83,14 @@ function isClassCheked() {
 }
 // todo: needs fixing/reformating
 function edgeCases(sections, currentSection, step) {
-  if (!(0 < currentSection + step && currentSection + step < sections.length))
+  if (!(0 <= currentSection + step && currentSection + step < sections.length))
     return false;
   if (!isClassCheked()) {
     alert(messages.classNotSelected);
     return false;
   }
-  const section = sections[currentSection];
+  const section = sections[currentSection],
+    nextSection = sections[currentSection + step];
   if (
     section === "tvoj-jmbg" &&
     IsjmbgValidator(document.getElementById("jmbg").value) === false
@@ -78,6 +105,29 @@ function edgeCases(sections, currentSection, step) {
     showElement("insertJMBG");
     return false;
   }
+  hideElement("smorio-se");
+  showElement("back");
+  showElement("next-button");
+  hideElement("prijavi-se-button");
+  if (
+    ["jezik-ver", "svedocansto-9", "Majka", "otac"].indexOf(nextSection) > -1
+  ) {
+    showElement("smorio-se");
+    return true;
+  }
+
+  if (nextSection === "staratelj") {
+    hideElement("next-button");
+    showElement("prijavi-se-button");
+    return true;
+  }
+
+  if (nextSection === "uvod") {
+    hideElement("back");
+    return true;
+  }
+
+  return true;
 }
 
 function updateProgressBar(sections, currentSection) {

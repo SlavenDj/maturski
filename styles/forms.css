@@ -3,14 +3,8 @@
 }
 
 
-.yes_no div:not(.buttons) {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
-}
 
-#vuk-background, .vuk-bg {
+.white-bg {
   background: #fff;
   padding: 0.5rem 1rem;
   border-radius: 12px;

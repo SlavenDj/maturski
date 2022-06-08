@@ -19,12 +19,10 @@ let currentSection = 0;
 fun.showElement(sections[currentSection]);
 
 document
-  .querySelectorAll(".next-button")
-  .forEach((button) => button.addEventListener("click", () => nextPage()));
+  .getElementById("next-button")
+  .addEventListener("click", () => nextPage());
 
-document
-  .querySelectorAll(".back")
-  .forEach((button) => button.addEventListener("click", () => previousPage()));
+document.getElementById("back").addEventListener("click", () => previousPage());
 
 document.getElementById("show-tip").addEventListener("click", fun.showTip);
 document.getElementById("tip").addEventListener("click", fun.hideTip);
@@ -44,6 +42,12 @@ document.getElementById("back-find-jmbg").addEventListener("click", () => {
 });
 
 document.getElementById("ne-nastavlja").addEventListener("click", () => {
+  document.getElementById("main-form").submit();
+});
+document.getElementById("prijavi-se-link").addEventListener("click", () => {
+  document.getElementById("main-form").submit();
+});
+document.getElementById("prijavi-se-button").addEventListener("click", () => {
   document.getElementById("main-form").submit();
 });
 
@@ -123,7 +127,9 @@ function Test() {
 }
 
 addEventListener("keydown", (e) => {
-  e.preventDefault();
+  if (e.key === "Enter") {
+    return false;
+  }
   if (e.key === "Escape") {
     document.activeElement.blur();
     return;
@@ -131,7 +137,4 @@ addEventListener("keydown", (e) => {
   if (document.activeElement.tagName !== "BODY") return;
   if (e.key == "ArrowLeft") previousPage();
   if (e.key == "ArrowRight") nextPage();
-  // if (e.key = "Enter") {
-
-  // }
 });

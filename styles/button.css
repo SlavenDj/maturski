@@ -11,12 +11,12 @@ button {
   padding: 0.5rem;
 }
 button:disabled{
-  /* filter: saturate(0); */
   opacity: 50%;
   background: rgb(167, 18, 18);
 }
 
-.buttons {
+#buttons {
+  gap: 1rem;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -26,23 +26,24 @@ button:disabled{
   display: flex;
   box-shadow: 5px 5px 20px rgba(5, 5, 5, 0.411);
 }
-
+#prijavi-se-button{
+  display: none;
+}
 #print {
   position: sticky;
   top: 0;
   left: 0;
 }
-@media (min-width: 1024px) {
-  .buttons{
-    left: calc((100vw - 836px)/2 + 836px);
-    bottom: auto;
+
+@media (min-width: 836px) {
+  #buttons{
+    position: static;
+    background: none;
+    box-shadow: none;
+    width: max-content;
     flex-direction: row;
-    gap: 0;
     padding: 0;
-    width: auto;
-  }
-  .buttons > *{
-    width: 100%;
+    height: min-content;
   }
   
 }
@@ -54,12 +55,14 @@ button:disabled{
   background: rgb(104, 23, 23);
 }
 
-.smorio-se{
+#smorio-se{
+  display: none;
   background: none;
   outline: none;
   color: rgb(57, 57, 201);
   font-weight: 600;
-}
-.smorio-se{
   text-decoration: underline;
+}
+#back{
+  display: none;
 }

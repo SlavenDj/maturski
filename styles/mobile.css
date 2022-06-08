@@ -16,7 +16,7 @@
     padding: 0.75rem 1rem;
   }
 }
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   #razredi {
     display: grid;
     font-size: 3rem;
@@ -34,7 +34,7 @@
     height: var(--razred);
     font-size: 3rem;
   }
-}
+} */
 @media not all and (pointer: coarse) {
     table > :nth-child(n + 2):hover {
       background: var(--pg-100);

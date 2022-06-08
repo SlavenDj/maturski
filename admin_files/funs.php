@@ -70,8 +70,8 @@ function selectMenu($database, $query, $selectMenuName)
 
 function grade($grade, $class, $subject)
 {
-    $checked='';
-    if($grade == 5) $checked='checked';
+    $checked = '';
+    if ($grade == 5) $checked = 'checked';
     return "
         <input type = 'radio' 
             value='$grade' 
@@ -87,25 +87,16 @@ function grade($grade, $class, $subject)
 function insertingGrades($database, $class)
 {
     echo "<div id='ocene-$class'>";
-    echo "<p>Ocene u $class. razredu</p>";
+    echo "<h3 class='ocene-title' data-razred='$class'>$class</h3>";
     $res = $database->query(sviPred($class));
     if ($res->num_rows > 0) {
         showSubjects($res, $class);
-            echo "
-        <div class='buttons'>
-        <button type='button' class='back'>Nazad</button>
-        <button type='button' class='next-button'>Dalje</button>
-    </div>
-        </div>
-        ";
+        echo "</div>";
         return;
     }
 
     echo "<p class='not-found'>Nema predmeta podešenih u $class. razredu</p>";
-    echo " <div class='buttons'>
-    <button type='button' class='back'>Nazad</button>
-    <button type='button' class='next-button'>Dalje</button>
-</div>";
+    echo " </div>";
 }
 function showSubjects($res, $class)
 {
@@ -255,10 +246,11 @@ function showSubjectsUcenikSuzeni($res, $class, $ucenikId)
     while ($subject = $res->fetch_assoc()) {
         $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
         $mark = $mark->fetch_assoc();
-
+        if(isset($mark["ocena"]))
         $mark = $mark["ocena"];
-        //echo $mark;
-        $Tag="span";
+        else
+        $mark='';
+        $Tag = "span";
         $skracenice = $skracenice . "<$Tag>{$subject["skracenica"]}  </$Tag>";
         // ! HERE
         $redOcena = $redOcena . "<$Tag> <input value='$mark'
@@ -278,7 +270,6 @@ function showSubjectsUcenikSuzeni($res, $class, $ucenikId)
         
         
         > </$Tag>";
-        
     }
     echo "$skracenice </div>  $redOcena </div>";
 }
@@ -328,9 +319,9 @@ function showSubjectsUcenikSuzeni2($res, $class)
     $skracenice = "<div class='red-sracenica'>";
     $redOcena = "<div class='red-ocena'>";
     while ($subject = $res->fetch_assoc()) {
-        
+
         //echo $mark;
-        $Tag="span";
+        $Tag = "span";
         $skracenice = $skracenice . "<$Tag>{$subject["skracenica"]}  </$Tag>";
         // ! HERE
         $redOcena = $redOcena . "<$Tag> <input 
@@ -349,13 +340,13 @@ function showSubjectsUcenikSuzeni2($res, $class)
         
         
         > </$Tag>";
-        
     }
     echo "$skracenice </div>  $redOcena </div>";
 }
 
 
-function logOut(){
+function logOut()
+{
     session_unset();
     session_destroy();
     header("Location: index.php");

@@ -17,10 +17,10 @@ body {
   width: clamp(100px, 100%, 836px);
   min-height: 100vh;
 }
-.admin{
+.admin {
   padding: 7rem 2.5rem;
 }
-body div {
+form > div {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -28,9 +28,6 @@ body div {
 
 .prijava * {
   user-select: none;
-}
-.prijava {
-  padding-top: 100px;
 }
 
 #tip {
@@ -51,7 +48,7 @@ body div {
 
 #menu {
   width: 100%;
-  transition: .3s;
+  transition: 0.3s;
   position: fixed;
   background: white;
   inset: 0;
@@ -96,12 +93,31 @@ body div {
   background: red;
 }
 
-#progress-bar{
+#progress-bar {
   width: 0;
   height: 5px;
-  background: green;
+  background: rgb(46, 136, 46);
   position: fixed;
   left: 0;
   top: 0;
-  transition: .3s;
+  transition: 0.3s;
+}
+nav a {
+  width: min-content;
+}
+/* .prijava {
+  padding-top: 100px;
+} */
+
+#logo-big {
+  height: 80px;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+.white-bg > div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
