@@ -149,7 +149,7 @@ function edgeCases(sections, currentSection, step) {
       document.querySelectorAll(`#ocene-${i} input[type=radio]:checked`)
         .length !== document.querySelectorAll(`#ocene-${i} .ocena-5`).length
     ) {
-      alert("Moraš označini sve ocene");
+      alert("Moraš označini sve ocjene");
       return false;
     }
   }
