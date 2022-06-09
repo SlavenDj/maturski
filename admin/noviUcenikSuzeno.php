@@ -270,7 +270,7 @@ if (isset($_POST["razredKojiUpisuje"]))
             <div>
                 <label for="veronauka">Veronauka ili etika/kultura religije</label>
                 <select name="veronauka" id="veronauka" value="">
-                    <option value="">Izaberi koji predemt želiš da izučavaš? Veronauku ili etiku</option>
+                    <option value="">Veronauku ili etiku</option>
                     <option value="pravoslavna">Pravoslavna veronauka</option>
                     <option value="rimokatolicka">Rimokatolička veronauka</option>
                     <option value="islamska">Islamaska veronauka</option>

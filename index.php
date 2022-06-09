@@ -90,17 +90,17 @@
                 Samo na korak si od toga da se prijaviš za upis u našu školu.
             </h3>
             <p>
-                <br>Možemo li te zamoliti za još nekoliko podataka, kako bismo ubrzali postupak upisa kada dođeš u školu?
+                <br>Možemo li te zamoliti za još nekoliko podataka, kako bismo ubrzali postupak upisa kada dođeš našu u školu?
 
             </p>
             <section class='white-bg'>
                 <div>
-                    <input type="radio" id="nastavlja" name="sledeci-korac" value="1">
+                    <input type="radio" id="nastavlja" name="sledeci-korac" value="dolazi-na-upis">
                     <label for="nastavlja">Dovršiću prijavu za upis</label>
                 </div>
                 <div>
 
-                    <input type="radio" name="ne-nastavlja" name="sledeci-korac" id="ne-nastavlja" value="0">
+                    <input type="radio" name="sledeci-korac" id="ne-nastavlja" value="ne-dolazi-na-upis">
                     <label for="ne-nastavlja">Prikaži mi samo koliko bodova imam
 
                     </label>
@@ -110,8 +110,8 @@
         </div>
         <div id="smer">
             <?php
-            prikaziSmer($mydb, $sviSmerovi, "Koji smJer želiš da upišeš?", 0, "Nema unesenih smerova u bazi");
-            prikaziSmer($mydb, $sviSmerovi, "Ako se slučajno desi da ne \"upadneš\" u gornji smJer, da li bi možda želio da se upišeš u neki drugi smjer u našoj školi?", 1, "Nema unesenih smerova u bazi");
+            prikaziSmer($mydb, $sviSmerovi, "Koji smjer želiš da upišeš?", 0, "Nema unesenih smerova u bazi");
+            prikaziSmer($mydb, $sviSmerovi, "Ako se slučajno desi da ne \"upadneš\" u gornji smjer, da li bi možda želio da se upišeš u neki drugi smjer u našoj školi?", 1, "Nema unesenih smerova u bazi");
             ?>
 
         </div>
@@ -130,11 +130,11 @@
             <label for="mail">Tvoji e-mail:</label>
             <input type="email" id="mail" name="mail">
 
-            <label for="datum-rodjenja">Kad si rođen:
+            <label for="datum-rodjenja" id='kad-si-roden-a'> 
             </label>
             <input placeholder="dd-mm-yyyy" type="date" id="datum-rodjenja" name="datum_rodjenja">
 
-            <label for="mesto_rodjenja">Gdje si rođen (u kom mjestu, opštini, entitetu i državi):</label>
+            <label for="mesto_rodjenja" id="gde-si-rodjen-a"></label>
             <input type="text" id="mesto_rodjenja" name="mesto_rodjenja" placeholder="Npr: Prijedor, Prijedor, RS, BiH">
 
             <label for="adresa">Na kojoj adresi živiš:</label>
@@ -146,7 +146,7 @@
             <h3>Strani jezici i vjeronauka</h3>
 
             <?php
-            $jezici = array("engleski jezik", "njemački jezik", "francuski jezik", "ruski jezik") ?>
+            $jezici = array("Engleski jezik", "Njemački jezik", "Francuski Jezik", "Ruski jezik") ?>
             <label for="jezik_od_3">Prvi strani jezik</label>
             <select id="jezik_od_3" name="jezik_od_3">
                 <option value="">Onaj koji učiš od 3. razreda osnovne škole</option>
@@ -197,16 +197,16 @@
             </select>
             <br><br>
             <label for="veronauka">Odaberi željeni predmet</label>
-            <p>
+            <p id='detalji-za-izborni'>
                 U srednjoj školi možeš da nastaviš da učiš vjeronauku koju si imao/la u osnovnoj školi, a možeš da ga zamijeniš novim predmetom koji se zove Kultura religija, koji ćeš imati u 1. i 2. razredu, a u 3. i 4. ga zamjenjuje etika.
                 Imaj u vidu da, šta god da odabereš, to učiš naredne 3 ili 4 godine u zavisnosti od smjera kojeg upišeš.
-            </p>
+            </p> 
             <select name="veronauka" id="veronauka">
-                <option value="">Izaberi koji predemt želiš da izučavaš? Veronauku ili etiku</option>
-                <option value="pravoslavna">Pravoslavna veronauka</option>
-                <option value="rimokatolicka">Rimokatolička veronauka</option>
-                <option value="islamska">Islamaska veronauka</option>
-                <option value="etika i kultura religije">etika i kultura religije</option>
+                <option value="">Izaberi koji predmet želiš da učiš? Vjeronauku ili kulturu religija</option>
+                <option value="pravoslavna">Pravoslavna vjeronauka</option>
+                <option value="rimokatolicka">Rimokatolička vjeronauka</option>
+                <option value="islamska">Islamaska vjeronauka</option>
+                <option value="etika i kultura religije">Kultura religije i etika</option>
             </select>
 
         </div>
@@ -225,7 +225,7 @@
 
             </datalist>
 
-            <label for="djelovodni_broj">Djelovodni broj</label>
+            <label for="djelovodni_broj">Djelovodni broj:</label>
             <input type="text" id="djelovodni_broj" name="djelovodni_broj">
             <small>
                 On se nalazi u gornje dijelu svjedočanstva.
@@ -239,10 +239,10 @@
                     Dodirni/ klikni bilo gdje da bi sakrio sliku.
                 </p>
             </div>
-            <label for="datum_izdavanja">Datum izdavanja:</label>
+            <label for="datum_izdavanja">Datum izdavanja svjedočanstva:</label>
             <input type="date" id="datum_izdavanja" name="datum_izdavanja">
 
-            <label for="mesto_izdavanja">Mjesto izdavanja:</label>
+            <label for="mesto_izdavanja">Mjesto izdavanja svjedočanstva:</label>
             <input type="text" id="mesto_izdavanja" name="mesto_izdavanja">
             <small>
                 Datum i mjesto izdavanja se nalaze u dnu svjedočanstva
@@ -300,7 +300,7 @@
 
             <p>
                 Neka djeca ne žive sa ocem ili majkom i imaju staratelja. <br>
-                Ako se ovo ne odnosi na tebe, samo pritisni <a id='prijavi-se-link'>završi i prikaži bodove</a>. <br>
+                Ako se ovo ne odnosi na tebe, samo pritisni <b><a id='prijavi-se-link'> Završi i prikaži bodove</a></b>. <br>
                 Ovaj dio popunjavaju samo oni učenici koji žive sa starateljima.
             </p>
 
@@ -338,3 +338,5 @@
 </body>
 
 </html>
+
+

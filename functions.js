@@ -67,6 +67,21 @@ function IsjmbgValidator(jmbg) {
               ? `Označi koje si ocjene imao iz pojedinih predmeta u ${title.dataset["razred"]}. razredu.`
               : `Označi koje si ocjene imala iz pojedinih predmeta u ${title.dataset["razred"]}. razredu.`)
       );
+    document.getElementById("kad-si-roden-a").innerText =
+      gender === "man" ? "Kad si rođen:" : "Kad si rođena:";
+    document.getElementById("gde-si-rodjen-a").innerText =
+      gender === "man"
+        ? "Gdje si rođen (u kom mjestu, opštini, entitetu i državi):"
+        : "Gdje si rođena (u kom mjestu, opštini, entitetu i državi):";
+    document.getElementById("detalji-za-izborni").innerText =
+      gender === "man"
+        ? "U srednjoj školi možeš da nastaviš da učiš vjeronauku koju si imao u osnovnoj školi, a možeš da ga zamijeniš novim predmetom koji se zove Kultura religija, koji ćeš imati u 1. i 2. razredu, a u 3. i 4. ga zamjenjuje etika. Imaj u vidu da, šta god da odabereš, to učiš naredne 3 ili 4 godine u zavisnosti od smjera kojeg upišeš."
+        : "U srednjoj školi možeš da nastaviš da učiš vjeronauku koju si imala u osnovnoj školi, a možeš da ga zamijeniš novim predmetom koji se zove Kultura religija, koji ćeš imati u 1. i 2. razredu, a u 3. i 4. ga zamjenjuje etika. Imaj u vidu da, šta god da odabereš, to učiš naredne 3 ili 4 godine u zavisnosti od smjera kojeg upišeš.";
+
+    document.getElementById("smer-1-title").innerText =
+      gender === "man"
+        ? 'Ako se slučajno desi da ne "upadneš" u gornji smjer, da li bi možda želio da se upišeš u neki drugi smjer u našoj školi?'
+        : 'Ako se slučajno desi da ne "upadneš" u gornji smjer, da li bi možda željela da se upišeš u neki drugi smjer u našoj školi?';
 
     return true;
   }
@@ -113,18 +128,15 @@ function edgeCases(sections, currentSection, step) {
     ["jezik-ver", "svedocansto-9", "Majka", "otac"].indexOf(nextSection) > -1
   ) {
     showElement("smorio-se");
-    return true;
   }
 
   if (nextSection === "staratelj") {
     hideElement("next-button");
     showElement("prijavi-se-button");
-    return true;
   }
 
   if (nextSection === "uvod") {
     hideElement("back");
-    return true;
   }
 
   return true;

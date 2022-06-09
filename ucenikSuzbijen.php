@@ -289,7 +289,7 @@ if (isset($_POST["razredKojiUpisuje"]))
             <div>
                 <label for="veronauka">Veronauka ili etika/kultura religije</label>
                 <select name="veronauka" id="veronauka" value="">
-                    <option <?php if ($ucenik["veronauka"] == "") echo "selected"; ?> value="">Izaberi koji predemt želiš da izučavaš? Veronauku ili etiku</option>
+                    <option <?php if ($ucenik["veronauka"] == "") echo "selected"; ?> value=""> Veronauku ili etiku</option>
                     <option <?php if ($ucenik["veronauka"] == "pravoslavna") echo "selected"; ?> value="pravoslavna">Pravoslavna veronauka</option>
                     <option <?php if ($ucenik["veronauka"] == "rimokatolicka") echo "selected"; ?> value="rimokatolicka">Rimokatolička veronauka</option>
                     <option <?php if ($ucenik["veronauka"] == "islamska") echo "selected"; ?> value="islamska">Islamaska veronauka</option>

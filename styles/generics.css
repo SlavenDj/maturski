@@ -17,7 +17,7 @@ body {
   flex-direction: column;
 }
 p {
-  width: clamp(20ch, 90vw, 75ch);
+  max-width: 75ch;
 }
 
 .not-found {

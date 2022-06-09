@@ -105,9 +105,11 @@ form > div {
 nav a {
   width: min-content;
 }
-/* .prijava {
-  padding-top: 100px;
-} */
+.tabela-ocena tr{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 #logo-big {
   height: 80px;
@@ -115,9 +117,20 @@ nav a {
 nav {
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  padding-top: .75rem;
+  z-index: 1;
+  background-color: var(--white);
 }
 .white-bg > div {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+small {
+  font-size: 1rem;
+}
+.hide-small{
+  display: none;
 }

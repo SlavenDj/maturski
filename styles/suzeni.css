@@ -35,4 +35,6 @@
 }
 .suzen label {
   margin: 0;
+  text-align: right;
+  padding-right: 1rem;
 }

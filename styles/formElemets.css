@@ -24,10 +24,10 @@ select {
 input::placeholder {
   color: var(--grey-800);
 }
-[type="date"],
-[type="tel"],
-[type="text"],
-[type="email"],
+.prijava [type="date"],
+.prijava [type="tel"],
+.prijava [type="text"],
+.prijava [type="email"],
 select {
   margin-top: -1rem;
 }

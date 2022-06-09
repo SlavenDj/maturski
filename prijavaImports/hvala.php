@@ -6,29 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hvala!</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            flex-direction: column;
-            font-family: system-ui;
-        }
-
-        .center {
+        /* .center {
             text-align: center;
+        } */
+        .bod {
+            font-size: 1.5rem;
         }
 
         #ime-prezime-uper {
             text-transform: uppercase;
             font-weight: bold;
+        }
+
+        .name {
+            text-align: left;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
         }
 
         #bodovi {
@@ -37,16 +40,27 @@
             width: 100%;
             align-self: center;
             grid-template-columns: 1fr auto;
-            margin: 3rem;
+            margin: 2rem;
+            row-gap: 1rem;
         }
-        small{
+
+        small {
             margin-top: 1rem;
+        }
+
+        .indicator {
+            font-size: 2rem;
         }
     </style>
 </head>
 
 <body>
+    <nav>
+        <a href="https://elskolapd.com/" target="_blank" rel="noopener noreferrer">
+            <img src="../imgs/LOGO REDIZAJN HD.webp" alt="logo JU Elektretehničke škole Prijedor" id="logo-big">
+        </a>
 
+    </nav>
     <?php
     include "../admin_files/conn.php";
     $idijeviPredmetaZaRacunanje = array(1, 2, 14, 20, 16);
@@ -57,10 +71,12 @@
 
         $unosUcenika =
             "INSERT INTO ucenik
-            (jmbg)
+            (jmbg, datum_upisa, vreme_upisa)
         VALUES
         ( 
-            '{$_POST["jmbg"]}'
+            '{$_POST["jmbg"]}',
+            '" . date("Y-m-d") . "',
+            '" . date("H:i:s") . "'
             );";
         // echo $unosUcenika;
         $mydb->query($unosUcenika);
@@ -192,55 +208,68 @@
 
 
     ?>
+    <main class="white-bg">
 
-    <p class="center">
-        Poštovani učeniče,
-        <br>
-        Ako si tačno unio/la sve podatke, tvoji bodovi izgledaju ovako:
 
-    </p>
+        <p class="center" id='postovani'>
+            Poštovani učeniče echo <?php "{$_POST["ime"]} {$_POST["prezime"]}" ?>;,
+            <br>
+            Ako si tačno unio/la sve podatke, tvoji bodovi izgledaju ovako:
 
-    <p id="ime-prezime-uper">
-        <?php
-        echo "{$_POST["ime"]} {$_POST["prezime"]}";
-        ?>
-    </p>
-    <div id="bodovi">
-        <p class="name">
-            Opšti uspjeh
         </p>
-        <p class="bod">
-            <?php
-            echo round($opstiUpseh, 2);
-            ?>
-        </p>
-        <p class="name">
-            Predmeti značajni za struku*
-        </p>
-        <p class="bod">
-            <?php
-            echo round($predmeti, 2);
-            ?>
-        </p>
-        <p class="name">
-            <b>
-                UKUPNO
 
-            </b>
+
+        <div id="bodovi">
+            <p class="name">
+                Opšti uspjeh
+            </p>
+            <p class="bod">
+                <?php
+                echo round($opstiUpseh, 2);
+                ?>
+            </p>
+            <p class="name">
+                Predmeti značajni za struku <b class="indicator" <?php if ($opstiUpseh == 50) echo 'class="hide-small"'; ?>>*</b>
+            </p>
+            <p class="bod">
+                <?php
+                echo round($predmeti, 2);
+                ?>
+            </p>
+            <p class="name">
+                <b>
+                    Ukupno
+
+                </b>
+            </p>
+            <p class="bod">
+                <?php
+                echo round($predmeti + $opstiUpseh, 2);
+                ?>
+            </p>
+        </div>
+        <p class="center">
+            Hvala ti što si koristio naš sajt. <br>
+
+            <?php if ($_POST['sledeci-korac'] == 'dolazi-na-upis') echo '<br>Očekujemo te na upisu!' ?>
+
         </p>
-        <p class="bod">
-            <?php
-            echo round($predmeti + $opstiUpseh, 2);
-            ?>
-        </p>
-    </div>
-    <p class="center">
-        Hvala ti što si koristio naš sajt. <br>
-        Očekujemo te na upisu!
-    </p>
-    <small>
-        * OBJAŠNJENJE: Broj bodova je izračunat prema predmetima potrebim na <b>elektrotehničku školu</b>. Za ostale škole, npr. gimnazija, medicinska... ovaj broj bodova ne važi, jer se gledaju drugi predmeti.
-    </small>
+
+        <small <?php if ($opstiUpseh == 50) echo 'class="hide-small"'; ?>>
+            <b class="indicator">*</b> Objašnjenje: Broj bodova je izračunat prema predmetima potrebnim na <b>elektrotehničku školu</b>. Za ostale škole, npr. gimnazija, medicinska... ovaj broj bodova ne važi, jer se gledaju drugi predmeti.
+        </small>
+    </main>
+    <input id='jmbg' hidden value='<?php echo $jmbg; ?>'>
+
+    <script>
+        const jmbg = document.getElementById('jmbg');
+        genderNumber = `${jmbg[9]}${jmbg[10]}${jmbg[11]}`,
+            gender = genderNumber > 499 ? "woman" : "man";
+        document.getElementById("postovani").innerHTML =
+            gender === "man" ?
+            "Poštovani učeniče, <br> Ako si tačno unio sve podatke, tvoji bodovi izgledaju ovako: " :
+            "Poštovana učenice, <br> Ako si tačno unijela sve podatke, tvoji bodovi izgledaju ovako: ";
+    </script>
 </body>
 
 </html>

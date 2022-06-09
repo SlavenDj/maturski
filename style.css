@@ -45,9 +45,7 @@ body div {
   width: max-content;
 }
 
-.naziv-predmeta {
-  width: calc(100vw - 250px);
-}
+
 
 #menu {
   width: 100%;

@@ -70,14 +70,15 @@ function selectMenu($database, $query, $selectMenuName)
 
 function grade($grade, $class, $subject)
 {
-    $checked = '';
-    if ($grade == 5) $checked = 'checked';
+    $checked = ''; 
+    // if ($grade == 5) $checked = 'checked'; 
+    // ! CHECK THIS OUT
     return "
         <input type = 'radio' 
             value='$grade' 
             id='$subject-grad-$grade-class-$class'  
             name='$subject-$class' 
-            class='ocena'
+            class='ocena ocena-$grade'
             data-ocena='$grade'
             $checked
             > 
@@ -100,9 +101,9 @@ function insertingGrades($database, $class)
 }
 function showSubjects($res, $class)
 {
-    echo "<table><th>Naziv predmeta</th>";
+    echo "<table class='tabela-ocena'><th>Naziv predmeta</th>";
     while ($subject = $res->fetch_assoc())
-        echo "<tr><td class='naziv-predmeta'>" . $subject["naziv"] . "</td> <td>" .
+        echo "<tr><td class='naziv-predmeta'>" . $subject["naziv"] . "</td> <td class='ocene-2-3-4-5'>" .
             grade(2, $class, $subject["ID_predmeta"]) .
             grade(3, $class, $subject["ID_predmeta"]) .
             grade(4, $class, $subject["ID_predmeta"]) .
@@ -119,7 +120,7 @@ function prikaziSmer($mydb, $sviSmerovi, $title, $index, $not_found_message)
         return;
     }
 
-    echo "<label for='smer$index'>{$title}</label>";
+    echo "<label id='smer-$index-title' for='smer$index'>{$title}</label>";
     echo "<select name='smer-$index' id='smer$index'>";
     if ($index + 1 == 2)
         echo "<option value='0'> Ne želim drugo zanimanje </option> ";

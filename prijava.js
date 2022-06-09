@@ -29,8 +29,17 @@ document.getElementById("tip").addEventListener("click", fun.hideTip);
 
 document.getElementById("vukovac-da").addEventListener("click", () => {
   currentSection = fun.swapSections(sections, currentSection, fun.NEXT(5));
+  document
+    .querySelectorAll(".ocena-5")
+    .forEach((checkbox) => (checkbox.checked = true));
 });
-["vukovac-ne", "nastavlja"].forEach((element) => {
+document.getElementById("vukovac-ne").addEventListener("click", () => {
+  nextPage();
+  document
+    .querySelectorAll(".ocena-5")
+    .forEach((checkbox) => (checkbox.checked = false));
+});
+[ "nastavlja"].forEach((element) => {
   document.getElementById(element).addEventListener("click", () => {
     nextPage();
   });
@@ -48,6 +57,9 @@ document.getElementById("prijavi-se-link").addEventListener("click", () => {
   document.getElementById("main-form").submit();
 });
 document.getElementById("prijavi-se-button").addEventListener("click", () => {
+  document.getElementById("main-form").submit();
+});
+document.getElementById("smorio-se").addEventListener("click", () => {
   document.getElementById("main-form").submit();
 });
 
@@ -137,4 +149,12 @@ addEventListener("keydown", (e) => {
   if (document.activeElement.tagName !== "BODY") return;
   if (e.key == "ArrowLeft") previousPage();
   if (e.key == "ArrowRight") nextPage();
+});
+
+const idsPolja = ["adresa-majke", "adresa-oca", "adresa-staratelja"];
+document.getElementById("adresa").addEventListener("input", (adresaUcenika) => {
+  adresaUcenika = adresaUcenika.target.value;
+  idsPolja.forEach((idPolja) => {
+    document.getElementById(idPolja).value = adresaUcenika;
+  });
 });
