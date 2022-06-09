@@ -138,6 +138,21 @@ function edgeCases(sections, currentSection, step) {
   if (nextSection === "uvod") {
     hideElement("back");
   }
+  for (let i = 6; i <= 9; i++) {
+    console.log(
+      section,
+      document.querySelectorAll(`#ocene-${i} input[type=radio]:checked`).length,
+      document.querySelectorAll(`#ocene-${i} .ocena-5`).length
+    );
+    if (
+      section === `ocene-${i}` &&
+      document.querySelectorAll(`#ocene-${i} input[type=radio]:checked`)
+        .length !== document.querySelectorAll(`#ocene-${i} .ocena-5`).length
+    ) {
+      alert("Moraš označini sve ocene");
+      return false;
+    }
+  }
 
   return true;
 }

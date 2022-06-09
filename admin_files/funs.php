@@ -78,7 +78,7 @@ function grade($grade, $class, $subject)
             value='$grade' 
             id='$subject-grad-$grade-class-$class'  
             name='$subject-$class' 
-            class='ocena ocena-$grade'
+            class='ocena ocena-$grade razred-$class'
             data-ocena='$grade'
             $checked
             > 
