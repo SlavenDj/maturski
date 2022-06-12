@@ -20,7 +20,7 @@ if (isset($_POST["ime"])) {
     $row = $res->fetch_assoc();
     $ucenikID = $row["id"];
     $azurirajUcenika =
-        "UPDATE ucenik
+        @"UPDATE ucenik
                 SET
                     ime ='{$_POST["ime"]}',
                     prezime ='{$_POST["prezime"]}',
@@ -29,6 +29,8 @@ if (isset($_POST["ime"])) {
                     datum_rodjenja ='{$_POST["datum_rodjenja"]}',
                     mesto_rodjenja ='{$_POST["mesto_rodjenja"]}',
                     adresa ='{$_POST["adresa"]}',
+                    pregledano ='{$_POST["pregledano"]}',
+            
                     razredUpisa = '{$_POST["razred"]}'
                 WHERE id=$ucenikID;";
     $mydb->query($azurirajUcenika);
@@ -161,6 +163,16 @@ if (isset($_POST["razredKojiUpisuje"]))
         <div id="podaci-ucenika">
 
             <input type="text" value="<?php echo $ucenik["razredUpisa"]; ?>" id="raz-ups" name="razred">
+            
+            <div>
+                <label for="pregledano"> Pregledano</label>
+                <input type="checkbox" name="pregledano" id="pregledano"  value="1"
+                <?php
+                if($ucenik["pregledano"])
+                echo "checked";
+                ?>
+                >
+            </div>
             <div>
                 <label for="ime">Ime:</label>
                 <input value="<?php echo $ucenik["ime"]; ?>" type="text" id="ime" name="ime">
@@ -425,8 +437,8 @@ if (isset($_POST["razredKojiUpisuje"]))
         </div>
         <div id="smerovi">
             <?php
-            prikaziSmerUcenik($mydb, $sviSmerovi, "Smer koji želiš da upišeš", 0, "Nema unesenih smerova u bazi", "smer1", $ucenik);
-            if ($ucenik["razredUpisa"] == 1) prikaziSmerUcenik($mydb, $sviSmerovi, "Alternativni smer", 1, "Nema unesenih smerova u bazi", "smer2", $ucenik);
+            prikaziSmerUcenik($mydb, $sviSmerovi, "Prvi smjer", 0, "Nema unesenih smerova u bazi", "smer1", $ucenik);
+            if ($ucenik["razredUpisa"] == 1) prikaziSmerUcenik($mydb, $sviSmerovi, "Drugi smjer", 1, "Nema unesenih smerova u bazi", "smer2", $ucenik);
             ?>
 
         </div>

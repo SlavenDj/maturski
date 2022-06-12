@@ -92,7 +92,7 @@
                 adresa ='{$_POST["adresa"]}',
                 razredUpisa = {$_POST["razred"]}
             WHERE jmbg='$jmbg';";
-
+$mydb->query($unosUcenika);
         $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
         $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
         $ucenikID = $ucenikID["ID"];

@@ -47,26 +47,27 @@ form > div {
 }
 
 #menu {
-  width: 100%;
-  transition: 0.3s;
-  position: fixed;
-  background: white;
-  inset: 0;
-  gap: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  justify-items: center;
-  right: auto;
-  bottom: auto;
-  padding: 1rem 2rem;
+      /* width: 100%; */
+      transition: 0.3s;
+      position: fixed;
+      background: white;
+      /* inset: 0; */
+      gap: 1rem;
+      /* display: flex; */
+      /* flex-direction: row; */
+      /* justify-content: center; */
+      /* align-items: stretch; */
+      /* justify-items: center; */
+      /* right: auto; */
+      /* bottom: auto; */
+      padding: 1rem 2rem;
+      left: 0;
 }
 
-#menu form button,
+/* #menu form button,
 #menu form input {
   width: 100%;
-}
+} */
 #find-ucenik-form {
   display: flex;
   align-items: stretch;
@@ -75,20 +76,7 @@ form > div {
 #find-ucenik-form label {
   margin: 0;
 }
-#menu-button:checked ~ #menu {
-  display: grid;
-}
-#menu-button-label {
-  position: absolute;
-  left: 12px;
-  font-size: 24px;
-  font-weight: bold;
-  width: min-content;
-  z-index: 3;
-}
-#menu-button:checked ~ label p {
-  color: red;
-}
+
 .ocena-polje:placeholder-shown {
   background: red;
 }
@@ -135,4 +123,16 @@ small {
 }
 .hide-small{
   display: none;
+}
+
+.plus-color{
+  fill: var(--white);
+}
+button:hover .plus-color{
+  fill: var(--black);
+}
+.export td{
+  text-align: center;
+  vertical-align: middle;
+
 }

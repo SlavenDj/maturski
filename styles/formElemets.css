@@ -28,13 +28,16 @@ input::placeholder {
 .prijava [type="tel"],
 .prijava [type="text"],
 .prijava [type="email"],
-select {
+.prijava select {
   margin-top: -1rem;
 }
 
 [type="date"],
 [type="tel"],
 #dbroj,
-#jmbg {
+#jmbg  {
   width: 15ch;
+}
+#find-jmbg{
+  width: 18ch
 }
