@@ -1,21 +1,12 @@
 <?php
 session_start();
 include "../admin_files/conn.php";
-if (isset($_POST["username"])) {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $query = "SELECT `id`, `password` FROM `admin` where `username`='$username'";
-    if (isset(($mydb->query($query))->fetch_array()["id"])) {
-        $user = ($mydb->query($query))->fetch_array();
-        if (password_verify($password, $user["password"])) {
-            $_SESSION["userID"] = $user["id"];
-            $_SESSION["username"] = $username;
-        }
-    }
-}
-if (isset($_SESSION["userID"])) {
+include "../admin_files/funs.php";
+if (isset($_POST["username"])) 
+    verifyLogInInfo($mydb, $_POST["username"], $_POST["password"]);
+
+if (isset($_SESSION["userID"])) 
     header("Location: admin.php");
-}
 ?>
 
 <html>

@@ -350,7 +350,7 @@ function logOut()
 {
     session_unset();
     session_destroy();
-    header("Location: index.php");
+    header("Location: ./");
 }
 function addNewUserQuery($usename, $password)
     {
@@ -379,4 +379,15 @@ function addNewUserQuery($usename, $password)
         $predmet = $db->query("SELECT ocena FROM ocena WHERE predmet=$id AND razred=$razred AND ucenik=$ucenik");
         $predmet = $predmet->fetch_array();
         return $predmet["ocena"];
+    }
+
+    function verifyLogInInfo($mydb, $username, $password){
+        $query = "SELECT `id`, `password` FROM `admin` where `username`='$username'";
+        $admin=($mydb->query($query))->fetch_array();
+        if (isset($admin["id"]) && password_verify($password, $admin["password"])) {
+                $_SESSION["userID"] = $admin["id"];
+                $_SESSION["username"] = $username;
+                return true;
+        }
+        return false;
     }
