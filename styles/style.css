@@ -19,6 +19,7 @@ body {
 }
 .admin {
   padding: 7rem 2.5rem;
+  width: 100%;
 }
 form > div {
   display: flex;

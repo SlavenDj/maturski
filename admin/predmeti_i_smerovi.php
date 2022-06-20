@@ -1,3 +1,6 @@
+
+
+
 <?php
 session_start();
 include "../admin_files/funs.php";
@@ -64,12 +67,20 @@ adminChechingVariables($mydb);?>
 
     </nav>
 
-    <?php prikaziTabeluPregledanihUcenika($mydb) ?>
-    <form action="export.php">
-        <button>Export in Excel file</button>
-    </form>
-  
+    <?php
+    include '../admin_files/sections/predmeti.php';
 
+    predmetiU(6);
+    predmetiU(7);
+    predmetiU(8);
+    predmetiU(9);
+
+    include '../admin_files/sections/smerovi.php';
+    ?>
+
+    <form id="change" method="POST">
+        <input type="text" id="new-order-nuber" name="new-order-nuber" hidden>
+    </form>
     <script src="../admin_files/main.js"></script>
 </body>
 
