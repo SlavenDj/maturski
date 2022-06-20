@@ -13,3 +13,9 @@
 #main-form > div{
   padding-bottom:  120px;
 }
+#find-ucenik-form {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+

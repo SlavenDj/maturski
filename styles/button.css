@@ -10,6 +10,7 @@ button {
   font-weight: 400;
   padding: 0.5rem;
 }
+
 button:disabled {
   opacity: 50%;
   background: rgb(167, 18, 18);
@@ -27,17 +28,21 @@ button:disabled {
   display: flex;
   box-shadow: 5px 5px 20px rgba(5, 5, 5, 0.411);
 }
-#buttons > * {
+
+#buttons>* {
   cursor: pointer;
 }
+
 #prijavi-se-button {
   display: none;
 }
+
 #print {
   position: sticky;
   top: 0;
   left: 0;
 }
+
 /* .naziv-predmeta {
 } */
 .ocene-2-3-4-5 {
@@ -60,6 +65,7 @@ button:disabled {
 .ok-jmbg {
   background: rgba(8, 58, 8, 0.733);
 }
+
 .not-ok-jmbg {
   background: rgb(104, 23, 23);
 }
@@ -72,6 +78,11 @@ button:disabled {
   font-weight: 600;
   text-decoration: underline;
 }
+
 #back {
   display: none;
+}
+
+button:hover .plus-color {
+  fill: var(--black);
 }

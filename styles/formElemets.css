@@ -41,3 +41,6 @@ input::placeholder {
 #find-jmbg{
   width: 18ch
 }
+#find-ucenik-form label {
+  margin: 0;
+}

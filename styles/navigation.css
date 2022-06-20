@@ -1,0 +1,9 @@
+
+#menu {
+    transition: 0.3s;
+    position: fixed;
+    background: white;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    left: 0;
+}

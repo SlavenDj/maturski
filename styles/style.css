@@ -8,6 +8,7 @@
 @import url("pdf.css");
 @import url("mobile.css");
 @import url("suzeni.css");
+@import url("navigation.css");
 
 body {
   padding: 0.75rem 2.5rem;
@@ -17,11 +18,13 @@ body {
   width: clamp(100px, 100%, 836px);
   min-height: 100vh;
 }
+
 .admin {
   padding: 7rem 2.5rem;
   width: 100%;
 }
-form > div {
+
+form>div {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -41,41 +44,11 @@ form > div {
   backdrop-filter: blur(5px);
   color: #fff;
 }
+
 #tip * {
   border-radius: 18px;
   display: block;
   width: max-content;
-}
-
-#menu {
-      /* width: 100%; */
-      transition: 0.3s;
-      position: fixed;
-      background: white;
-      /* inset: 0; */
-      gap: 1rem;
-      /* display: flex; */
-      /* flex-direction: row; */
-      /* justify-content: center; */
-      /* align-items: stretch; */
-      /* justify-items: center; */
-      /* right: auto; */
-      /* bottom: auto; */
-      padding: 1rem 2rem;
-      left: 0;
-}
-
-/* #menu form button,
-#menu form input {
-  width: 100%;
-} */
-#find-ucenik-form {
-  display: flex;
-  align-items: stretch;
-  gap: 10px;
-}
-#find-ucenik-form label {
-  margin: 0;
 }
 
 .ocena-polje:placeholder-shown {
@@ -92,10 +65,12 @@ form > div {
   z-index: 2;
   transition: 0.3s;
 }
+
 nav a {
   width: min-content;
 }
-.tabela-ocena tr{
+
+.tabela-ocena tr {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -104,36 +79,37 @@ nav a {
 #logo-big {
   height: 80px;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
   position: sticky;
   top: 0;
-  padding-top: .75rem;
+  padding-top: 0.75rem;
   z-index: 1;
   background-color: var(--white);
   width: 102%;
 }
-.white-bg > div {
+
+.white-bg>div {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
+
 small {
   font-size: 1rem;
 }
-.hide-small{
+
+.hide-small {
   display: none;
 }
 
-.plus-color{
+.plus-color {
   fill: var(--white);
 }
-button:hover .plus-color{
-  fill: var(--black);
-}
-.export td{
+
+.export td {
   text-align: center;
   vertical-align: middle;
-
 }
