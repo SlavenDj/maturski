@@ -545,7 +545,7 @@ function nav()
 
         <form>
             <input type="text" value="true" hidden name="logout">
-            <button>Odjavi se sa <?php echo $_SESSION["username"] ?></button>
+            <button>Odjavi se sa ' . $_SESSION["username"] . '</button>
         </form>
 
     </nav>';
