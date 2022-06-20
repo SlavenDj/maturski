@@ -70,7 +70,7 @@ function selectMenu($database, $query, $selectMenuName)
 
 function grade($grade, $class, $subject)
 {
-    $checked = ''; 
+    $checked = '';
     // if ($grade == 5) $checked = 'checked'; 
     // ! CHECK THIS OUT
     return "
@@ -247,10 +247,10 @@ function showSubjectsUcenikSuzeni($res, $class, $ucenikId)
     while ($subject = $res->fetch_assoc()) {
         $mark = $mydb->query("SELECT ocena From ocena WHERE razred=$class AND ucenik=$ucenikId AND predmet={$subject["ID_predmeta"]}");
         $mark = $mark->fetch_assoc();
-        if(isset($mark["ocena"]))
-        $mark = $mark["ocena"];
+        if (isset($mark["ocena"]))
+            $mark = $mark["ocena"];
         else
-        $mark='';
+            $mark = '';
         $Tag = "span";
         $skracenice = $skracenice . "<$Tag>{$subject["skracenica"]}  </$Tag>";
         // ! HERE
@@ -353,41 +353,42 @@ function logOut()
     header("Location: ./");
 }
 function addNewUserQuery($usename, $password)
-    {
-        return
-            "INSERT INTO `admin` (`username`, `password`) 
+{
+    return
+        "INSERT INTO `admin` (`username`, `password`) 
                 VALUE (
                     '$usename',
                     '$password')";
-    }
-    function addNewUser($db, $username, $password)
-    {
-        $db->query(addNewUserQuery($username, password_hash($password, PASSWORD_DEFAULT)));
-    }
+}
+function addNewUser($db, $username, $password)
+{
+    $db->query(addNewUserQuery($username, password_hash($password, PASSWORD_DEFAULT)));
+}
 
-    function updatePasswordQuery($userId, $password)
-    {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        return
-            "UPDATE `admin` 
+function updatePasswordQuery($userId, $password)
+{
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    return
+        "UPDATE `admin` 
                 SET `password`='$password' 
             WHERE id=$userId";
-    }
+}
 
-    function oceneIz($db, $id, $razred, $ucenik)
-    {
-        $predmet = $db->query("SELECT ocena FROM ocena WHERE predmet=$id AND razred=$razred AND ucenik=$ucenik");
-        $predmet = $predmet->fetch_array();
-        return $predmet["ocena"];
-    }
+function oceneIz($db, $id, $razred, $ucenik)
+{
+    $predmet = $db->query("SELECT ocena FROM ocena WHERE predmet=$id AND razred=$razred AND ucenik=$ucenik");
+    $predmet = $predmet->fetch_array();
+    return $predmet["ocena"];
+}
 
-    function verifyLogInInfo($mydb, $username, $password){
-        $query = "SELECT `id`, `password` FROM `admin` where `username`='$username'";
-        $admin=($mydb->query($query))->fetch_array();
-        if (isset($admin["id"]) && password_verify($password, $admin["password"])) {
-                $_SESSION["userID"] = $admin["id"];
-                $_SESSION["username"] = $username;
-                return true;
-        }
-        return false;
+function verifyLogInInfo($mydb, $username, $password)
+{
+    $query = "SELECT `id`, `password` FROM `admin` where `username`='$username'";
+    $admin = ($mydb->query($query))->fetch_array();
+    if (isset($admin["id"]) && password_verify($password, $admin["password"])) {
+        $_SESSION["userID"] = $admin["id"];
+        $_SESSION["username"] = $username;
+        return true;
     }
+    return false;
+}
