@@ -5,7 +5,7 @@ include '../admin_files/conn.php';
 include '../admin_files/querys.php';
 include "../admin_files/add_erase.php";
 
-adminChechingVariables($mydb);?>
+adminChechingVariables($mydb); ?>
 <!DOCTYPE html>
 <html lang='sr'>
 
@@ -22,53 +22,13 @@ adminChechingVariables($mydb);?>
 </head>
 
 <body class="admin">
-
-    <nav id="menu">
-
-        <a href="admin.php">
-            <button>Spisak učenika</button>
-        </a>
-        <a href="predmeti_i_smerovi.php">
-            <button>Predmeti i smmjerovi</button>
-        </a>
-
-        <form action="noviUcenikSuzeno.php">
-            <button title="Dodaj novog učenika">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" class='plus-color'>
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                </svg>
-            </button>
-        </form>
-
-        <form action="../ucenikSuzbijen.php" method="POST" id="find-ucenik-form">
-            <input type="text" name="jmbg" id="find-jmbg" placeholder="Unesi JMBG učenika">
-            <button id="pronadi-me">Pronađi učenika</button>
-        </form>
-
-        <form method="POST">
-            <input type="text" name="new-admin-username" id="new-admin-username" hidden required>
-            <input type="password" name="new-admin-password" id="new-admin-password" hidden minlength="8" required>
-            <button id="dodaj-admina">Dodaj novog admina</button>
-        </form>
-
-        <form method="POST" id="change-pass">
-            <input type="text" name="new-pwrd-1" id="new-pwrd-1" hidden>
-            <button id="promeni-pass">Promeni šifru</button>
-        </form>
-
-        <form>
-            <input type="text" value="true" hidden name="logout">
-            <button>Odjavi se sa <?php echo $_SESSION["username"] ?></button>
-        </form>
-
-    </nav>
-
-    <?php prikaziTabeluPregledanihUcenika($mydb) ?>
+    <?php
+    nav();
+    prikaziTabeluPregledanihUcenika($mydb) ?>
     <form action="export.php">
         <button>Export in Excel file</button>
     </form>
-  
+
 
     <script src="../admin_files/main.js"></script>
 </body>

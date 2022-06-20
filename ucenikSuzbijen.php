@@ -5,7 +5,7 @@ include "admin_files/conn.php";
 include "admin_files/funs.php";
 include "admin_files/querys.php";
 
-$jmbg = $_POST["jmbg"];
+$jmbg = $_GET["jmbg"];
 
 if (isset($_POST["ime"])) {
     $ucenikID = "SELECT id FROM ucenik where jmbg='$jmbg'";
