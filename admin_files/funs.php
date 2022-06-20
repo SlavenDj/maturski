@@ -395,6 +395,7 @@ function verifyLogInInfo($mydb, $username, $password)
 
 function prikaziTabeluPregledanihUcenika($mydb)
 {
+    echo "<h1>Lista pregedanih učenika</h1>";
     $idijeviPredmetaZaRacunanje = array(1, 2, 14, 20, 16);
     echo '<table class="export">
     <thead>
