@@ -163,15 +163,13 @@ if (isset($_POST["razredKojiUpisuje"]))
         <div id="podaci-ucenika">
 
             <input type="text" value="<?php echo $ucenik["razredUpisa"]; ?>" id="raz-ups" name="razred">
-            
+
             <div>
                 <label for="pregledano"> Pregledano</label>
-                <input type="checkbox" name="pregledano" id="pregledano"  value="1"
-                <?php
-                if($ucenik["pregledano"])
-                echo "checked";
-                ?>
-                >
+                <input type="checkbox" name="pregledano" id="pregledano" value="1" <?php
+                                                                                    if ($ucenik["pregledano"])
+                                                                                        echo "checked";
+                                                                                    ?>>
             </div>
             <div>
                 <label for="ime">Ime:</label>

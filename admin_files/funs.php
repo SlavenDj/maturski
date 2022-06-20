@@ -352,3 +352,31 @@ function logOut()
     session_destroy();
     header("Location: index.php");
 }
+function addNewUserQuery($usename, $password)
+    {
+        return
+            "INSERT INTO `admin` (`username`, `password`) 
+                VALUE (
+                    '$usename',
+                    '$password')";
+    }
+    function addNewUser($db, $username, $password)
+    {
+        $db->query(addNewUserQuery($username, password_hash($password, PASSWORD_DEFAULT)));
+    }
+
+    function updatePasswordQuery($userId, $password)
+    {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        return
+            "UPDATE `admin` 
+                SET `password`='$password' 
+            WHERE id=$userId";
+    }
+
+    function oceneIz($db, $id, $razred, $ucenik)
+    {
+        $predmet = $db->query("SELECT ocena FROM ocena WHERE predmet=$id AND razred=$razred AND ucenik=$ucenik");
+        $predmet = $predmet->fetch_array();
+        return $predmet["ocena"];
+    }
