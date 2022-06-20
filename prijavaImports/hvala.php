@@ -92,7 +92,7 @@
                 adresa ='{$_POST["adresa"]}',
                 razredUpisa = {$_POST["razred"]}
             WHERE jmbg='$jmbg';";
-$mydb->query($unosUcenika);
+        $mydb->query($unosUcenika);
         $ucenikID = "SELECT ID FROM ucenik WHERE jmbg='$jmbg'";
         $ucenikID = ($mydb->query($ucenikID))->fetch_assoc();
         $ucenikID = $ucenikID["ID"];
@@ -229,7 +229,8 @@ $mydb->query($unosUcenika);
                 ?>
             </p>
             <p class="name">
-                Predmeti značajni za struku <b class="indicator" <?php if ($opstiUpseh == 50) echo 'class="hide-small"'; ?>>*</b>
+                <!-- Predmeti značajni za struku <b class="indicator" <?php /*if ($opstiUpseh == 50) echo 'class="hide-small"';*/ ?>>*</b> -->
+                Predmeti značajni za struku <b class="indicator">*</b>
             </p>
             <p class="bod">
                 <?php
@@ -255,7 +256,10 @@ $mydb->query($unosUcenika);
 
         </p>
 
-        <small <?php if ($opstiUpseh == 50) echo 'class="hide-small"'; ?>>
+        <!-- <small <?php /*if ($opstiUpseh == 50) echo 'class="hide-small"';*/ ?>>
+            <b class="indicator">*</b> Objašnjenje: Broj bodova je izračunat prema predmetima potrebnim na <b>elektrotehničku školu</b>. Za ostale škole, npr. gimnazija, medicinska... ovaj broj bodova ne važi, jer se gledaju drugi predmeti.
+        </small> -->
+        <small>
             <b class="indicator">*</b> Objašnjenje: Broj bodova je izračunat prema predmetima potrebnim na <b>elektrotehničku školu</b>. Za ostale škole, npr. gimnazija, medicinska... ovaj broj bodova ne važi, jer se gledaju drugi predmeti.
         </small>
     </main>
