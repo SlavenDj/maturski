@@ -4,7 +4,6 @@ include "../admin_files/funs.php";
 include '../admin_files/conn.php';
 include '../admin_files/querys.php';
 include "../admin_files/add_erase.php";
-
 adminChechingVariables($mydb); ?>
 <!DOCTYPE html>
 <html lang='sr'>
@@ -28,8 +27,6 @@ adminChechingVariables($mydb); ?>
     <form action="export.php">
         <button>Export in Excel file</button>
     </form>
-
-
     <script src="../admin_files/main.js"></script>
 </body>
 

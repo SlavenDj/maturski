@@ -1,0 +1,116 @@
+@use "_color";
+@use "_nav";
+@use "_button";
+@use "_suzeni";
+@use "_generics";
+@use "_table";
+@use "formElemets";
+@use "forms";
+@use "ocena";
+@use "pdf";
+@use "mobile";
+
+
+body {
+  padding: 0.75rem 2.5rem;
+  background-color: var(--white);
+  gap: 2rem;
+  color: var(--black);
+  width: clamp(100px, 100%, 836px);
+  min-height: 100vh;
+}
+
+.admin {
+  padding: 7rem 2.5rem;
+  width: 100%;
+}
+
+form>div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.prijava * {
+  user-select: none;
+}
+
+#tip {
+  inset: 0;
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-items: center;
+  background: rgba(5, 5, 5, 0.411);
+  backdrop-filter: blur(5px);
+  color: #fff;
+}
+
+#tip * {
+  border-radius: 18px;
+  display: block;
+  width: max-content;
+}
+
+.ocena-polje:placeholder-shown {
+  background: red;
+}
+
+#progress-bar {
+  width: 0;
+  height: 5px;
+  background: rgb(46, 136, 46);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  transition: 0.3s;
+}
+
+nav a {
+  width: min-content;
+}
+
+.tabela-ocena tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#logo-big {
+  height: 80px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  padding-top: 0.75rem;
+  z-index: 1;
+  background-color: var(--white);
+  width: 102%;
+}
+
+.white-bg>div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+small {
+  font-size: 1rem;
+}
+
+.hide-small {
+  display: none;
+}
+
+.plus-color {
+  fill: var(--white);
+}
+
+.export td {
+  text-align: center;
+  vertical-align: middle;
+}
