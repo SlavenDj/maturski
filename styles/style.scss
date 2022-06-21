@@ -1,15 +1,14 @@
-@use "_color";
-@use "_nav";
-@use "_button";
-@use "_suzeni";
-@use "_generics";
-@use "_table";
+@use "color";
+@use "nav";
+@use "button";
+@use "suzeni";
+@use "generics";
+@use "table";
 @use "formElemets";
 @use "forms";
 @use "ocena";
 @use "pdf";
 @use "mobile";
-
 
 body {
   padding: 0.75rem 2.5rem;
@@ -25,7 +24,7 @@ body {
   width: 100%;
 }
 
-form>div {
+form > div {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -52,9 +51,7 @@ form>div {
   width: max-content;
 }
 
-.ocena-polje:placeholder-shown {
-  background: red;
-}
+
 
 #progress-bar {
   width: 0;
@@ -92,7 +89,7 @@ nav {
   width: 102%;
 }
 
-.white-bg>div {
+.white-bg > div {
   display: flex;
   gap: 1rem;
   align-items: center;

@@ -1,70 +1,59 @@
-.ocena,
-.razred {
-  --ocena-btn-size: 40px;
+%sameStlye {
+  display: flex;
+  color: var(--black);
+  border-radius: 99%;
+  position: absolute;
+  height: var(--ocena-btn-size);
+  aspect-ratio: 1/1;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+%sameStyle2 {
   height: var(--ocena-btn-size);
   width: var(--ocena-btn-size);
-}
-.ocena:focus,
-.razred:focus {
-  outline: none;
-}
-
-.ocena::after {
-  content: attr(data-ocena);
-
-  background: #fff;
-  font-size: 1.25rem;
-  display: flex;
-  color: var(--black);
-  border-radius: 99%;
-  position: absolute;
-  height: var(--ocena-btn-size);
-  aspect-ratio: 1/1;
-  text-align: center;
-  align-items: center;
-  justify-content: space-around;
-  outline: solid 1px var(--black);
-}
-[data-ocena="2"]:checked::after {
-  background: hsl(36, 68%, 64%);
-}
-[data-ocena="3"]:checked::after {
-  background: hsl(51, 68%, 64%);
-}
-[data-ocena="4"]:checked::after {
-  background: hsl(75, 68%, 64%);
-}
-[data-ocena="5"]:checked::after {
-  background: hsl(98, 68%, 64%);
+  &:focus {
+    outline: none;
+  }
+  &:focus::after {
+    outline: 3px solid var(--primery-color);
+  }
 }
 
-.ocena:focus::after,
-.razred:focus::after {
-  outline: 3px solid var(--primery-color);
+.ocena {
+  @extend %sameStyle2;
+  &::after {
+    @extend %sameStlye;
+    content: attr(data-ocena);
+    font-size: 1.25rem;
+  }
+
+  #razredi {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
 }
 
-.razred::after {
-  content: attr(data-razred);
-  background: #fff;
-  display: flex;
-  color: var(--black);
-  border-radius: 99%;
-  position: absolute;
-  height: var(--ocena-btn-size);
-  aspect-ratio: 1/1;
-  text-align: center;
-  align-items: center;
-  justify-content: space-around;
-  outline: solid 1px var(--black);
-}
-.razred:checked::after {
-  background: hsl(98, 68%, 64%);
+@for $razred from 2 through 5 {
+  [data-ocena="#{$razred}"]:checked::after {
+    background: hsl(36, 68%, 64%);
+  }
 }
 
-#razredi {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+.ocena-polje:placeholder-shown {
+  background: red;
+}
+.razred {
+  @extend %sameStyle2;
+  &::after {
+    @extend %sameStlye;
+    content: attr(data-razred);
+    background: #fff;
+  }
+  &:checked::after {
+    background: hsl(98, 68%, 64%);
+  }
 }
